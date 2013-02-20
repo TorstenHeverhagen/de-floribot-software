@@ -1,4 +1,5 @@
 <launch>
-  <node name="floribot_wiimote" pkg="floribot_wiimote" type="floribot_wiimote" />
-  <node name="floribot_base" pkg="floribot_base" type="floribot_base" />
+  <node name="floribot_base" pkg="floribot_base" type="floribot_base_node" />
+  <node name="wiimote" pkg="wiimote" type="wiimote_node.py" />
+  <node name="floribot_wiimote" pkg="floribot_wiimote" type="floribot_wiimote_node" />
 </launch>
