@@ -1,0 +1,13 @@
+<package>
+  <description brief="floribot_base">
+
+     floribot_base
+
+  </description>
+  <author>Torsten Heverhagen</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://floribot.de</url>
+  <depend package="roscpp"/>
+  <depend package="geometry_msgs"/>
+</package>

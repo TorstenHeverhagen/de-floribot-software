@@ -1,0 +1,4 @@
+<launch>
+  <node name="floribot_wiimote" pkg="floribot_wiimote" type="floribot_wiimote" />
+  <node name="floribot_base" pkg="floribot_base" type="floribot_base" />
+</launch>

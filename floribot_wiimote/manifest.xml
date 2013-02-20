@@ -1,0 +1,14 @@
+<package>
+  <description brief="floribot_wiimote">
+
+     floribot_wiimote
+
+  </description>
+  <author>Torsten Heverhagen</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://floribot.de</url>
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+</package>
