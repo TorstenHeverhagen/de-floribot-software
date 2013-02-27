@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	ros::NodeHandle nh;
 	Floribot_wiimote node(nh);
 
-	ros::Rate r(10); // 10 hz
+	ros::Rate r(node.get_tick_rate());
 	while (ros::ok())
 	{
 		ros::spinOnce();
