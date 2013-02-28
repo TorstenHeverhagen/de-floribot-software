@@ -164,9 +164,25 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+<<<<<<< HEAD
+=======
+			<name>[Targets]/[lib] Floribot_find_goal/Source Files</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+>>>>>>> branch 'master' of https://github.com/TorstenHeverhagen/de-floribot-software.git
 			<name>[Targets]/[exe] floribot_find_goal_node/Source Files/floribot_find_goal_node.cpp</name>
 			<type>1</type>
 			<location>/home/floribot/ros_workspace/floribot_navigation/src/floribot_find_goal_node.cpp</location>
+<<<<<<< HEAD
+=======
+		</link>
+		<link>
+			<name>[Targets]/[lib] Floribot_find_goal/Source Files/Floribot_find_goal.cpp</name>
+			<type>1</type>
+			<location>/home/floribot/ros_workspace/floribot_navigation/src/Floribot_find_goal.cpp</location>
+>>>>>>> branch 'master' of https://github.com/TorstenHeverhagen/de-floribot-software.git
 		</link>
 	</linkedResources>
 </projectDescription>
