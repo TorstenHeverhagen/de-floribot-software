@@ -243,13 +243,13 @@
 <pathentry kind="mac" name="_GNU_SOURCE" path="" value="1"/>
 <pathentry include="/home/floribot/ros_workspace/floribot_stage/include" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/include" kind="inc" path="" system="true"/>
-<pathentry include="/opt/ros/fuerte/stacks/joystick_drivers/wiimote/msg_gen/cpp/include" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/stacks/stage/include/Stage-4.1" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/stacks/geometry/tf/include" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/stacks/geometry/tf/msg_gen/cpp/include" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/stacks/geometry/tf/srv_gen/cpp/include" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/stacks/bullet/include" kind="inc" path="" system="true"/>
 <pathentry include="/opt/ros/fuerte/stacks/geometry/angles/include" kind="inc" path="" system="true"/>
+<pathentry include="/opt/ros/fuerte/stacks/joystick_drivers/wiimote/msg_gen/cpp/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/lib/gcc/x86_64-linux-gnu/4.6/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/local/include" kind="inc" path="" system="true"/>
 <pathentry include="/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed" kind="inc" path="" system="true"/>

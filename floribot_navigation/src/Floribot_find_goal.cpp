@@ -36,8 +36,7 @@ Floribot_find_goal::~Floribot_find_goal()
 void Floribot_find_goal::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
-	float r1 = msg->ranges[0];
-	ROS_INFO("Abstand ist: %f", r1);
+	// TODO: fill with your code
 	// End of user code don't delete this line
 }
 

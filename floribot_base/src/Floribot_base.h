@@ -30,7 +30,7 @@ private:
 	std::string tty_ssc_32;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
-		// TODO: declare your variables and methods
+	// TODO: declare your variables and methods
 	// End of user code  don't delete this line
 };
 
