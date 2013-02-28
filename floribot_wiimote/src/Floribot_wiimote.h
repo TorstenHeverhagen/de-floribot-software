@@ -30,6 +30,7 @@ public:
 
 private:
 	ros::NodeHandle n_;
+	int tick_rate;
 	ros::Subscriber joy_sub;
 	ros::Publisher joy_set_feedback_pub;
 	ros::Publisher cmd_vel_pub;
