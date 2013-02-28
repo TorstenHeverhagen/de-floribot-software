@@ -26,8 +26,8 @@ public:
 
 private:
 	ros::NodeHandle n_;
-	std::string tty_ssc_32;
 	int tick_rate;
+	std::string tty_ssc_32;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
 		// TODO: declare your variables and methods
