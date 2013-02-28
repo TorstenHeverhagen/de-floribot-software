@@ -107,16 +107,4 @@
 		<nature>org.eclipse.cdt.make.core.ScannerConfigNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>[Subprojects]</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>[Targets]</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
