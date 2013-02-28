@@ -1,7 +1,7 @@
 <package>
-  <description brief="floribot_robot">
+  <description brief="floribot_stage">
 
-     floribot_robot
+     floribot_stage
 
   </description>
   <author>Torsten Heverhagen</author>
@@ -10,6 +10,9 @@
   <url>http://floribot.de</url>
   <depend package="roscpp"/>
   <depend package="floribot_wiimote"/>
+  <depend package="geometry_msgs"/>
+  <depend package="sensor_msgs"/>
   <depend package="wiimote"/>
-  <depend package="floribot_base"/>
+  <depend package="stage"/>
+  <depend package="primitive_types"/>
 </package>

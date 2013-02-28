@@ -1,0 +1,7 @@
+<launch>
+  <node name="wiimote" pkg="wiimote" type="wiimote_node.py">
+  </node>
+  <node name="floribot_wiimote" pkg="floribot_wiimote" type="floribot_wiimote_node">
+  </node>
+  <include file="$(find floribot_stage)/launch/stage.launch" />
+</launch>
