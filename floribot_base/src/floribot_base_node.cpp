@@ -2,7 +2,7 @@
  * File: floribot_base_node.cpp
  * node floribot_base
  *
- * @author: Torsten Heverhagen
+ * @author: floribot_acceleo
  */
 
 #include "Floribot_base.h"

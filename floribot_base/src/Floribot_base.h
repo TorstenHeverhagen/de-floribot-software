@@ -2,7 +2,7 @@
  * File: Floribot_base.h
  * node floribot_base
  *
- * @author: Torsten Heverhagen
+ * @author: floribot_acceleo
  */
 
 #ifndef FLORIBOT_BASE_H_
@@ -26,8 +26,8 @@ public:
 
 private:
 	ros::NodeHandle n_;
-	int tick_rate;
 	std::string tty_ssc_32;
+	int tick_rate;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
 		// TODO: declare your variables and methods

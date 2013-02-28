@@ -2,7 +2,7 @@
  * File: floribot_wiimote_node.cpp
  * node floribot_wiimote
  *
- * @author: Torsten Heverhagen
+ * @author: floribot_acceleo
  */
 
 #include "Floribot_wiimote.h"
