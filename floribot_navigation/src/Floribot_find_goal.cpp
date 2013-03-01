@@ -9,6 +9,12 @@
 #include "Floribot_find_goal.h"
 // Start of user code specific includes
 // TODO: include your own headers
+
+#include <math.h>
+
+#define PI 3.14159265
+
+
 // End of user code don't delete this line
 
 namespace floribot_navigation {
@@ -37,6 +43,28 @@ void Floribot_find_goal::scan_message (const sensor_msgs::LaserScan::ConstPtr& m
 {
 	// Start of user code process message
 	// TODO: fill with your code
+
+
+	int s = msg->ranges.size();
+
+	float a_max_deg = msg->angle_max * 180 / PI;
+	float a_min_deg = msg->angle_min * 180 / PI;
+	float a_inc_deg = msg->angle_increment * 180 / PI;
+
+
+	float r[s];
+
+	for (int i=0; i < s; i++)
+	{
+		r[i] = msg->ranges[i];
+		ROS_INFO("Laenge Strahl %i: %f:",i, r[i]);
+	}
+
+	ROS_INFO("max Winkel: %f", a_max_deg);
+	ROS_INFO("min Winkel: %f", a_min_deg);
+	ROS_INFO("Winkel Increment: %f", a_inc_deg)
+
+
 	// End of user code don't delete this line
 }
 
