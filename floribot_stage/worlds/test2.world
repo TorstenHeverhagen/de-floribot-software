@@ -1,0 +1,1453 @@
+define pot model
+(
+	# a pot is round
+
+	bitmap "circle.png"
+	size [0.150 0.150 0.200]
+	color "brown"
+)
+
+define wall model
+(
+	# a wall is rectangular
+
+	polygons 1
+	polygon[0].points 4
+	polygon[0].point[0] [0 0]
+	polygon[0].point[1] [1 0]
+	polygon[0].point[2] [1 0.01]
+	polygon[0].point[3] [0 0.01]
+	size [0.200 30.000 0.500]
+	color "black"
+)
+
+define hokuyo_laser laser
+(
+	range_min 0.1
+	range_max 30.0
+	fov 140
+	pose [0.340 0 -0.300 0]
+
+  # generic model properties
+  color "blue"
+  size [ 0.070 0.070 0.070 ] # dimensions from LMS200 data sheet
+)
+
+
+define floribot position
+(
+	
+	polygons 1
+	polygon[0].points 5
+	polygon[0].point[0] [0.225 -0.2]
+	polygon[0].point[1] [0.225 0.2]
+	polygon[0].point[2] [ 0.3]
+	polygon[0].point[3] [-0.225 0.2]
+	polygon[0].point[4] [-0.225 -0.2]
+	
+	size [0.550 0.400 0.400]
+	mass 25.0
+	drive "diff"
+	localization "odom" 
+
+	hokuyo_laser()
+)
+
+floribot
+(
+	name "flori"
+	pose [10.236 -1.727 0 174.937]
+)
+
+wall
+(
+	name "wall1"
+	pose [14.867 1.000 0 0]
+)
+
+wall
+(
+	name "wall2"
+	pose [1.867 15.000 0 90.000]
+)
+
+wall
+(
+	name "wall3"
+	pose [-13.000 0 0 0]
+)
+
+wall
+(
+	name "wall4"
+	pose [0 -14.067 0 90.000]
+)
+
+
+pot
+(
+name "pot11u"
+pose [1.320 0.535 0 0 ]
+)
+
+pot
+(
+name "pot12u"
+pose [1.640 0.535 0 0 ]
+)
+
+pot
+(
+name "pot13u"
+pose [1.960 0.535 0 0 ]
+)
+
+pot
+(
+name "pot14u"
+pose [2.280 0.535 0 0 ]
+)
+
+pot
+(
+name "pot15u"
+pose [2.600 0.535 0 0 ]
+)
+
+pot
+(
+name "pot16u"
+pose [2.920 0.535 0 0 ]
+)
+
+pot
+(
+name "pot17u"
+pose [3.240 0.535 0 0 ]
+)
+
+pot
+(
+name "pot18u"
+pose [3.560 0.535 0 0 ]
+)
+
+pot
+(
+name "pot19u"
+pose [3.880 0.535 0 0 ]
+)
+
+pot
+(
+name "pot110u"
+pose [4.200 0.535 0 0 ]
+)
+
+pot
+(
+name "pot111u"
+pose [4.520 0.535 0 0 ]
+)
+
+pot
+(
+name "pot112u"
+pose [4.840 0.535 0 0 ]
+)
+
+pot
+(
+name "pot113u"
+pose [5.160 0.535 0 0 ]
+)
+
+pot
+(
+name "pot114u"
+pose [5.480 0.535 0 0 ]
+)
+
+pot
+(
+name "pot115u"
+pose [5.800 0.535 0 0 ]
+)
+
+pot
+(
+name "pot116u"
+pose [6.120 0.535 0 0 ]
+)
+
+pot
+(
+name "pot117u"
+pose [6.440 0.535 0 0 ]
+)
+
+pot
+(
+name "pot118u"
+pose [6.760 0.535 0 0 ]
+)
+
+pot
+(
+name "pot119u"
+pose [7.080 0.535 0 0 ]
+)
+
+pot
+(
+name "pot120u"
+pose [7.400 0.535 0 0 ]
+)
+
+pot
+(
+name "pot121u"
+pose [7.720 0.535 0 0 ]
+)
+
+pot
+(
+name "pot122u"
+pose [8.040 0.535 0 0 ]
+)
+
+pot
+(
+name "pot123u"
+pose [8.360 0.535 0 0 ]
+)
+
+pot
+(
+name "pot124u"
+pose [8.680 0.535 0 0 ]
+)
+
+pot
+(
+name "pot125u"
+pose [9.000 0.535 0 0 ]
+)
+
+pot
+(
+name "pot11m"
+pose [1.160 0.695 0 0 ]
+)
+
+pot
+(
+name "pot12m"
+pose [1.480 0.695 0 0 ]
+)
+
+pot
+(
+name "pot13m"
+pose [1.800 0.695 0 0 ]
+)
+
+pot
+(
+name "pot14m"
+pose [2.120 0.695 0 0 ]
+)
+
+pot
+(
+name "pot15m"
+pose [2.440 0.695 0 0 ]
+)
+
+pot
+(
+name "pot16m"
+pose [2.760 0.695 0 0 ]
+)
+
+pot
+(
+name "pot17m"
+pose [3.080 0.695 0 0 ]
+)
+
+pot
+(
+name "pot18m"
+pose [3.400 0.695 0 0 ]
+)
+
+pot
+(
+name "pot19m"
+pose [3.720 0.695 0 0 ]
+)
+
+pot
+(
+name "pot110m"
+pose [4.040 0.695 0 0 ]
+)
+
+pot
+(
+name "pot111m"
+pose [4.360 0.695 0 0 ]
+)
+
+pot
+(
+name "pot112m"
+pose [4.680 0.695 0 0 ]
+)
+
+pot
+(
+name "pot113m"
+pose [5.000 0.695 0 0 ]
+)
+
+pot
+(
+name "pot114m"
+pose [5.320 0.695 0 0 ]
+)
+
+pot
+(
+name "pot115m"
+pose [5.640 0.695 0 0 ]
+)
+
+pot
+(
+name "pot116m"
+pose [5.960 0.695 0 0 ]
+)
+
+pot
+(
+name "pot117m"
+pose [6.280 0.695 0 0 ]
+)
+
+pot
+(
+name "pot118m"
+pose [6.600 0.695 0 0 ]
+)
+
+pot
+(
+name "pot119m"
+pose [6.920 0.695 0 0 ]
+)
+
+pot
+(
+name "pot120m"
+pose [7.240 0.695 0 0 ]
+)
+
+pot
+(
+name "pot121m"
+pose [7.560 0.695 0 0 ]
+)
+
+pot
+(
+name "pot122m"
+pose [7.880 0.695 0 0 ]
+)
+
+pot
+(
+name "pot123m"
+pose [8.200 0.695 0 0 ]
+)
+
+pot
+(
+name "pot124m"
+pose [8.520 0.695 0 0 ]
+)
+
+pot
+(
+name "pot125m"
+pose [8.840 0.695 0 0 ]
+)
+
+pot
+(
+name "pot126m"
+pose [9.160 0.695 0 0 ]
+)
+
+pot
+(
+name "pot11o"
+pose [1.320 0.855 0 0 ]
+)
+
+pot
+(
+name "pot12o"
+pose [1.640 0.855 0 0 ]
+)
+
+pot
+(
+name "pot13o"
+pose [1.960 0.855 0 0 ]
+)
+
+pot
+(
+name "pot14o"
+pose [2.280 0.855 0 0 ]
+)
+
+pot
+(
+name "pot15o"
+pose [2.600 0.855 0 0 ]
+)
+
+pot
+(
+name "pot16o"
+pose [2.920 0.855 0 0 ]
+)
+
+pot
+(
+name "pot17o"
+pose [3.240 0.855 0 0 ]
+)
+
+pot
+(
+name "pot18o"
+pose [3.560 0.855 0 0 ]
+)
+
+pot
+(
+name "pot19o"
+pose [3.880 0.855 0 0 ]
+)
+
+pot
+(
+name "pot110o"
+pose [4.200 0.855 0 0 ]
+)
+
+pot
+(
+name "pot111o"
+pose [4.520 0.855 0 0 ]
+)
+
+pot
+(
+name "pot112o"
+pose [4.840 0.855 0 0 ]
+)
+
+pot
+(
+name "pot113o"
+pose [5.160 0.855 0 0 ]
+)
+
+pot
+(
+name "pot114o"
+pose [5.480 0.855 0 0 ]
+)
+
+pot
+(
+name "pot115o"
+pose [5.800 0.855 0 0 ]
+)
+
+pot
+(
+name "pot116o"
+pose [6.120 0.855 0 0 ]
+)
+
+pot
+(
+name "pot117o"
+pose [6.440 0.855 0 0 ]
+)
+
+pot
+(
+name "pot118o"
+pose [6.760 0.855 0 0 ]
+)
+
+pot
+(
+name "pot119o"
+pose [7.080 0.855 0 0 ]
+)
+
+pot
+(
+name "pot120o"
+pose [7.400 0.855 0 0 ]
+)
+
+pot
+(
+name "pot121o"
+pose [7.720 0.855 0 0 ]
+)
+
+pot
+(
+name "pot122o"
+pose [8.040 0.855 0 0 ]
+)
+
+pot
+(
+name "pot123o"
+pose [8.360 0.855 0 0 ]
+)
+
+pot
+(
+name "pot124o"
+pose [8.680 0.855 0 0 ]
+)
+
+pot
+(
+name "pot125o"
+pose [9.000 0.855 0 0 ]
+)
+
+pot
+(
+name "pot21u"
+pose [1.320 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot22u"
+pose [1.640 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot23u"
+pose [1.960 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot24u"
+pose [2.280 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot25u"
+pose [2.600 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot26u"
+pose [2.920 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot27u"
+pose [3.240 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot28u"
+pose [3.560 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot29u"
+pose [3.880 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot210u"
+pose [4.200 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot211u"
+pose [4.520 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot212u"
+pose [4.840 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot213u"
+pose [5.160 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot214u"
+pose [5.480 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot215u"
+pose [5.800 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot216u"
+pose [6.120 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot217u"
+pose [6.440 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot218u"
+pose [6.760 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot219u"
+pose [7.080 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot220u"
+pose [7.400 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot221u"
+pose [7.720 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot222u"
+pose [8.040 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot223u"
+pose [8.360 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot224u"
+pose [8.680 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot225u"
+pose [9.000 -0.905 0 0 ]
+)
+
+pot
+(
+name "pot21m"
+pose [1.160 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot22m"
+pose [1.480 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot23m"
+pose [1.800 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot24m"
+pose [2.120 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot25m"
+pose [2.440 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot26m"
+pose [2.760 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot27m"
+pose [3.080 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot28m"
+pose [3.400 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot29m"
+pose [3.720 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot210m"
+pose [4.040 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot211m"
+pose [4.360 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot212m"
+pose [4.680 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot213m"
+pose [5.000 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot214m"
+pose [5.320 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot215m"
+pose [5.640 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot216m"
+pose [5.960 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot217m"
+pose [6.280 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot218m"
+pose [6.600 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot219m"
+pose [6.920 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot220m"
+pose [7.240 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot221m"
+pose [7.560 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot222m"
+pose [7.880 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot223m"
+pose [8.200 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot224m"
+pose [8.520 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot225m"
+pose [8.840 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot226m"
+pose [9.160 -0.745 0 0 ]
+)
+
+pot
+(
+name "pot21o"
+pose [1.320 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot22o"
+pose [1.640 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot23o"
+pose [1.960 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot24o"
+pose [2.280 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot25o"
+pose [2.600 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot26o"
+pose [2.920 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot27o"
+pose [3.240 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot28o"
+pose [3.560 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot29o"
+pose [3.880 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot210o"
+pose [4.200 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot211o"
+pose [4.520 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot212o"
+pose [4.840 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot213o"
+pose [5.160 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot214o"
+pose [5.480 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot215o"
+pose [5.800 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot216o"
+pose [6.120 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot217o"
+pose [6.440 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot218o"
+pose [6.760 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot219o"
+pose [7.080 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot220o"
+pose [7.400 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot221o"
+pose [7.720 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot222o"
+pose [8.040 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot223o"
+pose [8.360 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot224o"
+pose [8.680 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot225o"
+pose [9.000 -0.585 0 0 ]
+)
+
+pot
+(
+name "pot31u"
+pose [1.320 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot32u"
+pose [1.640 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot33u"
+pose [1.960 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot34u"
+pose [2.280 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot35u"
+pose [2.600 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot36u"
+pose [2.920 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot37u"
+pose [3.240 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot38u"
+pose [3.560 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot39u"
+pose [3.880 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot310u"
+pose [4.200 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot311u"
+pose [4.520 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot312u"
+pose [4.840 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot313u"
+pose [5.160 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot314u"
+pose [5.480 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot315u"
+pose [5.800 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot316u"
+pose [6.120 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot317u"
+pose [6.440 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot318u"
+pose [6.760 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot319u"
+pose [7.080 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot320u"
+pose [7.400 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot321u"
+pose [7.720 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot322u"
+pose [8.040 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot323u"
+pose [8.360 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot324u"
+pose [8.680 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot325u"
+pose [9.000 -2.345 0 0 ]
+)
+
+pot
+(
+name "pot31m"
+pose [1.160 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot32m"
+pose [1.480 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot33m"
+pose [1.800 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot34m"
+pose [2.120 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot35m"
+pose [2.440 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot36m"
+pose [2.760 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot37m"
+pose [3.080 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot38m"
+pose [3.400 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot39m"
+pose [3.720 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot310m"
+pose [4.040 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot311m"
+pose [4.360 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot312m"
+pose [4.680 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot313m"
+pose [5.000 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot314m"
+pose [5.320 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot315m"
+pose [5.640 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot316m"
+pose [5.960 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot317m"
+pose [6.280 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot318m"
+pose [6.600 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot319m"
+pose [6.920 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot320m"
+pose [7.240 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot321m"
+pose [7.560 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot322m"
+pose [7.880 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot323m"
+pose [8.200 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot324m"
+pose [8.520 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot325m"
+pose [8.840 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot326m"
+pose [9.160 -2.185 0 0 ]
+)
+
+pot
+(
+name "pot31o"
+pose [1.320 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot32o"
+pose [1.640 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot33o"
+pose [1.960 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot34o"
+pose [2.280 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot35o"
+pose [2.600 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot36o"
+pose [2.920 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot37o"
+pose [3.240 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot38o"
+pose [3.560 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot39o"
+pose [3.880 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot310o"
+pose [4.200 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot311o"
+pose [4.520 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot312o"
+pose [4.840 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot313o"
+pose [5.160 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot314o"
+pose [5.480 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot315o"
+pose [5.800 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot316o"
+pose [6.120 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot317o"
+pose [6.440 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot318o"
+pose [6.760 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot319o"
+pose [7.080 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot320o"
+pose [7.400 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot321o"
+pose [7.720 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot322o"
+pose [8.040 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot323o"
+pose [8.360 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot324o"
+pose [8.680 -2.025 0 0 ]
+)
+
+pot
+(
+name "pot325o"
+pose [9.000 -2.025 0 0 ]
+)
