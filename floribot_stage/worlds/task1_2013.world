@@ -1,0 +1,6697 @@
+include "floribot.inc"
+
+window
+(
+	size [400 400]
+
+	# camera options
+	center [0 0]
+	rotate [0 0]
+	scale 100.0
+
+	# perspective camera options
+	pcam_loc [0 -4 2]
+	pcam_angle [70 0]
+
+	# GUI options
+	show_data 0
+	show_flags 1
+	show_blocks 1
+	show_clock 1
+	show_footprints 0
+	show_grid 1
+	show_trailrise 0
+	show_trailarrows 0
+	show_trailfast 0
+	show_occupancy 0
+	show_tree 0
+	pcam_on 0
+	screenshots 0
+)
+
+define wall_vertical model
+(
+	# a wall is rectangular
+
+	polygons 1
+	polygon[0].points 4
+	polygon[0].points[0] [0 0]
+	polygon[0].points[1] [1 0]
+	polygon[0].points[2] [1 0.01]
+	polygon[0].points[3] [0 0.01]
+	size [0.2 12 0.5]
+	color "black"
+)
+
+define wall_horizontal model
+(
+	# a wall is rectangular
+
+	polygons 1
+	polygon[0].points 4
+	polygon[0].points[0] [0 0]
+	polygon[0].points[1] [1 0]
+	polygon[0].points[2] [1 0.01]
+	polygon[0].points[3] [0 0.01]
+	size [0.2 21 0.5]
+	color "black"
+)
+
+define obstacle model
+(
+	# a obstacle is rectangular
+
+	bitmap "rectangular.png"
+	size [0.05 0.05 0.2]
+	color "blue"
+)
+
+floribot
+(
+	name "flori"
+	pose [0 2.4 0 0]
+)
+
+wall_vertical
+(
+	name "wall_vertical_1"
+	pose [-1 6 0 0]
+)
+
+wall_vertical
+(
+	name "wall_vertical_2"
+	pose [20 6 0 0]
+)
+
+wall_horizontal
+(
+	name "wall_horizontal_1"
+	pose [9.5 0 0 90]
+)
+
+wall_horizontal
+(
+	name "wall_horizontal_2"
+	pose [9.5 12 0 90]
+)
+
+obstacle
+(
+	name "obstacle0"
+	pose [2.0 2.0000000000004867 0 0]
+)
+
+obstacle
+(
+	name "obstacle1"
+	pose [2.15 2.000000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle2"
+	pose [2.3 2.000000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle3"
+	pose [2.45 2.000000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle4"
+	pose [2.6 2.0000000000366067 0 0]
+)
+
+obstacle
+(
+	name "obstacle5"
+	pose [2.75 2.000000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle6"
+	pose [2.9 2.000000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle7"
+	pose [3.05 2.0000000007380265 0 0]
+)
+
+obstacle
+(
+	name "obstacle8"
+	pose [3.2 2.000000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle9"
+	pose [3.3499999999999996 2.00000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle10"
+	pose [3.5 2.0000000121517667 0 0]
+)
+
+obstacle
+(
+	name "obstacle11"
+	pose [3.6499999999999995 2.0000000295541622 0 0]
+)
+
+obstacle
+(
+	name "obstacle12"
+	pose [3.8 2.000000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle13"
+	pose [3.9499999999999993 2.0000001634038247 0 0]
+)
+
+obstacle
+(
+	name "obstacle14"
+	pose [4.1 2.0000003714724075 0 0]
+)
+
+obstacle
+(
+	name "obstacle15"
+	pose [4.25 2.0000008256942836 0 0]
+)
+
+obstacle
+(
+	name "obstacle16"
+	pose [4.3999999999999995 2.0000017944872193 0 0]
+)
+
+obstacle
+(
+	name "obstacle17"
+	pose [4.549999999999999 2.000003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle18"
+	pose [4.699999999999999 2.000007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle19"
+	pose [4.85 2.000016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle20"
+	pose [4.999999999999999 2.000031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle21"
+	pose [5.149999999999999 2.0000620828205737 0 0]
+)
+
+obstacle
+(
+	name "obstacle22"
+	pose [5.299999999999999 2.000117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle23"
+	pose [5.449999999999999 2.0002188681096467 0 0]
+)
+
+obstacle
+(
+	name "obstacle24"
+	pose [5.599999999999999 2.0003973109841144 0 0]
+)
+
+obstacle
+(
+	name "obstacle25"
+	pose [5.749999999999998 2.0007051914380902 0 0]
+)
+
+obstacle
+(
+	name "obstacle26"
+	pose [5.899999999999999 2.0012238039875303 0 0]
+)
+
+obstacle
+(
+	name "obstacle27"
+	pose [6.049999999999999 2.002076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle28"
+	pose [6.199999999999999 2.0034451382364775 0 0]
+)
+
+obstacle
+(
+	name "obstacle29"
+	pose [6.35 2.0055885174110877 0 0]
+)
+
+obstacle
+(
+	name "obstacle30"
+	pose [6.5 2.008863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle31"
+	pose [6.65 2.0137455348110667 0 0]
+)
+
+obstacle
+(
+	name "obstacle32"
+	pose [6.800000000000001 2.0208418717968595 0 0]
+)
+
+obstacle
+(
+	name "obstacle33"
+	pose [6.950000000000001 2.0308986974829364 0 0]
+)
+
+obstacle
+(
+	name "obstacle34"
+	pose [7.100000000000001 2.0447890652487364 0 0]
+)
+
+obstacle
+(
+	name "obstacle35"
+	pose [7.250000000000002 2.063479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle36"
+	pose [7.400000000000002 2.0879672011113835 0 0]
+)
+
+obstacle
+(
+	name "obstacle37"
+	pose [7.5500000000000025 2.1191894245359615 0 0]
+)
+
+obstacle
+(
+	name "obstacle38"
+	pose [7.700000000000003 2.1579003330269058 0 0]
+)
+
+obstacle
+(
+	name "obstacle39"
+	pose [7.850000000000003 2.204529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle40"
+	pose [8.000000000000004 2.25903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle41"
+	pose [8.150000000000004 2.32076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle42"
+	pose [8.300000000000004 2.388372150365696 0 0]
+)
+
+obstacle
+(
+	name "obstacle43"
+	pose [8.450000000000005 2.459764329194097 0 0]
+)
+
+obstacle
+(
+	name "obstacle44"
+	pose [8.600000000000005 2.532170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle45"
+	pose [8.750000000000005 2.6022749269594847 0 0]
+)
+
+obstacle
+(
+	name "obstacle46"
+	pose [8.900000000000006 2.6664492751090227 0 0]
+)
+
+obstacle
+(
+	name "obstacle47"
+	pose [9.050000000000006 2.7210539999288144 0 0]
+)
+
+obstacle
+(
+	name "obstacle48"
+	pose [9.200000000000006 2.762775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle49"
+	pose [9.350000000000007 2.7889587438848857 0 0]
+)
+
+obstacle
+(
+	name "obstacle50"
+	pose [9.500000000000007 2.797884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle51"
+	pose [9.650000000000007 2.7889587438848844 0 0]
+)
+
+obstacle
+(
+	name "obstacle52"
+	pose [9.800000000000008 2.7627757102665407 0 0]
+)
+
+obstacle
+(
+	name "obstacle53"
+	pose [9.950000000000008 2.7210539999288095 0 0]
+)
+
+obstacle
+(
+	name "obstacle54"
+	pose [10.100000000000009 2.666449275109017 0 0]
+)
+
+obstacle
+(
+	name "obstacle55"
+	pose [10.250000000000009 2.6022749269594785 0 0]
+)
+
+obstacle
+(
+	name "obstacle56"
+	pose [10.40000000000001 2.5321705551549782 0 0]
+)
+
+obstacle
+(
+	name "obstacle57"
+	pose [10.55000000000001 2.4597643291940905 0 0]
+)
+
+obstacle
+(
+	name "obstacle58"
+	pose [10.70000000000001 2.388372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle59"
+	pose [10.85000000000001 2.320766688050644 0 0]
+)
+
+obstacle
+(
+	name "obstacle60"
+	pose [11.00000000000001 2.259035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle61"
+	pose [11.150000000000011 2.2045298704035687 0 0]
+)
+
+obstacle
+(
+	name "obstacle62"
+	pose [11.300000000000011 2.1579003330269018 0 0]
+)
+
+obstacle
+(
+	name "obstacle63"
+	pose [11.450000000000012 2.119189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle64"
+	pose [11.600000000000012 2.087967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle65"
+	pose [11.750000000000012 2.063479310274581 0 0]
+)
+
+obstacle
+(
+	name "obstacle66"
+	pose [11.900000000000013 2.044789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle67"
+	pose [12.050000000000013 2.030898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle68"
+	pose [12.200000000000014 2.0208418717968586 0 0]
+)
+
+obstacle
+(
+	name "obstacle69"
+	pose [12.350000000000014 2.013745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle70"
+	pose [12.500000000000014 2.0088636977458956 0 0]
+)
+
+obstacle
+(
+	name "obstacle71"
+	pose [12.650000000000015 2.0055885174110877 0 0]
+)
+
+obstacle
+(
+	name "obstacle72"
+	pose [12.800000000000015 2.0034451382364775 0 0]
+)
+
+obstacle
+(
+	name "obstacle73"
+	pose [12.950000000000015 2.002076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle74"
+	pose [13.100000000000016 2.0012238039875303 0 0]
+)
+
+obstacle
+(
+	name "obstacle75"
+	pose [13.250000000000016 2.0007051914380902 0 0]
+)
+
+obstacle
+(
+	name "obstacle76"
+	pose [13.400000000000016 2.0003973109841144 0 0]
+)
+
+obstacle
+(
+	name "obstacle77"
+	pose [13.550000000000017 2.0002188681096467 0 0]
+)
+
+obstacle
+(
+	name "obstacle78"
+	pose [13.700000000000017 2.000117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle79"
+	pose [13.850000000000017 2.0000620828205737 0 0]
+)
+
+obstacle
+(
+	name "obstacle80"
+	pose [14.000000000000018 2.000031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle81"
+	pose [14.150000000000018 2.000016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle82"
+	pose [14.300000000000018 2.000007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle83"
+	pose [14.450000000000019 2.000003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle84"
+	pose [14.60000000000002 2.0000017944872193 0 0]
+)
+
+obstacle
+(
+	name "obstacle85"
+	pose [14.75000000000002 2.0000008256942836 0 0]
+)
+
+obstacle
+(
+	name "obstacle86"
+	pose [14.90000000000002 2.0000003714724075 0 0]
+)
+
+obstacle
+(
+	name "obstacle87"
+	pose [15.05000000000002 2.0000001634038247 0 0]
+)
+
+obstacle
+(
+	name "obstacle88"
+	pose [15.20000000000002 2.000000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle89"
+	pose [15.350000000000021 2.0000000295541622 0 0]
+)
+
+obstacle
+(
+	name "obstacle90"
+	pose [15.500000000000021 2.0000000121517667 0 0]
+)
+
+obstacle
+(
+	name "obstacle91"
+	pose [15.650000000000022 2.00000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle92"
+	pose [15.800000000000022 2.000000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle93"
+	pose [15.950000000000022 2.0000000007380265 0 0]
+)
+
+obstacle
+(
+	name "obstacle94"
+	pose [16.100000000000023 2.000000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle95"
+	pose [16.25000000000002 2.000000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle96"
+	pose [16.400000000000023 2.0000000000366067 0 0]
+)
+
+obstacle
+(
+	name "obstacle97"
+	pose [16.550000000000026 2.000000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle98"
+	pose [16.700000000000024 2.000000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle99"
+	pose [16.850000000000023 2.000000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle100"
+	pose [2.0 2.800000000000487 0 0]
+)
+
+obstacle
+(
+	name "obstacle101"
+	pose [2.15 2.800000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle102"
+	pose [2.3 2.800000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle103"
+	pose [2.45 2.800000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle104"
+	pose [2.6 2.800000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle105"
+	pose [2.75 2.8000000001018988 0 0]
+)
+
+obstacle
+(
+	name "obstacle106"
+	pose [2.9 2.800000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle107"
+	pose [3.05 2.8000000007380264 0 0]
+)
+
+obstacle
+(
+	name "obstacle108"
+	pose [3.2 2.800000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle109"
+	pose [3.3499999999999996 2.8000000048852702 0 0]
+)
+
+obstacle
+(
+	name "obstacle110"
+	pose [3.5 2.800000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle111"
+	pose [3.6499999999999995 2.8000000295541625 0 0]
+)
+
+obstacle
+(
+	name "obstacle112"
+	pose [3.8 2.8000000702791095 0 0]
+)
+
+obstacle
+(
+	name "obstacle113"
+	pose [3.9499999999999993 2.8000001634038245 0 0]
+)
+
+obstacle
+(
+	name "obstacle114"
+	pose [4.1 2.8000003714724073 0 0]
+)
+
+obstacle
+(
+	name "obstacle115"
+	pose [4.25 2.8000008256942834 0 0]
+)
+
+obstacle
+(
+	name "obstacle116"
+	pose [4.3999999999999995 2.800001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle117"
+	pose [4.549999999999999 2.8000038132022027 0 0]
+)
+
+obstacle
+(
+	name "obstacle118"
+	pose [4.699999999999999 2.800007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle119"
+	pose [4.85 2.8000160943665873 0 0]
+)
+
+obstacle
+(
+	name "obstacle120"
+	pose [4.999999999999999 2.8000319674855394 0 0]
+)
+
+obstacle
+(
+	name "obstacle121"
+	pose [5.149999999999999 2.800062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle122"
+	pose [5.299999999999999 2.800117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle123"
+	pose [5.449999999999999 2.8002188681096465 0 0]
+)
+
+obstacle
+(
+	name "obstacle124"
+	pose [5.599999999999999 2.8003973109841147 0 0]
+)
+
+obstacle
+(
+	name "obstacle125"
+	pose [5.749999999999998 2.8007051914380905 0 0]
+)
+
+obstacle
+(
+	name "obstacle126"
+	pose [5.899999999999999 2.80122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle127"
+	pose [6.049999999999999 2.802076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle128"
+	pose [6.199999999999999 2.803445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle129"
+	pose [6.35 2.805588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle130"
+	pose [6.5 2.8088636977458963 0 0]
+)
+
+obstacle
+(
+	name "obstacle131"
+	pose [6.65 2.8137455348110665 0 0]
+)
+
+obstacle
+(
+	name "obstacle132"
+	pose [6.800000000000001 2.8208418717968593 0 0]
+)
+
+obstacle
+(
+	name "obstacle133"
+	pose [6.950000000000001 2.8308986974829367 0 0]
+)
+
+obstacle
+(
+	name "obstacle134"
+	pose [7.100000000000001 2.8447890652487366 0 0]
+)
+
+obstacle
+(
+	name "obstacle135"
+	pose [7.250000000000002 2.8634793102745832 0 0]
+)
+
+obstacle
+(
+	name "obstacle136"
+	pose [7.400000000000002 2.8879672011113833 0 0]
+)
+
+obstacle
+(
+	name "obstacle137"
+	pose [7.5500000000000025 2.9191894245359613 0 0]
+)
+
+obstacle
+(
+	name "obstacle138"
+	pose [7.700000000000003 2.957900333026906 0 0]
+)
+
+obstacle
+(
+	name "obstacle139"
+	pose [7.850000000000003 3.004529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle140"
+	pose [8.000000000000004 3.0590352182771596 0 0]
+)
+
+obstacle
+(
+	name "obstacle141"
+	pose [8.150000000000004 3.12076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle142"
+	pose [8.300000000000004 3.188372150365696 0 0]
+)
+
+obstacle
+(
+	name "obstacle143"
+	pose [8.450000000000005 3.2597643291940974 0 0]
+)
+
+obstacle
+(
+	name "obstacle144"
+	pose [8.600000000000005 3.3321705551549847 0 0]
+)
+
+obstacle
+(
+	name "obstacle145"
+	pose [8.750000000000005 3.4022749269594845 0 0]
+)
+
+obstacle
+(
+	name "obstacle146"
+	pose [8.900000000000006 3.4664492751090226 0 0]
+)
+
+obstacle
+(
+	name "obstacle147"
+	pose [9.050000000000006 3.5210539999288146 0 0]
+)
+
+obstacle
+(
+	name "obstacle148"
+	pose [9.200000000000006 3.562775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle149"
+	pose [9.350000000000007 3.588958743884886 0 0]
+)
+
+obstacle
+(
+	name "obstacle150"
+	pose [9.500000000000007 3.5978846438004632 0 0]
+)
+
+obstacle
+(
+	name "obstacle151"
+	pose [9.650000000000007 3.5889587438848842 0 0]
+)
+
+obstacle
+(
+	name "obstacle152"
+	pose [9.800000000000008 3.562775710266541 0 0]
+)
+
+obstacle
+(
+	name "obstacle153"
+	pose [9.950000000000008 3.5210539999288097 0 0]
+)
+
+obstacle
+(
+	name "obstacle154"
+	pose [10.100000000000009 3.4664492751090172 0 0]
+)
+
+obstacle
+(
+	name "obstacle155"
+	pose [10.250000000000009 3.4022749269594783 0 0]
+)
+
+obstacle
+(
+	name "obstacle156"
+	pose [10.40000000000001 3.3321705551549785 0 0]
+)
+
+obstacle
+(
+	name "obstacle157"
+	pose [10.55000000000001 3.2597643291940903 0 0]
+)
+
+obstacle
+(
+	name "obstacle158"
+	pose [10.70000000000001 3.188372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle159"
+	pose [10.85000000000001 3.1207666880506437 0 0]
+)
+
+obstacle
+(
+	name "obstacle160"
+	pose [11.00000000000001 3.0590352182771543 0 0]
+)
+
+obstacle
+(
+	name "obstacle161"
+	pose [11.150000000000011 3.004529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle162"
+	pose [11.300000000000011 2.9579003330269016 0 0]
+)
+
+obstacle
+(
+	name "obstacle163"
+	pose [11.450000000000012 2.9191894245359578 0 0]
+)
+
+obstacle
+(
+	name "obstacle164"
+	pose [11.600000000000012 2.8879672011113806 0 0]
+)
+
+obstacle
+(
+	name "obstacle165"
+	pose [11.750000000000012 2.863479310274581 0 0]
+)
+
+obstacle
+(
+	name "obstacle166"
+	pose [11.900000000000013 2.844789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle167"
+	pose [12.050000000000013 2.8308986974829353 0 0]
+)
+
+obstacle
+(
+	name "obstacle168"
+	pose [12.200000000000014 2.8208418717968584 0 0]
+)
+
+obstacle
+(
+	name "obstacle169"
+	pose [12.350000000000014 2.8137455348110665 0 0]
+)
+
+obstacle
+(
+	name "obstacle170"
+	pose [12.500000000000014 2.8088636977458954 0 0]
+)
+
+obstacle
+(
+	name "obstacle171"
+	pose [12.650000000000015 2.8055885174110875 0 0]
+)
+
+obstacle
+(
+	name "obstacle172"
+	pose [12.800000000000015 2.8034451382364773 0 0]
+)
+
+obstacle
+(
+	name "obstacle173"
+	pose [12.950000000000015 2.802076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle174"
+	pose [13.100000000000016 2.80122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle175"
+	pose [13.250000000000016 2.80070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle176"
+	pose [13.400000000000016 2.8003973109841147 0 0]
+)
+
+obstacle
+(
+	name "obstacle177"
+	pose [13.550000000000017 2.8002188681096465 0 0]
+)
+
+obstacle
+(
+	name "obstacle178"
+	pose [13.700000000000017 2.800117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle179"
+	pose [13.850000000000017 2.800062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle180"
+	pose [14.000000000000018 2.8000319674855394 0 0]
+)
+
+obstacle
+(
+	name "obstacle181"
+	pose [14.150000000000018 2.8000160943665873 0 0]
+)
+
+obstacle
+(
+	name "obstacle182"
+	pose [14.300000000000018 2.800007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle183"
+	pose [14.450000000000019 2.8000038132022027 0 0]
+)
+
+obstacle
+(
+	name "obstacle184"
+	pose [14.60000000000002 2.800001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle185"
+	pose [14.75000000000002 2.8000008256942834 0 0]
+)
+
+obstacle
+(
+	name "obstacle186"
+	pose [14.90000000000002 2.8000003714724073 0 0]
+)
+
+obstacle
+(
+	name "obstacle187"
+	pose [15.05000000000002 2.8000001634038245 0 0]
+)
+
+obstacle
+(
+	name "obstacle188"
+	pose [15.20000000000002 2.8000000702791095 0 0]
+)
+
+obstacle
+(
+	name "obstacle189"
+	pose [15.350000000000021 2.8000000295541625 0 0]
+)
+
+obstacle
+(
+	name "obstacle190"
+	pose [15.500000000000021 2.800000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle191"
+	pose [15.650000000000022 2.8000000048852702 0 0]
+)
+
+obstacle
+(
+	name "obstacle192"
+	pose [15.800000000000022 2.800000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle193"
+	pose [15.950000000000022 2.8000000007380264 0 0]
+)
+
+obstacle
+(
+	name "obstacle194"
+	pose [16.100000000000023 2.800000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle195"
+	pose [16.25000000000002 2.8000000001018988 0 0]
+)
+
+obstacle
+(
+	name "obstacle196"
+	pose [16.400000000000023 2.800000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle197"
+	pose [16.550000000000026 2.800000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle198"
+	pose [16.700000000000024 2.800000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle199"
+	pose [16.850000000000023 2.800000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle200"
+	pose [2.0 3.6000000000004873 0 0]
+)
+
+obstacle
+(
+	name "obstacle201"
+	pose [2.15 3.600000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle202"
+	pose [2.3 3.600000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle203"
+	pose [2.45 3.6000000000128582 0 0]
+)
+
+obstacle
+(
+	name "obstacle204"
+	pose [2.6 3.600000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle205"
+	pose [2.75 3.6000000001018986 0 0]
+)
+
+obstacle
+(
+	name "obstacle206"
+	pose [2.9 3.600000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle207"
+	pose [3.05 3.6000000007380266 0 0]
+)
+
+obstacle
+(
+	name "obstacle208"
+	pose [3.2 3.6000000019202867 0 0]
+)
+
+obstacle
+(
+	name "obstacle209"
+	pose [3.3499999999999996 3.6000000048852705 0 0]
+)
+
+obstacle
+(
+	name "obstacle210"
+	pose [3.5 3.6000000121517672 0 0]
+)
+
+obstacle
+(
+	name "obstacle211"
+	pose [3.6499999999999995 3.6000000295541623 0 0]
+)
+
+obstacle
+(
+	name "obstacle212"
+	pose [3.8 3.6000000702791093 0 0]
+)
+
+obstacle
+(
+	name "obstacle213"
+	pose [3.9499999999999993 3.6000001634038243 0 0]
+)
+
+obstacle
+(
+	name "obstacle214"
+	pose [4.1 3.6000003714724076 0 0]
+)
+
+obstacle
+(
+	name "obstacle215"
+	pose [4.25 3.6000008256942837 0 0]
+)
+
+obstacle
+(
+	name "obstacle216"
+	pose [4.3999999999999995 3.600001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle217"
+	pose [4.549999999999999 3.600003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle218"
+	pose [4.699999999999999 3.6000079225990063 0 0]
+)
+
+obstacle
+(
+	name "obstacle219"
+	pose [4.85 3.6000160943665875 0 0]
+)
+
+obstacle
+(
+	name "obstacle220"
+	pose [4.999999999999999 3.600031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle221"
+	pose [5.149999999999999 3.600062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle222"
+	pose [5.299999999999999 3.6001178861477756 0 0]
+)
+
+obstacle
+(
+	name "obstacle223"
+	pose [5.449999999999999 3.6002188681096468 0 0]
+)
+
+obstacle
+(
+	name "obstacle224"
+	pose [5.599999999999999 3.600397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle225"
+	pose [5.749999999999998 3.6007051914380908 0 0]
+)
+
+obstacle
+(
+	name "obstacle226"
+	pose [5.899999999999999 3.60122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle227"
+	pose [6.049999999999999 3.6020765628073312 0 0]
+)
+
+obstacle
+(
+	name "obstacle228"
+	pose [6.199999999999999 3.603445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle229"
+	pose [6.35 3.605588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle230"
+	pose [6.5 3.608863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle231"
+	pose [6.65 3.6137455348110668 0 0]
+)
+
+obstacle
+(
+	name "obstacle232"
+	pose [6.800000000000001 3.6208418717968596 0 0]
+)
+
+obstacle
+(
+	name "obstacle233"
+	pose [6.950000000000001 3.6308986974829365 0 0]
+)
+
+obstacle
+(
+	name "obstacle234"
+	pose [7.100000000000001 3.6447890652487365 0 0]
+)
+
+obstacle
+(
+	name "obstacle235"
+	pose [7.250000000000002 3.6634793102745835 0 0]
+)
+
+obstacle
+(
+	name "obstacle236"
+	pose [7.400000000000002 3.6879672011113835 0 0]
+)
+
+obstacle
+(
+	name "obstacle237"
+	pose [7.5500000000000025 3.719189424535961 0 0]
+)
+
+obstacle
+(
+	name "obstacle238"
+	pose [7.700000000000003 3.757900333026906 0 0]
+)
+
+obstacle
+(
+	name "obstacle239"
+	pose [7.850000000000003 3.8045298704035737 0 0]
+)
+
+obstacle
+(
+	name "obstacle240"
+	pose [8.000000000000004 3.85903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle241"
+	pose [8.150000000000004 3.9207666880506498 0 0]
+)
+
+obstacle
+(
+	name "obstacle242"
+	pose [8.300000000000004 3.988372150365696 0 0]
+)
+
+obstacle
+(
+	name "obstacle243"
+	pose [8.450000000000005 4.059764329194097 0 0]
+)
+
+obstacle
+(
+	name "obstacle244"
+	pose [8.600000000000005 4.132170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle245"
+	pose [8.750000000000005 4.202274926959484 0 0]
+)
+
+obstacle
+(
+	name "obstacle246"
+	pose [8.900000000000006 4.266449275109022 0 0]
+)
+
+obstacle
+(
+	name "obstacle247"
+	pose [9.050000000000006 4.3210539999288144 0 0]
+)
+
+obstacle
+(
+	name "obstacle248"
+	pose [9.200000000000006 4.362775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle249"
+	pose [9.350000000000007 4.388958743884886 0 0]
+)
+
+obstacle
+(
+	name "obstacle250"
+	pose [9.500000000000007 4.397884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle251"
+	pose [9.650000000000007 4.388958743884884 0 0]
+)
+
+obstacle
+(
+	name "obstacle252"
+	pose [9.800000000000008 4.362775710266541 0 0]
+)
+
+obstacle
+(
+	name "obstacle253"
+	pose [9.950000000000008 4.32105399992881 0 0]
+)
+
+obstacle
+(
+	name "obstacle254"
+	pose [10.100000000000009 4.266449275109017 0 0]
+)
+
+obstacle
+(
+	name "obstacle255"
+	pose [10.250000000000009 4.202274926959479 0 0]
+)
+
+obstacle
+(
+	name "obstacle256"
+	pose [10.40000000000001 4.132170555154978 0 0]
+)
+
+obstacle
+(
+	name "obstacle257"
+	pose [10.55000000000001 4.05976432919409 0 0]
+)
+
+obstacle
+(
+	name "obstacle258"
+	pose [10.70000000000001 3.9883721503656893 0 0]
+)
+
+obstacle
+(
+	name "obstacle259"
+	pose [10.85000000000001 3.9207666880506435 0 0]
+)
+
+obstacle
+(
+	name "obstacle260"
+	pose [11.00000000000001 3.859035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle261"
+	pose [11.150000000000011 3.8045298704035693 0 0]
+)
+
+obstacle
+(
+	name "obstacle262"
+	pose [11.300000000000011 3.757900333026902 0 0]
+)
+
+obstacle
+(
+	name "obstacle263"
+	pose [11.450000000000012 3.719189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle264"
+	pose [11.600000000000012 3.687967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle265"
+	pose [11.750000000000012 3.6634793102745813 0 0]
+)
+
+obstacle
+(
+	name "obstacle266"
+	pose [11.900000000000013 3.6447890652487347 0 0]
+)
+
+obstacle
+(
+	name "obstacle267"
+	pose [12.050000000000013 3.6308986974829356 0 0]
+)
+
+obstacle
+(
+	name "obstacle268"
+	pose [12.200000000000014 3.6208418717968587 0 0]
+)
+
+obstacle
+(
+	name "obstacle269"
+	pose [12.350000000000014 3.6137455348110663 0 0]
+)
+
+obstacle
+(
+	name "obstacle270"
+	pose [12.500000000000014 3.6088636977458957 0 0]
+)
+
+obstacle
+(
+	name "obstacle271"
+	pose [12.650000000000015 3.6055885174110878 0 0]
+)
+
+obstacle
+(
+	name "obstacle272"
+	pose [12.800000000000015 3.6034451382364776 0 0]
+)
+
+obstacle
+(
+	name "obstacle273"
+	pose [12.950000000000015 3.602076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle274"
+	pose [13.100000000000016 3.60122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle275"
+	pose [13.250000000000016 3.6007051914380903 0 0]
+)
+
+obstacle
+(
+	name "obstacle276"
+	pose [13.400000000000016 3.600397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle277"
+	pose [13.550000000000017 3.6002188681096468 0 0]
+)
+
+obstacle
+(
+	name "obstacle278"
+	pose [13.700000000000017 3.6001178861477756 0 0]
+)
+
+obstacle
+(
+	name "obstacle279"
+	pose [13.850000000000017 3.600062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle280"
+	pose [14.000000000000018 3.600031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle281"
+	pose [14.150000000000018 3.6000160943665875 0 0]
+)
+
+obstacle
+(
+	name "obstacle282"
+	pose [14.300000000000018 3.6000079225990063 0 0]
+)
+
+obstacle
+(
+	name "obstacle283"
+	pose [14.450000000000019 3.600003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle284"
+	pose [14.60000000000002 3.600001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle285"
+	pose [14.75000000000002 3.6000008256942837 0 0]
+)
+
+obstacle
+(
+	name "obstacle286"
+	pose [14.90000000000002 3.6000003714724076 0 0]
+)
+
+obstacle
+(
+	name "obstacle287"
+	pose [15.05000000000002 3.6000001634038243 0 0]
+)
+
+obstacle
+(
+	name "obstacle288"
+	pose [15.20000000000002 3.6000000702791093 0 0]
+)
+
+obstacle
+(
+	name "obstacle289"
+	pose [15.350000000000021 3.6000000295541623 0 0]
+)
+
+obstacle
+(
+	name "obstacle290"
+	pose [15.500000000000021 3.6000000121517672 0 0]
+)
+
+obstacle
+(
+	name "obstacle291"
+	pose [15.650000000000022 3.6000000048852705 0 0]
+)
+
+obstacle
+(
+	name "obstacle292"
+	pose [15.800000000000022 3.6000000019202867 0 0]
+)
+
+obstacle
+(
+	name "obstacle293"
+	pose [15.950000000000022 3.6000000007380266 0 0]
+)
+
+obstacle
+(
+	name "obstacle294"
+	pose [16.100000000000023 3.600000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle295"
+	pose [16.25000000000002 3.6000000001018986 0 0]
+)
+
+obstacle
+(
+	name "obstacle296"
+	pose [16.400000000000023 3.600000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle297"
+	pose [16.550000000000026 3.6000000000128582 0 0]
+)
+
+obstacle
+(
+	name "obstacle298"
+	pose [16.700000000000024 3.600000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle299"
+	pose [16.850000000000023 3.600000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle300"
+	pose [2.0 4.400000000000487 0 0]
+)
+
+obstacle
+(
+	name "obstacle301"
+	pose [2.15 4.400000000001484 0 0]
+)
+
+obstacle
+(
+	name "obstacle302"
+	pose [2.3 4.400000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle303"
+	pose [2.45 4.4000000000128585 0 0]
+)
+
+obstacle
+(
+	name "obstacle304"
+	pose [2.6 4.4000000000366075 0 0]
+)
+
+obstacle
+(
+	name "obstacle305"
+	pose [2.75 4.400000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle306"
+	pose [2.9 4.400000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle307"
+	pose [3.05 4.400000000738027 0 0]
+)
+
+obstacle
+(
+	name "obstacle308"
+	pose [3.2 4.400000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle309"
+	pose [3.3499999999999996 4.40000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle310"
+	pose [3.5 4.400000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle311"
+	pose [3.6499999999999995 4.400000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle312"
+	pose [3.8 4.400000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle313"
+	pose [3.9499999999999993 4.400000163403825 0 0]
+)
+
+obstacle
+(
+	name "obstacle314"
+	pose [4.1 4.400000371472408 0 0]
+)
+
+obstacle
+(
+	name "obstacle315"
+	pose [4.25 4.400000825694284 0 0]
+)
+
+obstacle
+(
+	name "obstacle316"
+	pose [4.3999999999999995 4.40000179448722 0 0]
+)
+
+obstacle
+(
+	name "obstacle317"
+	pose [4.549999999999999 4.400003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle318"
+	pose [4.699999999999999 4.4000079225990065 0 0]
+)
+
+obstacle
+(
+	name "obstacle319"
+	pose [4.85 4.400016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle320"
+	pose [4.999999999999999 4.400031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle321"
+	pose [5.149999999999999 4.400062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle322"
+	pose [5.299999999999999 4.400117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle323"
+	pose [5.449999999999999 4.400218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle324"
+	pose [5.599999999999999 4.400397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle325"
+	pose [5.749999999999998 4.400705191438091 0 0]
+)
+
+obstacle
+(
+	name "obstacle326"
+	pose [5.899999999999999 4.401223803987531 0 0]
+)
+
+obstacle
+(
+	name "obstacle327"
+	pose [6.049999999999999 4.4020765628073315 0 0]
+)
+
+obstacle
+(
+	name "obstacle328"
+	pose [6.199999999999999 4.403445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle329"
+	pose [6.35 4.405588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle330"
+	pose [6.5 4.408863697745897 0 0]
+)
+
+obstacle
+(
+	name "obstacle331"
+	pose [6.65 4.413745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle332"
+	pose [6.800000000000001 4.42084187179686 0 0]
+)
+
+obstacle
+(
+	name "obstacle333"
+	pose [6.950000000000001 4.430898697482936 0 0]
+)
+
+obstacle
+(
+	name "obstacle334"
+	pose [7.100000000000001 4.444789065248736 0 0]
+)
+
+obstacle
+(
+	name "obstacle335"
+	pose [7.250000000000002 4.463479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle336"
+	pose [7.400000000000002 4.487967201111384 0 0]
+)
+
+obstacle
+(
+	name "obstacle337"
+	pose [7.5500000000000025 4.519189424535962 0 0]
+)
+
+obstacle
+(
+	name "obstacle338"
+	pose [7.700000000000003 4.557900333026906 0 0]
+)
+
+obstacle
+(
+	name "obstacle339"
+	pose [7.850000000000003 4.604529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle340"
+	pose [8.000000000000004 4.65903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle341"
+	pose [8.150000000000004 4.7207666880506505 0 0]
+)
+
+obstacle
+(
+	name "obstacle342"
+	pose [8.300000000000004 4.788372150365696 0 0]
+)
+
+obstacle
+(
+	name "obstacle343"
+	pose [8.450000000000005 4.859764329194098 0 0]
+)
+
+obstacle
+(
+	name "obstacle344"
+	pose [8.600000000000005 4.932170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle345"
+	pose [8.750000000000005 5.002274926959485 0 0]
+)
+
+obstacle
+(
+	name "obstacle346"
+	pose [8.900000000000006 5.066449275109023 0 0]
+)
+
+obstacle
+(
+	name "obstacle347"
+	pose [9.050000000000006 5.121053999928815 0 0]
+)
+
+obstacle
+(
+	name "obstacle348"
+	pose [9.200000000000006 5.162775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle349"
+	pose [9.350000000000007 5.188958743884886 0 0]
+)
+
+obstacle
+(
+	name "obstacle350"
+	pose [9.500000000000007 5.197884643800464 0 0]
+)
+
+obstacle
+(
+	name "obstacle351"
+	pose [9.650000000000007 5.188958743884885 0 0]
+)
+
+obstacle
+(
+	name "obstacle352"
+	pose [9.800000000000008 5.162775710266541 0 0]
+)
+
+obstacle
+(
+	name "obstacle353"
+	pose [9.950000000000008 5.12105399992881 0 0]
+)
+
+obstacle
+(
+	name "obstacle354"
+	pose [10.100000000000009 5.066449275109017 0 0]
+)
+
+obstacle
+(
+	name "obstacle355"
+	pose [10.250000000000009 5.002274926959479 0 0]
+)
+
+obstacle
+(
+	name "obstacle356"
+	pose [10.40000000000001 4.932170555154979 0 0]
+)
+
+obstacle
+(
+	name "obstacle357"
+	pose [10.55000000000001 4.859764329194091 0 0]
+)
+
+obstacle
+(
+	name "obstacle358"
+	pose [10.70000000000001 4.7883721503656895 0 0]
+)
+
+obstacle
+(
+	name "obstacle359"
+	pose [10.85000000000001 4.720766688050644 0 0]
+)
+
+obstacle
+(
+	name "obstacle360"
+	pose [11.00000000000001 4.659035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle361"
+	pose [11.150000000000011 4.604529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle362"
+	pose [11.300000000000011 4.557900333026902 0 0]
+)
+
+obstacle
+(
+	name "obstacle363"
+	pose [11.450000000000012 4.519189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle364"
+	pose [11.600000000000012 4.487967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle365"
+	pose [11.750000000000012 4.463479310274582 0 0]
+)
+
+obstacle
+(
+	name "obstacle366"
+	pose [11.900000000000013 4.444789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle367"
+	pose [12.050000000000013 4.430898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle368"
+	pose [12.200000000000014 4.420841871796859 0 0]
+)
+
+obstacle
+(
+	name "obstacle369"
+	pose [12.350000000000014 4.413745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle370"
+	pose [12.500000000000014 4.408863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle371"
+	pose [12.650000000000015 4.405588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle372"
+	pose [12.800000000000015 4.403445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle373"
+	pose [12.950000000000015 4.4020765628073315 0 0]
+)
+
+obstacle
+(
+	name "obstacle374"
+	pose [13.100000000000016 4.401223803987531 0 0]
+)
+
+obstacle
+(
+	name "obstacle375"
+	pose [13.250000000000016 4.400705191438091 0 0]
+)
+
+obstacle
+(
+	name "obstacle376"
+	pose [13.400000000000016 4.400397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle377"
+	pose [13.550000000000017 4.400218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle378"
+	pose [13.700000000000017 4.400117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle379"
+	pose [13.850000000000017 4.400062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle380"
+	pose [14.000000000000018 4.400031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle381"
+	pose [14.150000000000018 4.400016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle382"
+	pose [14.300000000000018 4.4000079225990065 0 0]
+)
+
+obstacle
+(
+	name "obstacle383"
+	pose [14.450000000000019 4.400003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle384"
+	pose [14.60000000000002 4.40000179448722 0 0]
+)
+
+obstacle
+(
+	name "obstacle385"
+	pose [14.75000000000002 4.400000825694284 0 0]
+)
+
+obstacle
+(
+	name "obstacle386"
+	pose [14.90000000000002 4.400000371472408 0 0]
+)
+
+obstacle
+(
+	name "obstacle387"
+	pose [15.05000000000002 4.400000163403825 0 0]
+)
+
+obstacle
+(
+	name "obstacle388"
+	pose [15.20000000000002 4.400000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle389"
+	pose [15.350000000000021 4.400000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle390"
+	pose [15.500000000000021 4.400000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle391"
+	pose [15.650000000000022 4.40000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle392"
+	pose [15.800000000000022 4.400000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle393"
+	pose [15.950000000000022 4.400000000738027 0 0]
+)
+
+obstacle
+(
+	name "obstacle394"
+	pose [16.100000000000023 4.400000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle395"
+	pose [16.25000000000002 4.400000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle396"
+	pose [16.400000000000023 4.4000000000366075 0 0]
+)
+
+obstacle
+(
+	name "obstacle397"
+	pose [16.550000000000026 4.4000000000128585 0 0]
+)
+
+obstacle
+(
+	name "obstacle398"
+	pose [16.700000000000024 4.400000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle399"
+	pose [16.850000000000023 4.400000000001484 0 0]
+)
+
+obstacle
+(
+	name "obstacle400"
+	pose [2.0 5.200000000000487 0 0]
+)
+
+obstacle
+(
+	name "obstacle401"
+	pose [2.15 5.2000000000014825 0 0]
+)
+
+obstacle
+(
+	name "obstacle402"
+	pose [2.3 5.200000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle403"
+	pose [2.45 5.200000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle404"
+	pose [2.6 5.2000000000366065 0 0]
+)
+
+obstacle
+(
+	name "obstacle405"
+	pose [2.75 5.200000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle406"
+	pose [2.9 5.2000000002773366 0 0]
+)
+
+obstacle
+(
+	name "obstacle407"
+	pose [3.05 5.200000000738027 0 0]
+)
+
+obstacle
+(
+	name "obstacle408"
+	pose [3.2 5.200000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle409"
+	pose [3.3499999999999996 5.20000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle410"
+	pose [3.5 5.200000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle411"
+	pose [3.6499999999999995 5.200000029554163 0 0]
+)
+
+obstacle
+(
+	name "obstacle412"
+	pose [3.8 5.20000007027911 0 0]
+)
+
+obstacle
+(
+	name "obstacle413"
+	pose [3.9499999999999993 5.200000163403825 0 0]
+)
+
+obstacle
+(
+	name "obstacle414"
+	pose [4.1 5.200000371472408 0 0]
+)
+
+obstacle
+(
+	name "obstacle415"
+	pose [4.25 5.200000825694284 0 0]
+)
+
+obstacle
+(
+	name "obstacle416"
+	pose [4.3999999999999995 5.200001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle417"
+	pose [4.549999999999999 5.200003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle418"
+	pose [4.699999999999999 5.200007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle419"
+	pose [4.85 5.200016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle420"
+	pose [4.999999999999999 5.20003196748554 0 0]
+)
+
+obstacle
+(
+	name "obstacle421"
+	pose [5.149999999999999 5.200062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle422"
+	pose [5.299999999999999 5.200117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle423"
+	pose [5.449999999999999 5.200218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle424"
+	pose [5.599999999999999 5.200397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle425"
+	pose [5.749999999999998 5.20070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle426"
+	pose [5.899999999999999 5.2012238039875305 0 0]
+)
+
+obstacle
+(
+	name "obstacle427"
+	pose [6.049999999999999 5.202076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle428"
+	pose [6.199999999999999 5.203445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle429"
+	pose [6.35 5.205588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle430"
+	pose [6.5 5.208863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle431"
+	pose [6.65 5.213745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle432"
+	pose [6.800000000000001 5.22084187179686 0 0]
+)
+
+obstacle
+(
+	name "obstacle433"
+	pose [6.950000000000001 5.230898697482937 0 0]
+)
+
+obstacle
+(
+	name "obstacle434"
+	pose [7.100000000000001 5.244789065248737 0 0]
+)
+
+obstacle
+(
+	name "obstacle435"
+	pose [7.250000000000002 5.263479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle436"
+	pose [7.400000000000002 5.287967201111384 0 0]
+)
+
+obstacle
+(
+	name "obstacle437"
+	pose [7.5500000000000025 5.319189424535962 0 0]
+)
+
+obstacle
+(
+	name "obstacle438"
+	pose [7.700000000000003 5.357900333026906 0 0]
+)
+
+obstacle
+(
+	name "obstacle439"
+	pose [7.850000000000003 5.404529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle440"
+	pose [8.000000000000004 5.45903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle441"
+	pose [8.150000000000004 5.52076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle442"
+	pose [8.300000000000004 5.5883721503656965 0 0]
+)
+
+obstacle
+(
+	name "obstacle443"
+	pose [8.450000000000005 5.659764329194097 0 0]
+)
+
+obstacle
+(
+	name "obstacle444"
+	pose [8.600000000000005 5.732170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle445"
+	pose [8.750000000000005 5.802274926959485 0 0]
+)
+
+obstacle
+(
+	name "obstacle446"
+	pose [8.900000000000006 5.866449275109023 0 0]
+)
+
+obstacle
+(
+	name "obstacle447"
+	pose [9.050000000000006 5.921053999928814 0 0]
+)
+
+obstacle
+(
+	name "obstacle448"
+	pose [9.200000000000006 5.962775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle449"
+	pose [9.350000000000007 5.988958743884886 0 0]
+)
+
+obstacle
+(
+	name "obstacle450"
+	pose [9.500000000000007 5.997884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle451"
+	pose [9.650000000000007 5.988958743884885 0 0]
+)
+
+obstacle
+(
+	name "obstacle452"
+	pose [9.800000000000008 5.962775710266541 0 0]
+)
+
+obstacle
+(
+	name "obstacle453"
+	pose [9.950000000000008 5.92105399992881 0 0]
+)
+
+obstacle
+(
+	name "obstacle454"
+	pose [10.100000000000009 5.866449275109018 0 0]
+)
+
+obstacle
+(
+	name "obstacle455"
+	pose [10.250000000000009 5.802274926959479 0 0]
+)
+
+obstacle
+(
+	name "obstacle456"
+	pose [10.40000000000001 5.732170555154978 0 0]
+)
+
+obstacle
+(
+	name "obstacle457"
+	pose [10.55000000000001 5.659764329194091 0 0]
+)
+
+obstacle
+(
+	name "obstacle458"
+	pose [10.70000000000001 5.588372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle459"
+	pose [10.85000000000001 5.520766688050644 0 0]
+)
+
+obstacle
+(
+	name "obstacle460"
+	pose [11.00000000000001 5.459035218277155 0 0]
+)
+
+obstacle
+(
+	name "obstacle461"
+	pose [11.150000000000011 5.404529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle462"
+	pose [11.300000000000011 5.357900333026902 0 0]
+)
+
+obstacle
+(
+	name "obstacle463"
+	pose [11.450000000000012 5.319189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle464"
+	pose [11.600000000000012 5.287967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle465"
+	pose [11.750000000000012 5.263479310274581 0 0]
+)
+
+obstacle
+(
+	name "obstacle466"
+	pose [11.900000000000013 5.244789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle467"
+	pose [12.050000000000013 5.230898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle468"
+	pose [12.200000000000014 5.220841871796859 0 0]
+)
+
+obstacle
+(
+	name "obstacle469"
+	pose [12.350000000000014 5.213745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle470"
+	pose [12.500000000000014 5.208863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle471"
+	pose [12.650000000000015 5.205588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle472"
+	pose [12.800000000000015 5.203445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle473"
+	pose [12.950000000000015 5.202076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle474"
+	pose [13.100000000000016 5.2012238039875305 0 0]
+)
+
+obstacle
+(
+	name "obstacle475"
+	pose [13.250000000000016 5.20070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle476"
+	pose [13.400000000000016 5.200397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle477"
+	pose [13.550000000000017 5.200218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle478"
+	pose [13.700000000000017 5.200117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle479"
+	pose [13.850000000000017 5.200062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle480"
+	pose [14.000000000000018 5.20003196748554 0 0]
+)
+
+obstacle
+(
+	name "obstacle481"
+	pose [14.150000000000018 5.200016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle482"
+	pose [14.300000000000018 5.200007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle483"
+	pose [14.450000000000019 5.200003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle484"
+	pose [14.60000000000002 5.200001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle485"
+	pose [14.75000000000002 5.200000825694284 0 0]
+)
+
+obstacle
+(
+	name "obstacle486"
+	pose [14.90000000000002 5.200000371472408 0 0]
+)
+
+obstacle
+(
+	name "obstacle487"
+	pose [15.05000000000002 5.200000163403825 0 0]
+)
+
+obstacle
+(
+	name "obstacle488"
+	pose [15.20000000000002 5.20000007027911 0 0]
+)
+
+obstacle
+(
+	name "obstacle489"
+	pose [15.350000000000021 5.200000029554163 0 0]
+)
+
+obstacle
+(
+	name "obstacle490"
+	pose [15.500000000000021 5.200000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle491"
+	pose [15.650000000000022 5.20000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle492"
+	pose [15.800000000000022 5.200000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle493"
+	pose [15.950000000000022 5.200000000738027 0 0]
+)
+
+obstacle
+(
+	name "obstacle494"
+	pose [16.100000000000023 5.2000000002773366 0 0]
+)
+
+obstacle
+(
+	name "obstacle495"
+	pose [16.25000000000002 5.200000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle496"
+	pose [16.400000000000023 5.2000000000366065 0 0]
+)
+
+obstacle
+(
+	name "obstacle497"
+	pose [16.550000000000026 5.200000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle498"
+	pose [16.700000000000024 5.200000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle499"
+	pose [16.850000000000023 5.2000000000014825 0 0]
+)
+
+obstacle
+(
+	name "obstacle500"
+	pose [2.0 6.000000000000487 0 0]
+)
+
+obstacle
+(
+	name "obstacle501"
+	pose [2.15 6.000000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle502"
+	pose [2.3 6.000000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle503"
+	pose [2.45 6.000000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle504"
+	pose [2.6 6.000000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle505"
+	pose [2.75 6.000000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle506"
+	pose [2.9 6.0000000002773355 0 0]
+)
+
+obstacle
+(
+	name "obstacle507"
+	pose [3.05 6.0000000007380265 0 0]
+)
+
+obstacle
+(
+	name "obstacle508"
+	pose [3.2 6.000000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle509"
+	pose [3.3499999999999996 6.00000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle510"
+	pose [3.5 6.000000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle511"
+	pose [3.6499999999999995 6.000000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle512"
+	pose [3.8 6.000000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle513"
+	pose [3.9499999999999993 6.000000163403825 0 0]
+)
+
+obstacle
+(
+	name "obstacle514"
+	pose [4.1 6.0000003714724075 0 0]
+)
+
+obstacle
+(
+	name "obstacle515"
+	pose [4.25 6.000000825694284 0 0]
+)
+
+obstacle
+(
+	name "obstacle516"
+	pose [4.3999999999999995 6.000001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle517"
+	pose [4.549999999999999 6.000003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle518"
+	pose [4.699999999999999 6.000007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle519"
+	pose [4.85 6.000016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle520"
+	pose [4.999999999999999 6.000031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle521"
+	pose [5.149999999999999 6.000062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle522"
+	pose [5.299999999999999 6.000117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle523"
+	pose [5.449999999999999 6.000218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle524"
+	pose [5.599999999999999 6.000397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle525"
+	pose [5.749999999999998 6.00070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle526"
+	pose [5.899999999999999 6.00122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle527"
+	pose [6.049999999999999 6.002076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle528"
+	pose [6.199999999999999 6.0034451382364775 0 0]
+)
+
+obstacle
+(
+	name "obstacle529"
+	pose [6.35 6.005588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle530"
+	pose [6.5 6.0088636977458965 0 0]
+)
+
+obstacle
+(
+	name "obstacle531"
+	pose [6.65 6.013745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle532"
+	pose [6.800000000000001 6.0208418717968595 0 0]
+)
+
+obstacle
+(
+	name "obstacle533"
+	pose [6.950000000000001 6.030898697482936 0 0]
+)
+
+obstacle
+(
+	name "obstacle534"
+	pose [7.100000000000001 6.044789065248736 0 0]
+)
+
+obstacle
+(
+	name "obstacle535"
+	pose [7.250000000000002 6.063479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle536"
+	pose [7.400000000000002 6.0879672011113835 0 0]
+)
+
+obstacle
+(
+	name "obstacle537"
+	pose [7.5500000000000025 6.1191894245359615 0 0]
+)
+
+obstacle
+(
+	name "obstacle538"
+	pose [7.700000000000003 6.157900333026905 0 0]
+)
+
+obstacle
+(
+	name "obstacle539"
+	pose [7.850000000000003 6.204529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle540"
+	pose [8.000000000000004 6.25903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle541"
+	pose [8.150000000000004 6.32076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle542"
+	pose [8.300000000000004 6.388372150365695 0 0]
+)
+
+obstacle
+(
+	name "obstacle543"
+	pose [8.450000000000005 6.459764329194098 0 0]
+)
+
+obstacle
+(
+	name "obstacle544"
+	pose [8.600000000000005 6.532170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle545"
+	pose [8.750000000000005 6.602274926959485 0 0]
+)
+
+obstacle
+(
+	name "obstacle546"
+	pose [8.900000000000006 6.666449275109023 0 0]
+)
+
+obstacle
+(
+	name "obstacle547"
+	pose [9.050000000000006 6.721053999928815 0 0]
+)
+
+obstacle
+(
+	name "obstacle548"
+	pose [9.200000000000006 6.762775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle549"
+	pose [9.350000000000007 6.788958743884885 0 0]
+)
+
+obstacle
+(
+	name "obstacle550"
+	pose [9.500000000000007 6.797884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle551"
+	pose [9.650000000000007 6.788958743884884 0 0]
+)
+
+obstacle
+(
+	name "obstacle552"
+	pose [9.800000000000008 6.76277571026654 0 0]
+)
+
+obstacle
+(
+	name "obstacle553"
+	pose [9.950000000000008 6.7210539999288095 0 0]
+)
+
+obstacle
+(
+	name "obstacle554"
+	pose [10.100000000000009 6.6664492751090165 0 0]
+)
+
+obstacle
+(
+	name "obstacle555"
+	pose [10.250000000000009 6.6022749269594785 0 0]
+)
+
+obstacle
+(
+	name "obstacle556"
+	pose [10.40000000000001 6.532170555154979 0 0]
+)
+
+obstacle
+(
+	name "obstacle557"
+	pose [10.55000000000001 6.4597643291940905 0 0]
+)
+
+obstacle
+(
+	name "obstacle558"
+	pose [10.70000000000001 6.388372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle559"
+	pose [10.85000000000001 6.320766688050644 0 0]
+)
+
+obstacle
+(
+	name "obstacle560"
+	pose [11.00000000000001 6.259035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle561"
+	pose [11.150000000000011 6.204529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle562"
+	pose [11.300000000000011 6.157900333026902 0 0]
+)
+
+obstacle
+(
+	name "obstacle563"
+	pose [11.450000000000012 6.119189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle564"
+	pose [11.600000000000012 6.087967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle565"
+	pose [11.750000000000012 6.063479310274581 0 0]
+)
+
+obstacle
+(
+	name "obstacle566"
+	pose [11.900000000000013 6.044789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle567"
+	pose [12.050000000000013 6.030898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle568"
+	pose [12.200000000000014 6.020841871796859 0 0]
+)
+
+obstacle
+(
+	name "obstacle569"
+	pose [12.350000000000014 6.013745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle570"
+	pose [12.500000000000014 6.008863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle571"
+	pose [12.650000000000015 6.005588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle572"
+	pose [12.800000000000015 6.0034451382364775 0 0]
+)
+
+obstacle
+(
+	name "obstacle573"
+	pose [12.950000000000015 6.002076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle574"
+	pose [13.100000000000016 6.00122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle575"
+	pose [13.250000000000016 6.00070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle576"
+	pose [13.400000000000016 6.000397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle577"
+	pose [13.550000000000017 6.000218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle578"
+	pose [13.700000000000017 6.000117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle579"
+	pose [13.850000000000017 6.000062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle580"
+	pose [14.000000000000018 6.000031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle581"
+	pose [14.150000000000018 6.000016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle582"
+	pose [14.300000000000018 6.000007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle583"
+	pose [14.450000000000019 6.000003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle584"
+	pose [14.60000000000002 6.000001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle585"
+	pose [14.75000000000002 6.000000825694284 0 0]
+)
+
+obstacle
+(
+	name "obstacle586"
+	pose [14.90000000000002 6.0000003714724075 0 0]
+)
+
+obstacle
+(
+	name "obstacle587"
+	pose [15.05000000000002 6.000000163403825 0 0]
+)
+
+obstacle
+(
+	name "obstacle588"
+	pose [15.20000000000002 6.000000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle589"
+	pose [15.350000000000021 6.000000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle590"
+	pose [15.500000000000021 6.000000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle591"
+	pose [15.650000000000022 6.00000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle592"
+	pose [15.800000000000022 6.000000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle593"
+	pose [15.950000000000022 6.0000000007380265 0 0]
+)
+
+obstacle
+(
+	name "obstacle594"
+	pose [16.100000000000023 6.0000000002773355 0 0]
+)
+
+obstacle
+(
+	name "obstacle595"
+	pose [16.25000000000002 6.000000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle596"
+	pose [16.400000000000023 6.000000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle597"
+	pose [16.550000000000026 6.000000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle598"
+	pose [16.700000000000024 6.000000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle599"
+	pose [16.850000000000023 6.000000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle600"
+	pose [2.0 6.8000000000004865 0 0]
+)
+
+obstacle
+(
+	name "obstacle601"
+	pose [2.15 6.800000000001482 0 0]
+)
+
+obstacle
+(
+	name "obstacle602"
+	pose [2.3 6.800000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle603"
+	pose [2.45 6.800000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle604"
+	pose [2.6 6.800000000036606 0 0]
+)
+
+obstacle
+(
+	name "obstacle605"
+	pose [2.75 6.800000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle606"
+	pose [2.9 6.800000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle607"
+	pose [3.05 6.800000000738026 0 0]
+)
+
+obstacle
+(
+	name "obstacle608"
+	pose [3.2 6.800000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle609"
+	pose [3.3499999999999996 6.80000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle610"
+	pose [3.5 6.8000000121517665 0 0]
+)
+
+obstacle
+(
+	name "obstacle611"
+	pose [3.6499999999999995 6.8000000295541625 0 0]
+)
+
+obstacle
+(
+	name "obstacle612"
+	pose [3.8 6.8000000702791095 0 0]
+)
+
+obstacle
+(
+	name "obstacle613"
+	pose [3.9499999999999993 6.8000001634038245 0 0]
+)
+
+obstacle
+(
+	name "obstacle614"
+	pose [4.1 6.800000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle615"
+	pose [4.25 6.800000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle616"
+	pose [4.3999999999999995 6.800001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle617"
+	pose [4.549999999999999 6.800003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle618"
+	pose [4.699999999999999 6.800007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle619"
+	pose [4.85 6.800016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle620"
+	pose [4.999999999999999 6.800031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle621"
+	pose [5.149999999999999 6.800062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle622"
+	pose [5.299999999999999 6.800117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle623"
+	pose [5.449999999999999 6.8002188681096465 0 0]
+)
+
+obstacle
+(
+	name "obstacle624"
+	pose [5.599999999999999 6.800397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle625"
+	pose [5.749999999999998 6.80070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle626"
+	pose [5.899999999999999 6.80122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle627"
+	pose [6.049999999999999 6.802076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle628"
+	pose [6.199999999999999 6.803445138236477 0 0]
+)
+
+obstacle
+(
+	name "obstacle629"
+	pose [6.35 6.8055885174110875 0 0]
+)
+
+obstacle
+(
+	name "obstacle630"
+	pose [6.5 6.808863697745895 0 0]
+)
+
+obstacle
+(
+	name "obstacle631"
+	pose [6.65 6.8137455348110665 0 0]
+)
+
+obstacle
+(
+	name "obstacle632"
+	pose [6.800000000000001 6.820841871796859 0 0]
+)
+
+obstacle
+(
+	name "obstacle633"
+	pose [6.950000000000001 6.830898697482937 0 0]
+)
+
+obstacle
+(
+	name "obstacle634"
+	pose [7.100000000000001 6.844789065248737 0 0]
+)
+
+obstacle
+(
+	name "obstacle635"
+	pose [7.250000000000002 6.863479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle636"
+	pose [7.400000000000002 6.887967201111383 0 0]
+)
+
+obstacle
+(
+	name "obstacle637"
+	pose [7.5500000000000025 6.919189424535961 0 0]
+)
+
+obstacle
+(
+	name "obstacle638"
+	pose [7.700000000000003 6.957900333026906 0 0]
+)
+
+obstacle
+(
+	name "obstacle639"
+	pose [7.850000000000003 7.004529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle640"
+	pose [8.000000000000004 7.05903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle641"
+	pose [8.150000000000004 7.12076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle642"
+	pose [8.300000000000004 7.188372150365696 0 0]
+)
+
+obstacle
+(
+	name "obstacle643"
+	pose [8.450000000000005 7.2597643291940965 0 0]
+)
+
+obstacle
+(
+	name "obstacle644"
+	pose [8.600000000000005 7.332170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle645"
+	pose [8.750000000000005 7.4022749269594845 0 0]
+)
+
+obstacle
+(
+	name "obstacle646"
+	pose [8.900000000000006 7.466449275109023 0 0]
+)
+
+obstacle
+(
+	name "obstacle647"
+	pose [9.050000000000006 7.521053999928814 0 0]
+)
+
+obstacle
+(
+	name "obstacle648"
+	pose [9.200000000000006 7.562775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle649"
+	pose [9.350000000000007 7.588958743884886 0 0]
+)
+
+obstacle
+(
+	name "obstacle650"
+	pose [9.500000000000007 7.597884643800462 0 0]
+)
+
+obstacle
+(
+	name "obstacle651"
+	pose [9.650000000000007 7.588958743884884 0 0]
+)
+
+obstacle
+(
+	name "obstacle652"
+	pose [9.800000000000008 7.562775710266541 0 0]
+)
+
+obstacle
+(
+	name "obstacle653"
+	pose [9.950000000000008 7.521053999928809 0 0]
+)
+
+obstacle
+(
+	name "obstacle654"
+	pose [10.100000000000009 7.466449275109017 0 0]
+)
+
+obstacle
+(
+	name "obstacle655"
+	pose [10.250000000000009 7.402274926959478 0 0]
+)
+
+obstacle
+(
+	name "obstacle656"
+	pose [10.40000000000001 7.332170555154978 0 0]
+)
+
+obstacle
+(
+	name "obstacle657"
+	pose [10.55000000000001 7.25976432919409 0 0]
+)
+
+obstacle
+(
+	name "obstacle658"
+	pose [10.70000000000001 7.188372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle659"
+	pose [10.85000000000001 7.120766688050644 0 0]
+)
+
+obstacle
+(
+	name "obstacle660"
+	pose [11.00000000000001 7.059035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle661"
+	pose [11.150000000000011 7.004529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle662"
+	pose [11.300000000000011 6.957900333026902 0 0]
+)
+
+obstacle
+(
+	name "obstacle663"
+	pose [11.450000000000012 6.919189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle664"
+	pose [11.600000000000012 6.887967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle665"
+	pose [11.750000000000012 6.863479310274581 0 0]
+)
+
+obstacle
+(
+	name "obstacle666"
+	pose [11.900000000000013 6.844789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle667"
+	pose [12.050000000000013 6.830898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle668"
+	pose [12.200000000000014 6.820841871796858 0 0]
+)
+
+obstacle
+(
+	name "obstacle669"
+	pose [12.350000000000014 6.813745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle670"
+	pose [12.500000000000014 6.808863697745895 0 0]
+)
+
+obstacle
+(
+	name "obstacle671"
+	pose [12.650000000000015 6.8055885174110875 0 0]
+)
+
+obstacle
+(
+	name "obstacle672"
+	pose [12.800000000000015 6.803445138236477 0 0]
+)
+
+obstacle
+(
+	name "obstacle673"
+	pose [12.950000000000015 6.802076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle674"
+	pose [13.100000000000016 6.80122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle675"
+	pose [13.250000000000016 6.80070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle676"
+	pose [13.400000000000016 6.800397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle677"
+	pose [13.550000000000017 6.8002188681096465 0 0]
+)
+
+obstacle
+(
+	name "obstacle678"
+	pose [13.700000000000017 6.800117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle679"
+	pose [13.850000000000017 6.800062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle680"
+	pose [14.000000000000018 6.800031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle681"
+	pose [14.150000000000018 6.800016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle682"
+	pose [14.300000000000018 6.800007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle683"
+	pose [14.450000000000019 6.800003813202203 0 0]
+)
+
+obstacle
+(
+	name "obstacle684"
+	pose [14.60000000000002 6.800001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle685"
+	pose [14.75000000000002 6.800000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle686"
+	pose [14.90000000000002 6.800000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle687"
+	pose [15.05000000000002 6.8000001634038245 0 0]
+)
+
+obstacle
+(
+	name "obstacle688"
+	pose [15.20000000000002 6.8000000702791095 0 0]
+)
+
+obstacle
+(
+	name "obstacle689"
+	pose [15.350000000000021 6.8000000295541625 0 0]
+)
+
+obstacle
+(
+	name "obstacle690"
+	pose [15.500000000000021 6.8000000121517665 0 0]
+)
+
+obstacle
+(
+	name "obstacle691"
+	pose [15.650000000000022 6.80000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle692"
+	pose [15.800000000000022 6.800000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle693"
+	pose [15.950000000000022 6.800000000738026 0 0]
+)
+
+obstacle
+(
+	name "obstacle694"
+	pose [16.100000000000023 6.800000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle695"
+	pose [16.25000000000002 6.800000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle696"
+	pose [16.400000000000023 6.800000000036606 0 0]
+)
+
+obstacle
+(
+	name "obstacle697"
+	pose [16.550000000000026 6.800000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle698"
+	pose [16.700000000000024 6.800000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle699"
+	pose [16.850000000000023 6.800000000001482 0 0]
+)
+
+obstacle
+(
+	name "obstacle700"
+	pose [2.0 7.600000000000486 0 0]
+)
+
+obstacle
+(
+	name "obstacle701"
+	pose [2.15 7.600000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle702"
+	pose [2.3 7.600000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle703"
+	pose [2.45 7.600000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle704"
+	pose [2.6 7.600000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle705"
+	pose [2.75 7.600000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle706"
+	pose [2.9 7.600000000277335 0 0]
+)
+
+obstacle
+(
+	name "obstacle707"
+	pose [3.05 7.600000000738026 0 0]
+)
+
+obstacle
+(
+	name "obstacle708"
+	pose [3.2 7.600000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle709"
+	pose [3.3499999999999996 7.60000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle710"
+	pose [3.5 7.600000012151766 0 0]
+)
+
+obstacle
+(
+	name "obstacle711"
+	pose [3.6499999999999995 7.600000029554161 0 0]
+)
+
+obstacle
+(
+	name "obstacle712"
+	pose [3.8 7.600000070279108 0 0]
+)
+
+obstacle
+(
+	name "obstacle713"
+	pose [3.9499999999999993 7.600000163403824 0 0]
+)
+
+obstacle
+(
+	name "obstacle714"
+	pose [4.1 7.600000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle715"
+	pose [4.25 7.600000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle716"
+	pose [4.3999999999999995 7.600001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle717"
+	pose [4.549999999999999 7.6000038132022025 0 0]
+)
+
+obstacle
+(
+	name "obstacle718"
+	pose [4.699999999999999 7.600007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle719"
+	pose [4.85 7.600016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle720"
+	pose [4.999999999999999 7.600031967485538 0 0]
+)
+
+obstacle
+(
+	name "obstacle721"
+	pose [5.149999999999999 7.600062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle722"
+	pose [5.299999999999999 7.600117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle723"
+	pose [5.449999999999999 7.600218868109646 0 0]
+)
+
+obstacle
+(
+	name "obstacle724"
+	pose [5.599999999999999 7.600397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle725"
+	pose [5.749999999999998 7.60070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle726"
+	pose [5.899999999999999 7.60122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle727"
+	pose [6.049999999999999 7.602076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle728"
+	pose [6.199999999999999 7.603445138236477 0 0]
+)
+
+obstacle
+(
+	name "obstacle729"
+	pose [6.35 7.605588517411087 0 0]
+)
+
+obstacle
+(
+	name "obstacle730"
+	pose [6.5 7.608863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle731"
+	pose [6.65 7.613745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle732"
+	pose [6.800000000000001 7.620841871796859 0 0]
+)
+
+obstacle
+(
+	name "obstacle733"
+	pose [6.950000000000001 7.630898697482936 0 0]
+)
+
+obstacle
+(
+	name "obstacle734"
+	pose [7.100000000000001 7.644789065248736 0 0]
+)
+
+obstacle
+(
+	name "obstacle735"
+	pose [7.250000000000002 7.663479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle736"
+	pose [7.400000000000002 7.687967201111383 0 0]
+)
+
+obstacle
+(
+	name "obstacle737"
+	pose [7.5500000000000025 7.719189424535961 0 0]
+)
+
+obstacle
+(
+	name "obstacle738"
+	pose [7.700000000000003 7.757900333026905 0 0]
+)
+
+obstacle
+(
+	name "obstacle739"
+	pose [7.850000000000003 7.804529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle740"
+	pose [8.000000000000004 7.8590352182771595 0 0]
+)
+
+obstacle
+(
+	name "obstacle741"
+	pose [8.150000000000004 7.92076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle742"
+	pose [8.300000000000004 7.988372150365695 0 0]
+)
+
+obstacle
+(
+	name "obstacle743"
+	pose [8.450000000000005 8.059764329194097 0 0]
+)
+
+obstacle
+(
+	name "obstacle744"
+	pose [8.600000000000005 8.132170555154985 0 0]
+)
+
+obstacle
+(
+	name "obstacle745"
+	pose [8.750000000000005 8.202274926959484 0 0]
+)
+
+obstacle
+(
+	name "obstacle746"
+	pose [8.900000000000006 8.266449275109021 0 0]
+)
+
+obstacle
+(
+	name "obstacle747"
+	pose [9.050000000000006 8.321053999928814 0 0]
+)
+
+obstacle
+(
+	name "obstacle748"
+	pose [9.200000000000006 8.362775710266543 0 0]
+)
+
+obstacle
+(
+	name "obstacle749"
+	pose [9.350000000000007 8.388958743884885 0 0]
+)
+
+obstacle
+(
+	name "obstacle750"
+	pose [9.500000000000007 8.397884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle751"
+	pose [9.650000000000007 8.388958743884883 0 0]
+)
+
+obstacle
+(
+	name "obstacle752"
+	pose [9.800000000000008 8.36277571026654 0 0]
+)
+
+obstacle
+(
+	name "obstacle753"
+	pose [9.950000000000008 8.32105399992881 0 0]
+)
+
+obstacle
+(
+	name "obstacle754"
+	pose [10.100000000000009 8.266449275109016 0 0]
+)
+
+obstacle
+(
+	name "obstacle755"
+	pose [10.250000000000009 8.202274926959479 0 0]
+)
+
+obstacle
+(
+	name "obstacle756"
+	pose [10.40000000000001 8.132170555154978 0 0]
+)
+
+obstacle
+(
+	name "obstacle757"
+	pose [10.55000000000001 8.05976432919409 0 0]
+)
+
+obstacle
+(
+	name "obstacle758"
+	pose [10.70000000000001 7.988372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle759"
+	pose [10.85000000000001 7.9207666880506435 0 0]
+)
+
+obstacle
+(
+	name "obstacle760"
+	pose [11.00000000000001 7.859035218277153 0 0]
+)
+
+obstacle
+(
+	name "obstacle761"
+	pose [11.150000000000011 7.804529870403568 0 0]
+)
+
+obstacle
+(
+	name "obstacle762"
+	pose [11.300000000000011 7.757900333026901 0 0]
+)
+
+obstacle
+(
+	name "obstacle763"
+	pose [11.450000000000012 7.719189424535958 0 0]
+)
+
+obstacle
+(
+	name "obstacle764"
+	pose [11.600000000000012 7.68796720111138 0 0]
+)
+
+obstacle
+(
+	name "obstacle765"
+	pose [11.750000000000012 7.663479310274581 0 0]
+)
+
+obstacle
+(
+	name "obstacle766"
+	pose [11.900000000000013 7.644789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle767"
+	pose [12.050000000000013 7.630898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle768"
+	pose [12.200000000000014 7.620841871796858 0 0]
+)
+
+obstacle
+(
+	name "obstacle769"
+	pose [12.350000000000014 7.613745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle770"
+	pose [12.500000000000014 7.608863697745895 0 0]
+)
+
+obstacle
+(
+	name "obstacle771"
+	pose [12.650000000000015 7.605588517411087 0 0]
+)
+
+obstacle
+(
+	name "obstacle772"
+	pose [12.800000000000015 7.603445138236477 0 0]
+)
+
+obstacle
+(
+	name "obstacle773"
+	pose [12.950000000000015 7.602076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle774"
+	pose [13.100000000000016 7.60122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle775"
+	pose [13.250000000000016 7.60070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle776"
+	pose [13.400000000000016 7.600397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle777"
+	pose [13.550000000000017 7.600218868109646 0 0]
+)
+
+obstacle
+(
+	name "obstacle778"
+	pose [13.700000000000017 7.600117886147776 0 0]
+)
+
+obstacle
+(
+	name "obstacle779"
+	pose [13.850000000000017 7.600062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle780"
+	pose [14.000000000000018 7.600031967485538 0 0]
+)
+
+obstacle
+(
+	name "obstacle781"
+	pose [14.150000000000018 7.600016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle782"
+	pose [14.300000000000018 7.600007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle783"
+	pose [14.450000000000019 7.6000038132022025 0 0]
+)
+
+obstacle
+(
+	name "obstacle784"
+	pose [14.60000000000002 7.600001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle785"
+	pose [14.75000000000002 7.600000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle786"
+	pose [14.90000000000002 7.600000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle787"
+	pose [15.05000000000002 7.600000163403824 0 0]
+)
+
+obstacle
+(
+	name "obstacle788"
+	pose [15.20000000000002 7.600000070279108 0 0]
+)
+
+obstacle
+(
+	name "obstacle789"
+	pose [15.350000000000021 7.600000029554161 0 0]
+)
+
+obstacle
+(
+	name "obstacle790"
+	pose [15.500000000000021 7.600000012151766 0 0]
+)
+
+obstacle
+(
+	name "obstacle791"
+	pose [15.650000000000022 7.60000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle792"
+	pose [15.800000000000022 7.600000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle793"
+	pose [15.950000000000022 7.600000000738026 0 0]
+)
+
+obstacle
+(
+	name "obstacle794"
+	pose [16.100000000000023 7.600000000277335 0 0]
+)
+
+obstacle
+(
+	name "obstacle795"
+	pose [16.25000000000002 7.600000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle796"
+	pose [16.400000000000023 7.600000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle797"
+	pose [16.550000000000026 7.600000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle798"
+	pose [16.700000000000024 7.600000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle799"
+	pose [16.850000000000023 7.600000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle800"
+	pose [2.0 8.400000000000487 0 0]
+)
+
+obstacle
+(
+	name "obstacle801"
+	pose [2.15 8.400000000001482 0 0]
+)
+
+obstacle
+(
+	name "obstacle802"
+	pose [2.3 8.400000000004415 0 0]
+)
+
+obstacle
+(
+	name "obstacle803"
+	pose [2.45 8.400000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle804"
+	pose [2.6 8.400000000036606 0 0]
+)
+
+obstacle
+(
+	name "obstacle805"
+	pose [2.75 8.400000000101898 0 0]
+)
+
+obstacle
+(
+	name "obstacle806"
+	pose [2.9 8.400000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle807"
+	pose [3.05 8.400000000738025 0 0]
+)
+
+obstacle
+(
+	name "obstacle808"
+	pose [3.2 8.400000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle809"
+	pose [3.3499999999999996 8.40000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle810"
+	pose [3.5 8.400000012151766 0 0]
+)
+
+obstacle
+(
+	name "obstacle811"
+	pose [3.6499999999999995 8.400000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle812"
+	pose [3.8 8.400000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle813"
+	pose [3.9499999999999993 8.400000163403824 0 0]
+)
+
+obstacle
+(
+	name "obstacle814"
+	pose [4.1 8.400000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle815"
+	pose [4.25 8.400000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle816"
+	pose [4.3999999999999995 8.400001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle817"
+	pose [4.549999999999999 8.400003813202202 0 0]
+)
+
+obstacle
+(
+	name "obstacle818"
+	pose [4.699999999999999 8.400007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle819"
+	pose [4.85 8.400016094366586 0 0]
+)
+
+obstacle
+(
+	name "obstacle820"
+	pose [4.999999999999999 8.400031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle821"
+	pose [5.149999999999999 8.400062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle822"
+	pose [5.299999999999999 8.400117886147775 0 0]
+)
+
+obstacle
+(
+	name "obstacle823"
+	pose [5.449999999999999 8.400218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle824"
+	pose [5.599999999999999 8.400397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle825"
+	pose [5.749999999999998 8.40070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle826"
+	pose [5.899999999999999 8.401223803987529 0 0]
+)
+
+obstacle
+(
+	name "obstacle827"
+	pose [6.049999999999999 8.40207656280733 0 0]
+)
+
+obstacle
+(
+	name "obstacle828"
+	pose [6.199999999999999 8.403445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle829"
+	pose [6.35 8.405588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle830"
+	pose [6.5 8.408863697745895 0 0]
+)
+
+obstacle
+(
+	name "obstacle831"
+	pose [6.65 8.413745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle832"
+	pose [6.800000000000001 8.42084187179686 0 0]
+)
+
+obstacle
+(
+	name "obstacle833"
+	pose [6.950000000000001 8.430898697482936 0 0]
+)
+
+obstacle
+(
+	name "obstacle834"
+	pose [7.100000000000001 8.444789065248736 0 0]
+)
+
+obstacle
+(
+	name "obstacle835"
+	pose [7.250000000000002 8.463479310274582 0 0]
+)
+
+obstacle
+(
+	name "obstacle836"
+	pose [7.400000000000002 8.487967201111383 0 0]
+)
+
+obstacle
+(
+	name "obstacle837"
+	pose [7.5500000000000025 8.519189424535961 0 0]
+)
+
+obstacle
+(
+	name "obstacle838"
+	pose [7.700000000000003 8.557900333026906 0 0]
+)
+
+obstacle
+(
+	name "obstacle839"
+	pose [7.850000000000003 8.604529870403573 0 0]
+)
+
+obstacle
+(
+	name "obstacle840"
+	pose [8.000000000000004 8.65903521827716 0 0]
+)
+
+obstacle
+(
+	name "obstacle841"
+	pose [8.150000000000004 8.720766688050649 0 0]
+)
+
+obstacle
+(
+	name "obstacle842"
+	pose [8.300000000000004 8.788372150365696 0 0]
+)
+
+obstacle
+(
+	name "obstacle843"
+	pose [8.450000000000005 8.859764329194096 0 0]
+)
+
+obstacle
+(
+	name "obstacle844"
+	pose [8.600000000000005 8.932170555154984 0 0]
+)
+
+obstacle
+(
+	name "obstacle845"
+	pose [8.750000000000005 9.002274926959483 0 0]
+)
+
+obstacle
+(
+	name "obstacle846"
+	pose [8.900000000000006 9.066449275109022 0 0]
+)
+
+obstacle
+(
+	name "obstacle847"
+	pose [9.050000000000006 9.121053999928813 0 0]
+)
+
+obstacle
+(
+	name "obstacle848"
+	pose [9.200000000000006 9.162775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle849"
+	pose [9.350000000000007 9.188958743884886 0 0]
+)
+
+obstacle
+(
+	name "obstacle850"
+	pose [9.500000000000007 9.197884643800462 0 0]
+)
+
+obstacle
+(
+	name "obstacle851"
+	pose [9.650000000000007 9.188958743884884 0 0]
+)
+
+obstacle
+(
+	name "obstacle852"
+	pose [9.800000000000008 9.16277571026654 0 0]
+)
+
+obstacle
+(
+	name "obstacle853"
+	pose [9.950000000000008 9.12105399992881 0 0]
+)
+
+obstacle
+(
+	name "obstacle854"
+	pose [10.100000000000009 9.066449275109017 0 0]
+)
+
+obstacle
+(
+	name "obstacle855"
+	pose [10.250000000000009 9.002274926959478 0 0]
+)
+
+obstacle
+(
+	name "obstacle856"
+	pose [10.40000000000001 8.932170555154977 0 0]
+)
+
+obstacle
+(
+	name "obstacle857"
+	pose [10.55000000000001 8.859764329194089 0 0]
+)
+
+obstacle
+(
+	name "obstacle858"
+	pose [10.70000000000001 8.788372150365689 0 0]
+)
+
+obstacle
+(
+	name "obstacle859"
+	pose [10.85000000000001 8.720766688050643 0 0]
+)
+
+obstacle
+(
+	name "obstacle860"
+	pose [11.00000000000001 8.659035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle861"
+	pose [11.150000000000011 8.604529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle862"
+	pose [11.300000000000011 8.5579003330269 0 0]
+)
+
+obstacle
+(
+	name "obstacle863"
+	pose [11.450000000000012 8.519189424535957 0 0]
+)
+
+obstacle
+(
+	name "obstacle864"
+	pose [11.600000000000012 8.487967201111381 0 0]
+)
+
+obstacle
+(
+	name "obstacle865"
+	pose [11.750000000000012 8.46347931027458 0 0]
+)
+
+obstacle
+(
+	name "obstacle866"
+	pose [11.900000000000013 8.444789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle867"
+	pose [12.050000000000013 8.430898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle868"
+	pose [12.200000000000014 8.420841871796858 0 0]
+)
+
+obstacle
+(
+	name "obstacle869"
+	pose [12.350000000000014 8.413745534811065 0 0]
+)
+
+obstacle
+(
+	name "obstacle870"
+	pose [12.500000000000014 8.408863697745895 0 0]
+)
+
+obstacle
+(
+	name "obstacle871"
+	pose [12.650000000000015 8.405588517411086 0 0]
+)
+
+obstacle
+(
+	name "obstacle872"
+	pose [12.800000000000015 8.403445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle873"
+	pose [12.950000000000015 8.40207656280733 0 0]
+)
+
+obstacle
+(
+	name "obstacle874"
+	pose [13.100000000000016 8.401223803987529 0 0]
+)
+
+obstacle
+(
+	name "obstacle875"
+	pose [13.250000000000016 8.400705191438089 0 0]
+)
+
+obstacle
+(
+	name "obstacle876"
+	pose [13.400000000000016 8.400397310984115 0 0]
+)
+
+obstacle
+(
+	name "obstacle877"
+	pose [13.550000000000017 8.400218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle878"
+	pose [13.700000000000017 8.400117886147775 0 0]
+)
+
+obstacle
+(
+	name "obstacle879"
+	pose [13.850000000000017 8.400062082820574 0 0]
+)
+
+obstacle
+(
+	name "obstacle880"
+	pose [14.000000000000018 8.400031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle881"
+	pose [14.150000000000018 8.400016094366586 0 0]
+)
+
+obstacle
+(
+	name "obstacle882"
+	pose [14.300000000000018 8.400007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle883"
+	pose [14.450000000000019 8.400003813202202 0 0]
+)
+
+obstacle
+(
+	name "obstacle884"
+	pose [14.60000000000002 8.400001794487219 0 0]
+)
+
+obstacle
+(
+	name "obstacle885"
+	pose [14.75000000000002 8.400000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle886"
+	pose [14.90000000000002 8.400000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle887"
+	pose [15.05000000000002 8.400000163403824 0 0]
+)
+
+obstacle
+(
+	name "obstacle888"
+	pose [15.20000000000002 8.400000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle889"
+	pose [15.350000000000021 8.400000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle890"
+	pose [15.500000000000021 8.400000012151766 0 0]
+)
+
+obstacle
+(
+	name "obstacle891"
+	pose [15.650000000000022 8.40000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle892"
+	pose [15.800000000000022 8.400000001920287 0 0]
+)
+
+obstacle
+(
+	name "obstacle893"
+	pose [15.950000000000022 8.400000000738025 0 0]
+)
+
+obstacle
+(
+	name "obstacle894"
+	pose [16.100000000000023 8.400000000277336 0 0]
+)
+
+obstacle
+(
+	name "obstacle895"
+	pose [16.25000000000002 8.400000000101898 0 0]
+)
+
+obstacle
+(
+	name "obstacle896"
+	pose [16.400000000000023 8.400000000036606 0 0]
+)
+
+obstacle
+(
+	name "obstacle897"
+	pose [16.550000000000026 8.400000000012858 0 0]
+)
+
+obstacle
+(
+	name "obstacle898"
+	pose [16.700000000000024 8.400000000004415 0 0]
+)
+
+obstacle
+(
+	name "obstacle899"
+	pose [16.850000000000023 8.400000000001482 0 0]
+)
+
+obstacle
+(
+	name "obstacle900"
+	pose [2.0 9.200000000000486 0 0]
+)
+
+obstacle
+(
+	name "obstacle901"
+	pose [2.15 9.200000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle902"
+	pose [2.3 9.200000000004415 0 0]
+)
+
+obstacle
+(
+	name "obstacle903"
+	pose [2.45 9.200000000012857 0 0]
+)
+
+obstacle
+(
+	name "obstacle904"
+	pose [2.6 9.200000000036606 0 0]
+)
+
+obstacle
+(
+	name "obstacle905"
+	pose [2.75 9.200000000101898 0 0]
+)
+
+obstacle
+(
+	name "obstacle906"
+	pose [2.9 9.200000000277335 0 0]
+)
+
+obstacle
+(
+	name "obstacle907"
+	pose [3.05 9.200000000738026 0 0]
+)
+
+obstacle
+(
+	name "obstacle908"
+	pose [3.2 9.200000001920285 0 0]
+)
+
+obstacle
+(
+	name "obstacle909"
+	pose [3.3499999999999996 9.20000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle910"
+	pose [3.5 9.200000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle911"
+	pose [3.6499999999999995 9.200000029554161 0 0]
+)
+
+obstacle
+(
+	name "obstacle912"
+	pose [3.8 9.200000070279108 0 0]
+)
+
+obstacle
+(
+	name "obstacle913"
+	pose [3.9499999999999993 9.200000163403823 0 0]
+)
+
+obstacle
+(
+	name "obstacle914"
+	pose [4.1 9.200000371472406 0 0]
+)
+
+obstacle
+(
+	name "obstacle915"
+	pose [4.25 9.200000825694282 0 0]
+)
+
+obstacle
+(
+	name "obstacle916"
+	pose [4.3999999999999995 9.200001794487218 0 0]
+)
+
+obstacle
+(
+	name "obstacle917"
+	pose [4.549999999999999 9.200003813202201 0 0]
+)
+
+obstacle
+(
+	name "obstacle918"
+	pose [4.699999999999999 9.200007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle919"
+	pose [4.85 9.200016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle920"
+	pose [4.999999999999999 9.200031967485538 0 0]
+)
+
+obstacle
+(
+	name "obstacle921"
+	pose [5.149999999999999 9.200062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle922"
+	pose [5.299999999999999 9.200117886147774 0 0]
+)
+
+obstacle
+(
+	name "obstacle923"
+	pose [5.449999999999999 9.200218868109646 0 0]
+)
+
+obstacle
+(
+	name "obstacle924"
+	pose [5.599999999999999 9.200397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle925"
+	pose [5.749999999999998 9.20070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle926"
+	pose [5.899999999999999 9.20122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle927"
+	pose [6.049999999999999 9.202076562807331 0 0]
+)
+
+obstacle
+(
+	name "obstacle928"
+	pose [6.199999999999999 9.203445138236477 0 0]
+)
+
+obstacle
+(
+	name "obstacle929"
+	pose [6.35 9.205588517411087 0 0]
+)
+
+obstacle
+(
+	name "obstacle930"
+	pose [6.5 9.208863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle931"
+	pose [6.65 9.213745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle932"
+	pose [6.800000000000001 9.220841871796859 0 0]
+)
+
+obstacle
+(
+	name "obstacle933"
+	pose [6.950000000000001 9.230898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle934"
+	pose [7.100000000000001 9.244789065248735 0 0]
+)
+
+obstacle
+(
+	name "obstacle935"
+	pose [7.250000000000002 9.263479310274583 0 0]
+)
+
+obstacle
+(
+	name "obstacle936"
+	pose [7.400000000000002 9.287967201111382 0 0]
+)
+
+obstacle
+(
+	name "obstacle937"
+	pose [7.5500000000000025 9.31918942453596 0 0]
+)
+
+obstacle
+(
+	name "obstacle938"
+	pose [7.700000000000003 9.357900333026905 0 0]
+)
+
+obstacle
+(
+	name "obstacle939"
+	pose [7.850000000000003 9.404529870403573 0 0]
+)
+
+obstacle
+(
+	name "obstacle940"
+	pose [8.000000000000004 9.459035218277158 0 0]
+)
+
+obstacle
+(
+	name "obstacle941"
+	pose [8.150000000000004 9.52076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle942"
+	pose [8.300000000000004 9.588372150365695 0 0]
+)
+
+obstacle
+(
+	name "obstacle943"
+	pose [8.450000000000005 9.659764329194097 0 0]
+)
+
+obstacle
+(
+	name "obstacle944"
+	pose [8.600000000000005 9.732170555154983 0 0]
+)
+
+obstacle
+(
+	name "obstacle945"
+	pose [8.750000000000005 9.802274926959484 0 0]
+)
+
+obstacle
+(
+	name "obstacle946"
+	pose [8.900000000000006 9.866449275109021 0 0]
+)
+
+obstacle
+(
+	name "obstacle947"
+	pose [9.050000000000006 9.921053999928814 0 0]
+)
+
+obstacle
+(
+	name "obstacle948"
+	pose [9.200000000000006 9.962775710266543 0 0]
+)
+
+obstacle
+(
+	name "obstacle949"
+	pose [9.350000000000007 9.988958743884885 0 0]
+)
+
+obstacle
+(
+	name "obstacle950"
+	pose [9.500000000000007 9.997884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle951"
+	pose [9.650000000000007 9.988958743884883 0 0]
+)
+
+obstacle
+(
+	name "obstacle952"
+	pose [9.800000000000008 9.96277571026654 0 0]
+)
+
+obstacle
+(
+	name "obstacle953"
+	pose [9.950000000000008 9.921053999928809 0 0]
+)
+
+obstacle
+(
+	name "obstacle954"
+	pose [10.100000000000009 9.866449275109016 0 0]
+)
+
+obstacle
+(
+	name "obstacle955"
+	pose [10.250000000000009 9.802274926959477 0 0]
+)
+
+obstacle
+(
+	name "obstacle956"
+	pose [10.40000000000001 9.732170555154978 0 0]
+)
+
+obstacle
+(
+	name "obstacle957"
+	pose [10.55000000000001 9.65976432919409 0 0]
+)
+
+obstacle
+(
+	name "obstacle958"
+	pose [10.70000000000001 9.58837215036569 0 0]
+)
+
+obstacle
+(
+	name "obstacle959"
+	pose [10.85000000000001 9.520766688050642 0 0]
+)
+
+obstacle
+(
+	name "obstacle960"
+	pose [11.00000000000001 9.459035218277153 0 0]
+)
+
+obstacle
+(
+	name "obstacle961"
+	pose [11.150000000000011 9.404529870403568 0 0]
+)
+
+obstacle
+(
+	name "obstacle962"
+	pose [11.300000000000011 9.357900333026901 0 0]
+)
+
+obstacle
+(
+	name "obstacle963"
+	pose [11.450000000000012 9.319189424535956 0 0]
+)
+
+obstacle
+(
+	name "obstacle964"
+	pose [11.600000000000012 9.28796720111138 0 0]
+)
+
+obstacle
+(
+	name "obstacle965"
+	pose [11.750000000000012 9.26347931027458 0 0]
+)
+
+obstacle
+(
+	name "obstacle966"
+	pose [11.900000000000013 9.244789065248733 0 0]
+)
+
+obstacle
+(
+	name "obstacle967"
+	pose [12.050000000000013 9.230898697482935 0 0]
+)
+
+obstacle
+(
+	name "obstacle968"
+	pose [12.200000000000014 9.220841871796857 0 0]
+)
+
+obstacle
+(
+	name "obstacle969"
+	pose [12.350000000000014 9.213745534811066 0 0]
+)
+
+obstacle
+(
+	name "obstacle970"
+	pose [12.500000000000014 9.208863697745894 0 0]
+)
+
+obstacle
+(
+	name "obstacle971"
+	pose [12.650000000000015 9.205588517411087 0 0]
+)
+
+obstacle
+(
+	name "obstacle972"
+	pose [12.800000000000015 9.203445138236477 0 0]
+)
+
+obstacle
+(
+	name "obstacle973"
+	pose [12.950000000000015 9.20207656280733 0 0]
+)
+
+obstacle
+(
+	name "obstacle974"
+	pose [13.100000000000016 9.20122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle975"
+	pose [13.250000000000016 9.20070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle976"
+	pose [13.400000000000016 9.200397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle977"
+	pose [13.550000000000017 9.200218868109646 0 0]
+)
+
+obstacle
+(
+	name "obstacle978"
+	pose [13.700000000000017 9.200117886147774 0 0]
+)
+
+obstacle
+(
+	name "obstacle979"
+	pose [13.850000000000017 9.200062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle980"
+	pose [14.000000000000018 9.200031967485538 0 0]
+)
+
+obstacle
+(
+	name "obstacle981"
+	pose [14.150000000000018 9.200016094366587 0 0]
+)
+
+obstacle
+(
+	name "obstacle982"
+	pose [14.300000000000018 9.200007922599006 0 0]
+)
+
+obstacle
+(
+	name "obstacle983"
+	pose [14.450000000000019 9.200003813202201 0 0]
+)
+
+obstacle
+(
+	name "obstacle984"
+	pose [14.60000000000002 9.200001794487218 0 0]
+)
+
+obstacle
+(
+	name "obstacle985"
+	pose [14.75000000000002 9.200000825694282 0 0]
+)
+
+obstacle
+(
+	name "obstacle986"
+	pose [14.90000000000002 9.200000371472406 0 0]
+)
+
+obstacle
+(
+	name "obstacle987"
+	pose [15.05000000000002 9.200000163403823 0 0]
+)
+
+obstacle
+(
+	name "obstacle988"
+	pose [15.20000000000002 9.200000070279108 0 0]
+)
+
+obstacle
+(
+	name "obstacle989"
+	pose [15.350000000000021 9.200000029554161 0 0]
+)
+
+obstacle
+(
+	name "obstacle990"
+	pose [15.500000000000021 9.200000012151767 0 0]
+)
+
+obstacle
+(
+	name "obstacle991"
+	pose [15.650000000000022 9.20000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle992"
+	pose [15.800000000000022 9.200000001920285 0 0]
+)
+
+obstacle
+(
+	name "obstacle993"
+	pose [15.950000000000022 9.200000000738026 0 0]
+)
+
+obstacle
+(
+	name "obstacle994"
+	pose [16.100000000000023 9.200000000277335 0 0]
+)
+
+obstacle
+(
+	name "obstacle995"
+	pose [16.25000000000002 9.200000000101898 0 0]
+)
+
+obstacle
+(
+	name "obstacle996"
+	pose [16.400000000000023 9.200000000036606 0 0]
+)
+
+obstacle
+(
+	name "obstacle997"
+	pose [16.550000000000026 9.200000000012857 0 0]
+)
+
+obstacle
+(
+	name "obstacle998"
+	pose [16.700000000000024 9.200000000004415 0 0]
+)
+
+obstacle
+(
+	name "obstacle999"
+	pose [16.850000000000023 9.200000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle1000"
+	pose [2.0 10.000000000000487 0 0]
+)
+
+obstacle
+(
+	name "obstacle1001"
+	pose [2.15 10.000000000001483 0 0]
+)
+
+obstacle
+(
+	name "obstacle1002"
+	pose [2.3 10.000000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle1003"
+	pose [2.45 10.000000000012857 0 0]
+)
+
+obstacle
+(
+	name "obstacle1004"
+	pose [2.6 10.000000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle1005"
+	pose [2.75 10.000000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle1006"
+	pose [2.9 10.000000000277335 0 0]
+)
+
+obstacle
+(
+	name "obstacle1007"
+	pose [3.05 10.000000000738027 0 0]
+)
+
+obstacle
+(
+	name "obstacle1008"
+	pose [3.2 10.000000001920286 0 0]
+)
+
+obstacle
+(
+	name "obstacle1009"
+	pose [3.3499999999999996 10.00000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle1010"
+	pose [3.5 10.000000012151768 0 0]
+)
+
+obstacle
+(
+	name "obstacle1011"
+	pose [3.6499999999999995 10.000000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle1012"
+	pose [3.8 10.000000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle1013"
+	pose [3.9499999999999993 10.000000163403824 0 0]
+)
+
+obstacle
+(
+	name "obstacle1014"
+	pose [4.1 10.000000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle1015"
+	pose [4.25 10.000000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle1016"
+	pose [4.3999999999999995 10.000001794487218 0 0]
+)
+
+obstacle
+(
+	name "obstacle1017"
+	pose [4.549999999999999 10.000003813202202 0 0]
+)
+
+obstacle
+(
+	name "obstacle1018"
+	pose [4.699999999999999 10.000007922599007 0 0]
+)
+
+obstacle
+(
+	name "obstacle1019"
+	pose [4.85 10.000016094366588 0 0]
+)
+
+obstacle
+(
+	name "obstacle1020"
+	pose [4.999999999999999 10.000031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle1021"
+	pose [5.149999999999999 10.000062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle1022"
+	pose [5.299999999999999 10.000117886147775 0 0]
+)
+
+obstacle
+(
+	name "obstacle1023"
+	pose [5.449999999999999 10.000218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle1024"
+	pose [5.599999999999999 10.000397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle1025"
+	pose [5.749999999999998 10.00070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle1026"
+	pose [5.899999999999999 10.00122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle1027"
+	pose [6.049999999999999 10.002076562807332 0 0]
+)
+
+obstacle
+(
+	name "obstacle1028"
+	pose [6.199999999999999 10.003445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle1029"
+	pose [6.35 10.005588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle1030"
+	pose [6.5 10.008863697745896 0 0]
+)
+
+obstacle
+(
+	name "obstacle1031"
+	pose [6.65 10.013745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle1032"
+	pose [6.800000000000001 10.02084187179686 0 0]
+)
+
+obstacle
+(
+	name "obstacle1033"
+	pose [6.950000000000001 10.030898697482936 0 0]
+)
+
+obstacle
+(
+	name "obstacle1034"
+	pose [7.100000000000001 10.044789065248736 0 0]
+)
+
+obstacle
+(
+	name "obstacle1035"
+	pose [7.250000000000002 10.063479310274584 0 0]
+)
+
+obstacle
+(
+	name "obstacle1036"
+	pose [7.400000000000002 10.087967201111383 0 0]
+)
+
+obstacle
+(
+	name "obstacle1037"
+	pose [7.5500000000000025 10.11918942453596 0 0]
+)
+
+obstacle
+(
+	name "obstacle1038"
+	pose [7.700000000000003 10.157900333026905 0 0]
+)
+
+obstacle
+(
+	name "obstacle1039"
+	pose [7.850000000000003 10.204529870403574 0 0]
+)
+
+obstacle
+(
+	name "obstacle1040"
+	pose [8.000000000000004 10.259035218277159 0 0]
+)
+
+obstacle
+(
+	name "obstacle1041"
+	pose [8.150000000000004 10.32076668805065 0 0]
+)
+
+obstacle
+(
+	name "obstacle1042"
+	pose [8.300000000000004 10.388372150365695 0 0]
+)
+
+obstacle
+(
+	name "obstacle1043"
+	pose [8.450000000000005 10.459764329194098 0 0]
+)
+
+obstacle
+(
+	name "obstacle1044"
+	pose [8.600000000000005 10.532170555154984 0 0]
+)
+
+obstacle
+(
+	name "obstacle1045"
+	pose [8.750000000000005 10.602274926959485 0 0]
+)
+
+obstacle
+(
+	name "obstacle1046"
+	pose [8.900000000000006 10.666449275109022 0 0]
+)
+
+obstacle
+(
+	name "obstacle1047"
+	pose [9.050000000000006 10.721053999928815 0 0]
+)
+
+obstacle
+(
+	name "obstacle1048"
+	pose [9.200000000000006 10.762775710266544 0 0]
+)
+
+obstacle
+(
+	name "obstacle1049"
+	pose [9.350000000000007 10.788958743884885 0 0]
+)
+
+obstacle
+(
+	name "obstacle1050"
+	pose [9.500000000000007 10.797884643800463 0 0]
+)
+
+obstacle
+(
+	name "obstacle1051"
+	pose [9.650000000000007 10.788958743884884 0 0]
+)
+
+obstacle
+(
+	name "obstacle1052"
+	pose [9.800000000000008 10.76277571026654 0 0]
+)
+
+obstacle
+(
+	name "obstacle1053"
+	pose [9.950000000000008 10.72105399992881 0 0]
+)
+
+obstacle
+(
+	name "obstacle1054"
+	pose [10.100000000000009 10.666449275109017 0 0]
+)
+
+obstacle
+(
+	name "obstacle1055"
+	pose [10.250000000000009 10.602274926959478 0 0]
+)
+
+obstacle
+(
+	name "obstacle1056"
+	pose [10.40000000000001 10.532170555154979 0 0]
+)
+
+obstacle
+(
+	name "obstacle1057"
+	pose [10.55000000000001 10.45976432919409 0 0]
+)
+
+obstacle
+(
+	name "obstacle1058"
+	pose [10.70000000000001 10.38837215036569 0 0]
+)
+
+obstacle
+(
+	name "obstacle1059"
+	pose [10.85000000000001 10.320766688050643 0 0]
+)
+
+obstacle
+(
+	name "obstacle1060"
+	pose [11.00000000000001 10.259035218277154 0 0]
+)
+
+obstacle
+(
+	name "obstacle1061"
+	pose [11.150000000000011 10.204529870403569 0 0]
+)
+
+obstacle
+(
+	name "obstacle1062"
+	pose [11.300000000000011 10.157900333026902 0 0]
+)
+
+obstacle
+(
+	name "obstacle1063"
+	pose [11.450000000000012 10.119189424535957 0 0]
+)
+
+obstacle
+(
+	name "obstacle1064"
+	pose [11.600000000000012 10.08796720111138 0 0]
+)
+
+obstacle
+(
+	name "obstacle1065"
+	pose [11.750000000000012 10.06347931027458 0 0]
+)
+
+obstacle
+(
+	name "obstacle1066"
+	pose [11.900000000000013 10.044789065248734 0 0]
+)
+
+obstacle
+(
+	name "obstacle1067"
+	pose [12.050000000000013 10.030898697482936 0 0]
+)
+
+obstacle
+(
+	name "obstacle1068"
+	pose [12.200000000000014 10.020841871796858 0 0]
+)
+
+obstacle
+(
+	name "obstacle1069"
+	pose [12.350000000000014 10.013745534811067 0 0]
+)
+
+obstacle
+(
+	name "obstacle1070"
+	pose [12.500000000000014 10.008863697745895 0 0]
+)
+
+obstacle
+(
+	name "obstacle1071"
+	pose [12.650000000000015 10.005588517411088 0 0]
+)
+
+obstacle
+(
+	name "obstacle1072"
+	pose [12.800000000000015 10.003445138236478 0 0]
+)
+
+obstacle
+(
+	name "obstacle1073"
+	pose [12.950000000000015 10.00207656280733 0 0]
+)
+
+obstacle
+(
+	name "obstacle1074"
+	pose [13.100000000000016 10.00122380398753 0 0]
+)
+
+obstacle
+(
+	name "obstacle1075"
+	pose [13.250000000000016 10.00070519143809 0 0]
+)
+
+obstacle
+(
+	name "obstacle1076"
+	pose [13.400000000000016 10.000397310984114 0 0]
+)
+
+obstacle
+(
+	name "obstacle1077"
+	pose [13.550000000000017 10.000218868109647 0 0]
+)
+
+obstacle
+(
+	name "obstacle1078"
+	pose [13.700000000000017 10.000117886147775 0 0]
+)
+
+obstacle
+(
+	name "obstacle1079"
+	pose [13.850000000000017 10.000062082820573 0 0]
+)
+
+obstacle
+(
+	name "obstacle1080"
+	pose [14.000000000000018 10.000031967485539 0 0]
+)
+
+obstacle
+(
+	name "obstacle1081"
+	pose [14.150000000000018 10.000016094366588 0 0]
+)
+
+obstacle
+(
+	name "obstacle1082"
+	pose [14.300000000000018 10.000007922599007 0 0]
+)
+
+obstacle
+(
+	name "obstacle1083"
+	pose [14.450000000000019 10.000003813202202 0 0]
+)
+
+obstacle
+(
+	name "obstacle1084"
+	pose [14.60000000000002 10.000001794487218 0 0]
+)
+
+obstacle
+(
+	name "obstacle1085"
+	pose [14.75000000000002 10.000000825694283 0 0]
+)
+
+obstacle
+(
+	name "obstacle1086"
+	pose [14.90000000000002 10.000000371472407 0 0]
+)
+
+obstacle
+(
+	name "obstacle1087"
+	pose [15.05000000000002 10.000000163403824 0 0]
+)
+
+obstacle
+(
+	name "obstacle1088"
+	pose [15.20000000000002 10.000000070279109 0 0]
+)
+
+obstacle
+(
+	name "obstacle1089"
+	pose [15.350000000000021 10.000000029554162 0 0]
+)
+
+obstacle
+(
+	name "obstacle1090"
+	pose [15.500000000000021 10.000000012151768 0 0]
+)
+
+obstacle
+(
+	name "obstacle1091"
+	pose [15.650000000000022 10.00000000488527 0 0]
+)
+
+obstacle
+(
+	name "obstacle1092"
+	pose [15.800000000000022 10.000000001920286 0 0]
+)
+
+obstacle
+(
+	name "obstacle1093"
+	pose [15.950000000000022 10.000000000738027 0 0]
+)
+
+obstacle
+(
+	name "obstacle1094"
+	pose [16.100000000000023 10.000000000277335 0 0]
+)
+
+obstacle
+(
+	name "obstacle1095"
+	pose [16.25000000000002 10.000000000101899 0 0]
+)
+
+obstacle
+(
+	name "obstacle1096"
+	pose [16.400000000000023 10.000000000036607 0 0]
+)
+
+obstacle
+(
+	name "obstacle1097"
+	pose [16.550000000000026 10.000000000012857 0 0]
+)
+
+obstacle
+(
+	name "obstacle1098"
+	pose [16.700000000000024 10.000000000004416 0 0]
+)
+
+obstacle
+(
+	name "obstacle1099"
+	pose [16.850000000000023 10.000000000001483 0 0]
+)
