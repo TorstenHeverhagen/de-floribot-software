@@ -65,18 +65,19 @@ def callback(data):
     channel.name = "angle in degrees"
     message1.channels.append(channel) 
     
-    #print message1
-    #print len(message1.points)
+    #print message1.channels[0].values[4]
+    #print message1.channels.values[3]
     #print '#######################################################' 
     talker(message1)   
 
 def talker(send):
-    p = rospy.Publisher('ObjCloud', PointCloud)
+    #p = rospy.Publisher('ObjCloud', PointCloud)
     p.publish(send)       
     
     
 if __name__ == '__main__':
     rospy.init_node('ObjektCloud', anonymous=True)
+    p = rospy.Publisher('ObjCloud', PointCloud)
     listener()
     #print message
     
