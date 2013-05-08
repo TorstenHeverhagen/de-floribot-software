@@ -17,10 +17,10 @@ Floribot_base::Floribot_base(ros::NodeHandle n) : n_(n)
 {
 	cmd_vel_sub = n_.subscribe("cmd_vel", 1,
 			&Floribot_base::cmd_vel_message, this);
-    tick_rate = 100;
-    n_.getParam("/floribot_base/tick_rate", tick_rate);
     tty_ssc_32 = "/dev/ttyS1";
     n_.getParam("/floribot_base/tty_ssc_32", tty_ssc_32);
+    tick_rate = 100;
+    n_.getParam("/floribot_base/tick_rate", tick_rate);
 } // end of constructor
 
 Floribot_base::~Floribot_base()
@@ -38,7 +38,8 @@ Floribot_base::~Floribot_base()
 void Floribot_base::cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
+	setVelX(msg->linear.x);
+	setVelYaw(msg->angular.z);
 	// End of user code don't delete this line
 }
 
@@ -50,7 +51,13 @@ void Floribot_base::cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
 void Floribot_base::tick ()
 {
 	// Start of user code call your own code
-	// TODO: fill with your code
+
+    if (explorer_comm_set_speeds(m_ssc32Dev,
+                           vel_x,
+                           vel_yaw) < 0)
+    {
+    	perror("failed to set speeds to Explorer");
+    }
 	// End of user code don't delete this line
 }
 
@@ -66,7 +73,26 @@ int Floribot_base::get_tick_rate ()
 
 // Start of user code additional members
 
-// TODO: define your methods
+
+double Floribot_base::getVelX() const
+{
+    return vel_x;
+}
+
+void Floribot_base::setVelX(double velX)
+{
+    vel_x = velX;
+}
+
+double Floribot_base::getVelYaw() const
+{
+    return vel_yaw;
+}
+
+void Floribot_base::setVelYaw(double velYaw)
+{
+    vel_yaw = velYaw;
+}
 
 // End of user code don't delete this line
 

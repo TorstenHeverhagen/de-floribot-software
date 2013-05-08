@@ -11,6 +11,7 @@
 #include <ros/ros.h>
 #include <string>
 #include <geometry_msgs/Twist.h>
+#include "explorer_comms.h"
 
 namespace floribot_base {
 
@@ -24,13 +25,22 @@ public:
 
 	void cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg);
 
+    double getVelX() const;
+    void setVelX(double velX);
+    double getVelYaw() const;
+    void setVelYaw(double velYaw);
 private:
 	ros::NodeHandle n_;
-	int tick_rate;
 	std::string tty_ssc_32;
+	int tick_rate;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
-	// TODO: declare your variables and methods
+
+    double vel_x;
+    double vel_yaw;
+    /** The SSC-32 comm port **/
+    explorer_comm_t *m_ssc32Dev;
+
 	// End of user code  don't delete this line
 };
 

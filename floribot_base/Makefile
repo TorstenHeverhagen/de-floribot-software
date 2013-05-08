@@ -38,9 +38,6 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/floribot/ros_workspace/floribot_base
 
@@ -52,8 +49,8 @@ CMAKE_BINARY_DIR = /home/floribot/ros_workspace/floribot_base
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -178,6 +175,19 @@ clean-test-results: cmake_check_build_system
 clean-test-results/fast:
 	$(MAKE) -f CMakeFiles/clean-test-results.dir/build.make CMakeFiles/clean-test-results.dir/build
 .PHONY : clean-test-results/fast
+
+#=============================================================================
+# Target rules for targets named explorer_comms
+
+# Build rule for target.
+explorer_comms: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 explorer_comms
+.PHONY : explorer_comms
+
+# fast build rule for target.
+explorer_comms/fast:
+	$(MAKE) -f CMakeFiles/explorer_comms.dir/build.make CMakeFiles/explorer_comms.dir/build
+.PHONY : explorer_comms/fast
 
 #=============================================================================
 # Target rules for targets named floribot_base_node
@@ -338,6 +348,21 @@ src/Floribot_base.s:
 .PHONY : src/Floribot_base.s
 
 # target to build an object file
+src/explorer_comms.o:
+	$(MAKE) -f CMakeFiles/explorer_comms.dir/build.make CMakeFiles/explorer_comms.dir/src/explorer_comms.o
+.PHONY : src/explorer_comms.o
+
+# target to preprocess a source file
+src/explorer_comms.i:
+	$(MAKE) -f CMakeFiles/explorer_comms.dir/build.make CMakeFiles/explorer_comms.dir/src/explorer_comms.i
+.PHONY : src/explorer_comms.i
+
+# target to generate assembly for a file
+src/explorer_comms.s:
+	$(MAKE) -f CMakeFiles/explorer_comms.dir/build.make CMakeFiles/explorer_comms.dir/src/explorer_comms.s
+.PHONY : src/explorer_comms.s
+
+# target to build an object file
 src/floribot_base_node.o:
 	$(MAKE) -f CMakeFiles/floribot_base_node.dir/build.make CMakeFiles/floribot_base_node.dir/src/floribot_base_node.o
 .PHONY : src/floribot_base_node.o
@@ -365,6 +390,7 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
+	@echo "... explorer_comms"
 	@echo "... floribot_base_node"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
@@ -380,6 +406,9 @@ help:
 	@echo "... src/Floribot_base.o"
 	@echo "... src/Floribot_base.i"
 	@echo "... src/Floribot_base.s"
+	@echo "... src/explorer_comms.o"
+	@echo "... src/explorer_comms.i"
+	@echo "... src/explorer_comms.s"
 	@echo "... src/floribot_base_node.o"
 	@echo "... src/floribot_base_node.i"
 	@echo "... src/floribot_base_node.s"
