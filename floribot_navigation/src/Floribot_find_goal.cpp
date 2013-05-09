@@ -16,23 +16,36 @@ namespace floribot_navigation {
 
 Floribot_find_goal::Floribot_find_goal(ros::NodeHandle n) : n_(n)
 {
-	count = 0;
+	task1_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task1_cmd_vel",1);
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_find_goal::scan_message, this);
+    tick_rate = 100;
+    n_.getParam("/floribot_find_goal/tick_rate", tick_rate);
+    // Start of user code constructor
+    count = 1;
+    angular = 0;
+    linear = 0;
+    // End of user code don't delete this line
 
-	pub = n_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-
-	tick_rate = 100;
-	n_.getParam("/floribot_find_goal/tick_rate", tick_rate);
 } // end of constructor
 
 Floribot_find_goal::~Floribot_find_goal()
 {
-	// Start of user code destructor
+    // Start of user code destructor
 	// TODO: fill with your code
 
 	// End of user code don't delete this line
 } // end of destructor
+
+/**
+ * publish messages to topic task1_cmd_vel
+ *
+ * @generated
+ */
+void Floribot_find_goal::publish_task1_cmd_vel (geometry_msgs::Twist msg)
+{
+	task1_cmd_vel_pub.publish(msg);
+}
 
 /**
  * process messages from topic scan
@@ -98,7 +111,7 @@ void Floribot_find_goal::tick ()
 	// Start of user code call your own code
 	// TODO: fill with your code
 
-	pub.publish(last_published);
+	publish_task1_cmd_vel(last_published);
 
 	// End of user code don't delete this line
 }

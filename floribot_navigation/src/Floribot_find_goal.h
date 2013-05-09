@@ -10,8 +10,8 @@
 
 #include <ros/ros.h>
 #include <string>
-#include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/LaserScan.h>
 
 namespace floribot_navigation {
 
@@ -23,13 +23,14 @@ public:
 	void tick();
 	int get_tick_rate();
 
+	void publish_task1_cmd_vel (geometry_msgs::Twist msg);
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 
 private:
 	ros::NodeHandle n_;
 	int tick_rate;
+	ros::Publisher task1_cmd_vel_pub;
 	ros::Subscriber scan_sub;
-
 	// Start of user code additional members
 	// TODO: declare your variables and methods
 	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
@@ -37,7 +38,6 @@ private:
 	float calcFieldOfAttentionY(const sensor_msgs::LaserScan::ConstPtr &scan, float &searchRange, float &angleIncrement, int &numRanges, float &y, float &yr, float &yl);
 	void setVelocity(float &x, float &y, float &speed);
 
-	ros::Publisher pub;
 	geometry_msgs::Twist last_published;
 	float angular, linear;
 	int count;
