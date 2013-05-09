@@ -11,6 +11,7 @@
 #include <ros/ros.h>
 #include <string>
 #include <geometry_msgs/Twist.h>
+#include "explorer_comms.h"
 
 namespace floribot_base {
 
@@ -24,6 +25,10 @@ public:
 
 	void cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg);
 
+    double getVelX() const;
+    void setVelX(double velX);
+    double getVelYaw() const;
+    void setVelYaw(double velYaw);
 private:
 	ros::NodeHandle n_;
 	int tick_rate;
