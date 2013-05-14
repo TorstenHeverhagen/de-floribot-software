@@ -26,6 +26,7 @@ Floribot_wiimote::Floribot_wiimote(ros::NodeHandle n) : n_(n)
     // Start of user code constructor
     actual_state = MANUAL;
     next_state = MANUAL;
+    new_msg = false;
     // End of user code don't delete this line
 
 } // end of constructor
@@ -67,7 +68,8 @@ void Floribot_wiimote::task1_cmd_vel_message (const geometry_msgs::Twist::ConstP
 void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
+	joy_msg = *msg;
+	new_msg = true;
 	// End of user code don't delete this line
 }
 
@@ -89,27 +91,29 @@ void Floribot_wiimote::publish_cmd_vel (geometry_msgs::Twist msg)
 void Floribot_wiimote::tick ()
 {
 	// Start of user code call your own code
+	if (new_msg) {
+		// 1 Button
+		bool oneBtn = joy_msg.buttons[0];
+		// 2 Button
+		bool twoBtn = joy_msg.buttons[1];
 
-	// 1 Button
-	bool oneBtn = joy_msg.buttons[0];
-	// 2 Button
-	bool twoBtn = joy_msg.buttons[1];
+		switch (actual_state) {
+			case MANUAL:
+				publish_cmd_vel(joy_to_vel());
+				if (twoBtn) next_state = TASK_1_START;
+				break;
 
-	switch (actual_state) {
-		case MANUAL:
-			publish_cmd_vel(joy_to_vel());
-			if (twoBtn) next_state = TASK_1_START;
-			break;
-
-		case TASK_1_START:
-			publish_cmd_vel(task1_vel);
-			if (oneBtn) next_state = MANUAL;
-			break;
-		default:
-			next_state = MANUAL;
-			break;
+			case TASK_1_START:
+				publish_cmd_vel(task1_vel);
+				if (oneBtn) next_state = MANUAL;
+				break;
+			default:
+				next_state = MANUAL;
+				break;
+		}
+		actual_state = next_state;
+		new_msg = false;
 	}
-	actual_state = next_state;
 	// End of user code don't delete this line
 }
 

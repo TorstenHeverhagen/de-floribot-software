@@ -59,6 +59,7 @@ private:
 	sensor_msgs::Joy joy_msg;
 	ControlMode_t actual_state;
 	ControlMode_t next_state;
+	bool new_msg;
 
 	geometry_msgs::Twist task1_vel;
 	/* ---Constants--- */
