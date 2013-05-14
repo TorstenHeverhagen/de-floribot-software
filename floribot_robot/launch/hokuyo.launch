@@ -1,0 +1,10 @@
+<launch>
+  <node name="laser" pkg="hokuyo_node" type="hokuyo_node">
+    <param name="frame_id" value="/laser"/>
+    <!-- param name="cluster" value="1"/ -->
+    <!-- param name="skip" value="1"/-->
+    <!-- param name="intensity" value="true"/-->
+    <!-- param name="min_ang" value="-1.047"/ -->
+    <!-- param name="max_ang" value="1.047"/ -->
+  </node>
+</launch>
