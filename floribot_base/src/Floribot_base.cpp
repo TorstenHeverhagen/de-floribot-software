@@ -22,7 +22,26 @@ Floribot_base::Floribot_base(ros::NodeHandle n) : n_(n)
     tty_ssc_32 = "/dev/ttyS1";
     n_.getParam("/floribot_base/tty_ssc_32", tty_ssc_32);
     // Start of user code constructor
-    // TODO: fill with your code
+    vel_x = 0;
+    vel_yaw = 0;
+
+    m_ssc32Dev = 0;
+
+	// attempt to open and interact with the SSC-32 board
+	m_ssc32Dev = explorer_comm_create("/dev/ttyS1");
+	if (m_ssc32Dev == 0)
+	{
+		perror("Can't open serial port");
+	}
+	else
+	{
+		if (explorer_comm_open(m_ssc32Dev) < 0)
+		{
+			explorer_comm_destroy(m_ssc32Dev);
+			m_ssc32Dev = 0;
+			perror("failed to connect to Explorer");
+		}
+	}
     // End of user code don't delete this line
 
 } // end of constructor
@@ -30,7 +49,9 @@ Floribot_base::Floribot_base(ros::NodeHandle n) : n_(n)
 Floribot_base::~Floribot_base()
 {
     // Start of user code destructor
-    // TODO: fill with your code
+
+	explorer_comm_close(m_ssc32Dev);
+	m_ssc32Dev = 0;
     // End of user code don't delete this line
 } // end of destructor
 
