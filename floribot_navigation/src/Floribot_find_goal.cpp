@@ -16,8 +16,15 @@ namespace floribot_navigation {
 
 Floribot_find_goal::Floribot_find_goal(ros::NodeHandle n) : n_(n)
 {
+	linear = 0;
+	angular = 0;
+	count = 0;
+
+	searchRange = 1.5;
+	robotWidth = 0.45;
+	speed = 0.3;
 	task1_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task1_cmd_vel",1);
-	scan_sub = n_.subscribe("scan", 1,
+	scan_sub = n_.subscribe("scan", 10,
 			&Floribot_find_goal::scan_message, this);
     tick_rate = 100;
     n_.getParam("/floribot_find_goal/tick_rate", tick_rate);
@@ -71,31 +78,7 @@ void Floribot_find_goal::scan_message (const sensor_msgs::LaserScan::ConstPtr& m
 	}
 	else
 	{
-		int dir = 1;
-		if (count%2)
-		{
-			dir = -dir;
-		}
-
-		geometry_msgs::Twist vel;
-		ros::Rate rate(10);
-		for (int i = 0; i < 10; i++)
-		{
-			vel.angular.z = 0;
-			vel.linear.x = 0.5;
-			last_published = vel;
-			this->tick();
-			rate.sleep();
-		}
-		for (int i = 0; i < 20; i++)
-		{
-			vel.angular.z = dir * 3.14;
-			vel.linear.x = (3.14 * (0.75/2))/2;
-			last_published = vel;
-			this->tick();
-			rate.sleep();
-		}
-		count++;
+		this->turn();
 	}
 
 	// End of user code don't delete this line
@@ -134,24 +117,54 @@ void Floribot_find_goal::throughRow(const sensor_msgs::LaserScan::ConstPtr &scan
 {
 	// Durch Reihe navigieren
 
-	float searchRange = 1.0;
 	int numRanges = scan->ranges.size();
 	float angleIncrement = scan->angle_increment;
 
-	float robotWidth = 0.4;
-	float speed = 0.2;
 
-	float x = 0;
+	float x = 1;
 	float y = 0, yr = 0, yl = 0;
 
 	x = this->calcFieldOfAttentionX(scan, searchRange, angleIncrement, numRanges, robotWidth, x);
 	y = this->calcFieldOfAttentionY(scan, searchRange, angleIncrement, numRanges, y, yr, yl);
 
+	printf("x= %f, y= %f\n",x,y);
+
 	this->setVelocity(x, y, speed);
+}
+
+void Floribot_find_goal::turn()
+{
+	int dir = 1;
+	if (count%2)
+	{
+		dir = -dir;
+	}
+
+
+	geometry_msgs::Twist vel;
+	ros::Rate rate(10);
+	for (int i = 0; i < 50; i++)
+	{
+		vel.angular.z = 0;
+		vel.linear.x = 0.2;
+		last_published = vel;
+		this->tick();
+		rate.sleep();
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		vel.angular.z = dir * 3.14 / 10;
+		//vel.linear.x = ((3.14 * (0.75))/2) / 10;
+		last_published = vel;
+		this->tick();
+		rate.sleep();
+	}
+	count++;
 }
 
 float Floribot_find_goal::calcFieldOfAttentionX(const sensor_msgs::LaserScan::ConstPtr &scan, float &searchRange, float &angleIncrement, int &numRanges, float &robotWidth, float &x)
 {
+	x = 0;
 	float y = 0;
 	int count = 0;
 
@@ -161,7 +174,7 @@ float Floribot_find_goal::calcFieldOfAttentionX(const sensor_msgs::LaserScan::Co
 		{
 			y = sin((i-(numRanges/2)) * angleIncrement) * scan->ranges[i];
 
-			if (y > -robotWidth/2 && y < robotWidth/2)
+			if (-robotWidth/2 < y && y < robotWidth/2)
 			{
 				x += cos((i-(numRanges/2)) * angleIncrement) * scan->ranges[i];
 				count++;
@@ -169,7 +182,7 @@ float Floribot_find_goal::calcFieldOfAttentionX(const sensor_msgs::LaserScan::Co
 		}
 	}
 
-	if (count != 0)
+	if (count != 0 && x != 0)
 	{
 		x /= count;
 	}

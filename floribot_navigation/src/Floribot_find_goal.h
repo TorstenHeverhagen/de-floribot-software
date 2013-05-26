@@ -34,11 +34,14 @@ private:
 	// Start of user code additional members
 	// TODO: declare your variables and methods
 	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
+	void turn();
 	float calcFieldOfAttentionX(const sensor_msgs::LaserScan::ConstPtr &scan, float &searchRange, float &angleIncrement, int &numRanges, float &robotWidth, float &x);
 	float calcFieldOfAttentionY(const sensor_msgs::LaserScan::ConstPtr &scan, float &searchRange, float &angleIncrement, int &numRanges, float &y, float &yr, float &yl);
 	void setVelocity(float &x, float &y, float &speed);
 
 	geometry_msgs::Twist last_published;
+
+	float searchRange, robotWidth, speed;
 	float angular, linear;
 	int count;
 	// End of user code  don't delete this line
