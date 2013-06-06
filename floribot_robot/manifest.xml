@@ -9,7 +9,11 @@
   <review status="unreviewed" notes=""/>
   <url>http://floribot.de</url>
   <depend package="roscpp"/>
-  <depend package="wiimote"/>
-  <depend package="floribot_wiimote"/>
+  <depend package="floribot_task1"/>
   <depend package="floribot_base"/>
+  <depend package="sensor_msgs"/>
+  <depend package="floribot_task2"/>
+  <depend package="geometry_msgs"/>
+  <depend package="floribot_wiimote"/>
+  <depend package="wiimote"/>
 </package>
