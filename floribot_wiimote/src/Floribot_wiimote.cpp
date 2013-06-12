@@ -56,7 +56,8 @@ void Floribot_wiimote::publish_cmd_vel (geometry_msgs::Twist msg)
 void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
+	joy_msg = *msg;
+	new_msg = true;
 	// End of user code don't delete this line
 }
 
@@ -68,7 +69,7 @@ void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
 void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
+	task1_vel = *msg;
 	// End of user code don't delete this line
 }
 
