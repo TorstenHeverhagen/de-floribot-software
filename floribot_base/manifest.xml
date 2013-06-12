@@ -10,4 +10,6 @@
   <url>http://floribot.de</url>
   <depend package="roscpp"/>
   <depend package="geometry_msgs"/>
+  <depend package="phidgets"/>
+  <depend package="std_msgs"/>
 </package>
