@@ -255,6 +255,19 @@ rospack_gensrv/fast:
 .PHONY : rospack_gensrv/fast
 
 #=============================================================================
+# Target rules for targets named simulink_floribot_wiimote
+
+# Build rule for target.
+simulink_floribot_wiimote: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simulink_floribot_wiimote
+.PHONY : simulink_floribot_wiimote
+
+# fast build rule for target.
+simulink_floribot_wiimote/fast:
+	$(MAKE) -f CMakeFiles/simulink_floribot_wiimote.dir/build.make CMakeFiles/simulink_floribot_wiimote.dir/build
+.PHONY : simulink_floribot_wiimote/fast
+
+#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -349,6 +362,21 @@ src/floribot_wiimote_node.s:
 	$(MAKE) -f CMakeFiles/floribot_wiimote_node.dir/build.make CMakeFiles/floribot_wiimote_node.dir/src/floribot_wiimote_node.s
 .PHONY : src/floribot_wiimote_node.s
 
+# target to build an object file
+src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.o:
+	$(MAKE) -f CMakeFiles/simulink_floribot_wiimote.dir/build.make CMakeFiles/simulink_floribot_wiimote.dir/src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.o
+.PHONY : src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.o
+
+# target to preprocess a source file
+src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.i:
+	$(MAKE) -f CMakeFiles/simulink_floribot_wiimote.dir/build.make CMakeFiles/simulink_floribot_wiimote.dir/src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.i
+.PHONY : src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.i
+
+# target to generate assembly for a file
+src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.s:
+	$(MAKE) -f CMakeFiles/simulink_floribot_wiimote.dir/build.make CMakeFiles/simulink_floribot_wiimote.dir/src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.s
+.PHONY : src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -369,6 +397,7 @@ help:
 	@echo "... rospack_genmsg"
 	@echo "... rospack_genmsg_libexe"
 	@echo "... rospack_gensrv"
+	@echo "... simulink_floribot_wiimote"
 	@echo "... test"
 	@echo "... test-future"
 	@echo "... test-results"
@@ -380,6 +409,9 @@ help:
 	@echo "... src/floribot_wiimote_node.o"
 	@echo "... src/floribot_wiimote_node.i"
 	@echo "... src/floribot_wiimote_node.s"
+	@echo "... src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.o"
+	@echo "... src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.i"
+	@echo "... src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.s"
 .PHONY : help
 
 

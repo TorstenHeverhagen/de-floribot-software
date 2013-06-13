@@ -23,6 +23,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 rosbuild_add_library(Floribot_wiimote src/Floribot_wiimote.cpp)
 rosbuild_add_executable(floribot_wiimote_node src/floribot_wiimote_node.cpp)
 target_link_libraries(floribot_wiimote_node Floribot_wiimote)
+rosbuild_add_library(simulink_floribot_wiimote src/simulink/floribot_wiimote_ert_rtw/floribot_wiimote.cpp)
+target_link_libraries(floribot_wiimote_node simulink_floribot_wiimote)
 
 #Start of user code user defined libraries
 
