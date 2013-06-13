@@ -29,8 +29,12 @@ public:
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
 
+	// Start of user code additional public members
+	// TODO: declare your variables and methods
+	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
+	bool direction;
 	int tick_rate;
 	ros::Subscriber scan_sub;
 	ros::Publisher task_cmd_vel_pub;

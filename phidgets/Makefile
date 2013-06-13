@@ -16,6 +16,9 @@ SUFFIXES =
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
+# Produce verbose output by default.
+VERBOSE = 1
+
 # Suppress display of executed commands.
 $(VERBOSE).SILENT:
 
@@ -187,84 +190,6 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
-# Target rules for targets named high_speed_encoder
-
-# Build rule for target.
-high_speed_encoder: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 high_speed_encoder
-.PHONY : high_speed_encoder
-
-# fast build rule for target.
-high_speed_encoder/fast:
-	$(MAKE) -f CMakeFiles/high_speed_encoder.dir/build.make CMakeFiles/high_speed_encoder.dir/build
-.PHONY : high_speed_encoder/fast
-
-#=============================================================================
-# Target rules for targets named high_speed_encoder_client
-
-# Build rule for target.
-high_speed_encoder_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 high_speed_encoder_client
-.PHONY : high_speed_encoder_client
-
-# fast build rule for target.
-high_speed_encoder_client/fast:
-	$(MAKE) -f CMakeFiles/high_speed_encoder_client.dir/build.make CMakeFiles/high_speed_encoder_client.dir/build
-.PHONY : high_speed_encoder_client/fast
-
-#=============================================================================
-# Target rules for targets named interface_kit
-
-# Build rule for target.
-interface_kit: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 interface_kit
-.PHONY : interface_kit
-
-# fast build rule for target.
-interface_kit/fast:
-	$(MAKE) -f CMakeFiles/interface_kit.dir/build.make CMakeFiles/interface_kit.dir/build
-.PHONY : interface_kit/fast
-
-#=============================================================================
-# Target rules for targets named interface_kit_client
-
-# Build rule for target.
-interface_kit_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 interface_kit_client
-.PHONY : interface_kit_client
-
-# fast build rule for target.
-interface_kit_client/fast:
-	$(MAKE) -f CMakeFiles/interface_kit_client.dir/build.make CMakeFiles/interface_kit_client.dir/build
-.PHONY : interface_kit_client/fast
-
-#=============================================================================
-# Target rules for targets named manager
-
-# Build rule for target.
-manager: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 manager
-.PHONY : manager
-
-# fast build rule for target.
-manager/fast:
-	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/build
-.PHONY : manager/fast
-
-#=============================================================================
-# Target rules for targets named odometry
-
-# Build rule for target.
-odometry: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 odometry
-.PHONY : odometry
-
-# fast build rule for target.
-odometry/fast:
-	$(MAKE) -f CMakeFiles/odometry.dir/build.make CMakeFiles/odometry.dir/build
-.PHONY : odometry/fast
-
-#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -304,19 +229,6 @@ rospack_genmsg/fast:
 .PHONY : rospack_genmsg/fast
 
 #=============================================================================
-# Target rules for targets named rospack_genmsg_all
-
-# Build rule for target.
-rospack_genmsg_all: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rospack_genmsg_all
-.PHONY : rospack_genmsg_all
-
-# fast build rule for target.
-rospack_genmsg_all/fast:
-	$(MAKE) -f CMakeFiles/rospack_genmsg_all.dir/build.make CMakeFiles/rospack_genmsg_all.dir/build
-.PHONY : rospack_genmsg_all/fast
-
-#=============================================================================
 # Target rules for targets named rospack_genmsg_libexe
 
 # Build rule for target.
@@ -341,19 +253,6 @@ rospack_gensrv: cmake_check_build_system
 rospack_gensrv/fast:
 	$(MAKE) -f CMakeFiles/rospack_gensrv.dir/build.make CMakeFiles/rospack_gensrv.dir/build
 .PHONY : rospack_gensrv/fast
-
-#=============================================================================
-# Target rules for targets named rospack_gensrv_all
-
-# Build rule for target.
-rospack_gensrv_all: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rospack_gensrv_all
-.PHONY : rospack_gensrv_all
-
-# fast build rule for target.
-rospack_gensrv_all/fast:
-	$(MAKE) -f CMakeFiles/rospack_gensrv_all.dir/build.make CMakeFiles/rospack_gensrv_all.dir/build
-.PHONY : rospack_gensrv_all/fast
 
 #=============================================================================
 # Target rules for targets named test
@@ -420,96 +319,6 @@ tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
 
-# target to build an object file
-src/high_speed_encoder.o:
-	$(MAKE) -f CMakeFiles/high_speed_encoder.dir/build.make CMakeFiles/high_speed_encoder.dir/src/high_speed_encoder.o
-.PHONY : src/high_speed_encoder.o
-
-# target to preprocess a source file
-src/high_speed_encoder.i:
-	$(MAKE) -f CMakeFiles/high_speed_encoder.dir/build.make CMakeFiles/high_speed_encoder.dir/src/high_speed_encoder.i
-.PHONY : src/high_speed_encoder.i
-
-# target to generate assembly for a file
-src/high_speed_encoder.s:
-	$(MAKE) -f CMakeFiles/high_speed_encoder.dir/build.make CMakeFiles/high_speed_encoder.dir/src/high_speed_encoder.s
-.PHONY : src/high_speed_encoder.s
-
-# target to build an object file
-src/high_speed_encoder_client.o:
-	$(MAKE) -f CMakeFiles/high_speed_encoder_client.dir/build.make CMakeFiles/high_speed_encoder_client.dir/src/high_speed_encoder_client.o
-.PHONY : src/high_speed_encoder_client.o
-
-# target to preprocess a source file
-src/high_speed_encoder_client.i:
-	$(MAKE) -f CMakeFiles/high_speed_encoder_client.dir/build.make CMakeFiles/high_speed_encoder_client.dir/src/high_speed_encoder_client.i
-.PHONY : src/high_speed_encoder_client.i
-
-# target to generate assembly for a file
-src/high_speed_encoder_client.s:
-	$(MAKE) -f CMakeFiles/high_speed_encoder_client.dir/build.make CMakeFiles/high_speed_encoder_client.dir/src/high_speed_encoder_client.s
-.PHONY : src/high_speed_encoder_client.s
-
-# target to build an object file
-src/interface_kit.o:
-	$(MAKE) -f CMakeFiles/interface_kit.dir/build.make CMakeFiles/interface_kit.dir/src/interface_kit.o
-.PHONY : src/interface_kit.o
-
-# target to preprocess a source file
-src/interface_kit.i:
-	$(MAKE) -f CMakeFiles/interface_kit.dir/build.make CMakeFiles/interface_kit.dir/src/interface_kit.i
-.PHONY : src/interface_kit.i
-
-# target to generate assembly for a file
-src/interface_kit.s:
-	$(MAKE) -f CMakeFiles/interface_kit.dir/build.make CMakeFiles/interface_kit.dir/src/interface_kit.s
-.PHONY : src/interface_kit.s
-
-# target to build an object file
-src/interface_kit_client.o:
-	$(MAKE) -f CMakeFiles/interface_kit_client.dir/build.make CMakeFiles/interface_kit_client.dir/src/interface_kit_client.o
-.PHONY : src/interface_kit_client.o
-
-# target to preprocess a source file
-src/interface_kit_client.i:
-	$(MAKE) -f CMakeFiles/interface_kit_client.dir/build.make CMakeFiles/interface_kit_client.dir/src/interface_kit_client.i
-.PHONY : src/interface_kit_client.i
-
-# target to generate assembly for a file
-src/interface_kit_client.s:
-	$(MAKE) -f CMakeFiles/interface_kit_client.dir/build.make CMakeFiles/interface_kit_client.dir/src/interface_kit_client.s
-.PHONY : src/interface_kit_client.s
-
-# target to build an object file
-src/manager.o:
-	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/src/manager.o
-.PHONY : src/manager.o
-
-# target to preprocess a source file
-src/manager.i:
-	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/src/manager.i
-.PHONY : src/manager.i
-
-# target to generate assembly for a file
-src/manager.s:
-	$(MAKE) -f CMakeFiles/manager.dir/build.make CMakeFiles/manager.dir/src/manager.s
-.PHONY : src/manager.s
-
-# target to build an object file
-src/odometry.o:
-	$(MAKE) -f CMakeFiles/odometry.dir/build.make CMakeFiles/odometry.dir/src/odometry.o
-.PHONY : src/odometry.o
-
-# target to preprocess a source file
-src/odometry.i:
-	$(MAKE) -f CMakeFiles/odometry.dir/build.make CMakeFiles/odometry.dir/src/odometry.i
-.PHONY : src/odometry.i
-
-# target to generate assembly for a file
-src/odometry.s:
-	$(MAKE) -f CMakeFiles/odometry.dir/build.make CMakeFiles/odometry.dir/src/odometry.s
-.PHONY : src/odometry.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -524,43 +333,17 @@ help:
 	@echo "... ROSBUILD_gensrv_py"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
-	@echo "... high_speed_encoder"
-	@echo "... high_speed_encoder_client"
-	@echo "... interface_kit"
-	@echo "... interface_kit_client"
-	@echo "... manager"
-	@echo "... odometry"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
 	@echo "... rospack_genmsg"
-	@echo "... rospack_genmsg_all"
 	@echo "... rospack_genmsg_libexe"
 	@echo "... rospack_gensrv"
-	@echo "... rospack_gensrv_all"
 	@echo "... test"
 	@echo "... test-future"
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
-	@echo "... src/high_speed_encoder.o"
-	@echo "... src/high_speed_encoder.i"
-	@echo "... src/high_speed_encoder.s"
-	@echo "... src/high_speed_encoder_client.o"
-	@echo "... src/high_speed_encoder_client.i"
-	@echo "... src/high_speed_encoder_client.s"
-	@echo "... src/interface_kit.o"
-	@echo "... src/interface_kit.i"
-	@echo "... src/interface_kit.s"
-	@echo "... src/interface_kit_client.o"
-	@echo "... src/interface_kit_client.i"
-	@echo "... src/interface_kit_client.s"
-	@echo "... src/manager.o"
-	@echo "... src/manager.i"
-	@echo "... src/manager.s"
-	@echo "... src/odometry.o"
-	@echo "... src/odometry.i"
-	@echo "... src/odometry.s"
 .PHONY : help
 
 

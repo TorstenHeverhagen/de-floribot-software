@@ -8,7 +8,7 @@
 
 #include "Floribot_find_goal.h"
 // Start of user code specific includes
-// TODO: include your own headers
+#include "Histogramm.h"
 
 // End of user code don't delete this line
 
@@ -55,49 +55,23 @@ void Floribot_find_goal::publish_task1_cmd_vel (geometry_msgs::Twist msg)
 void Floribot_find_goal::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
-	int numRanges = msg->ranges.size();
+	Histogramm y_hist(0.1, -2, 2);
+	Histogramm x_hist(0.1, 0, 2);
+	sensor_msgs::LaserScan scan = *msg;
 
-	float min = msg->ranges[0];
-	for (int i = 0; i < numRanges; i++)
-	{
-	      if (msg->ranges[i] < min)
-	          min = msg->ranges[i];
+	for (uint i = 0; i < scan.ranges.size(); i++) {
+		if(scan.ranges[i] < 2) {
+			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+			x_hist.put(x);
+			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
+			y_hist.put(y);
+		}
 	}
 
-	if (min < 1.0)
-	{
-		this->throughRow(msg);
-	}
-	else
-	{
-		int dir = 1;
-		if (count%2)
-		{
-			dir = -dir;
-		}
-
-		geometry_msgs::Twist vel;
-		ros::Rate rate(10);
-		for (int i = 0; i < 10; i++)
-		{
-			vel.angular.z = 0;
-			vel.linear.x = 0.5;
-			last_published = vel;
-			this->tick();
-			rate.sleep();
-		}
-		for (int i = 0; i < 20; i++)
-		{
-			vel.angular.z = dir * 3.14;
-			vel.linear.x = (3.14 * (0.75/2))/2;
-			last_published = vel;
-			this->tick();
-			rate.sleep();
-		}
-		count++;
-	}
-
+	ROS_INFO("x");
+	x_hist.print();
+	ROS_INFO("y");
+	y_hist.print();
 	// End of user code don't delete this line
 }
 
@@ -109,7 +83,6 @@ void Floribot_find_goal::scan_message (const sensor_msgs::LaserScan::ConstPtr& m
 void Floribot_find_goal::tick ()
 {
 	// Start of user code call your own code
-	// TODO: fill with your code
 
 	publish_task1_cmd_vel(last_published);
 

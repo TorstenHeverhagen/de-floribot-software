@@ -1,15 +1,15 @@
 /*
  * File: rtwtypes.h
  *
- * Code generated for Simulink model 'floribot_accu_watchdog'.
+ * Code generated for Simulink model 'floribot_wiimote'.
  *
- * Model version                  : 1.22
+ * Model version                  : 1.26
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 13 11:54:35 2013
+ * C/C++ source code generated on : Thu Jun 13 22:48:14 2013
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: Generic->32-bit x86 compatible
+ * Embedded hardware selection: 32-bit Generic
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
@@ -30,12 +30,12 @@
 
 /*=======================================================================*
  * Target hardware information
- *   Device type: Generic->32-bit x86 compatible
+ *   Device type: 32-bit Generic
  *   Number of bits:     char:   8    short:   16    int:  32
  *                       long:  32
  *                       native word size:  32
- *   Byte ordering: LittleEndian
- *   Signed integer division rounds to: Zero
+ *   Byte ordering: Unspecified
+ *   Signed integer division rounds to: Undefined
  *   Shift right on a signed integer as arithmetic shift: on
  *=======================================================================*/
 

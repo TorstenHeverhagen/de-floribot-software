@@ -1,21 +1,21 @@
 /*
- * File: floribot_accu_watchdog_private.h
+ * File: floribot_wiimote_private.h
  *
- * Code generated for Simulink model 'floribot_accu_watchdog'.
+ * Code generated for Simulink model 'floribot_wiimote'.
  *
- * Model version                  : 1.22
+ * Model version                  : 1.26
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 13 11:54:35 2013
+ * C/C++ source code generated on : Thu Jun 13 22:48:14 2013
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: Generic->32-bit x86 compatible
+ * Embedded hardware selection: 32-bit Generic
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_floribot_accu_watchdog_private_h_
-#define RTW_HEADER_floribot_accu_watchdog_private_h_
+#ifndef RTW_HEADER_floribot_wiimote_private_h_
+#define RTW_HEADER_floribot_wiimote_private_h_
 #include "rtwtypes.h"
 #ifndef __RTWTYPES_H__
 #error This file requires rtwtypes.h to be included
@@ -30,7 +30,7 @@
 #endif                                 /* RTWTYPES_ID_C08S16I32L32N32F1 */
 #endif                                 /* TMWTYPES_PREVIOUSLY_INCLUDED */
 #endif                                 /* __RTWTYPES_H__ */
-#endif                                 /* RTW_HEADER_floribot_accu_watchdog_private_h_ */
+#endif                                 /* RTW_HEADER_floribot_wiimote_private_h_ */
 
 /*
  * File trailer for generated code.
