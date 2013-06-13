@@ -20,6 +20,21 @@
 
 namespace floribot_wiimote {
 
+// Enumeration of available control modes
+enum ControlMode {
+	NO_CONTROL,
+	MANUAL,
+	TASK_1_SET,
+	TASK_1_START,
+	TASK_2,
+	TASK_3,
+	TASK_4,
+	TASK_5
+};
+
+// Type for control modes
+typedef ControlMode ControlMode_t;
+
 class Floribot_wiimote 
 {
 public:
