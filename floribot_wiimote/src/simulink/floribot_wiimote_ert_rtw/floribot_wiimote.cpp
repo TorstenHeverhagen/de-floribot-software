@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_wiimote'.
  *
- * Model version                  : 1.31
+ * Model version                  : 1.32
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Fri Jun 14 00:02:09 2013
+ * C/C++ source code generated on : Fri Jun 14 00:27:59 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -19,7 +19,7 @@
 
 /* Named constants for Chart: '<Root>/Chart' */
 #define floribot__DIRECT_PITCH_AXIS_DIV (10.0)
-#define floribot_w_DIRECT_ROLL_AXIS_DIV (30.0)
+#define floribot_w_DIRECT_ROLL_AXIS_DIV (-30.0)
 #define floribot_w_IN_control_x_and_yaw ((uint8_T)5U)
 #define floribot_wii_IN_NO_ACTIVE_CHILD ((uint8_T)0U)
 #define floribot_wiimote_IN_Down       ((uint8_T)1U)
