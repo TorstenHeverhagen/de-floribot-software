@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_accu_watchdog'.
  *
- * Model version                  : 1.11
+ * Model version                  : 1.22
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Mon Jun 10 21:21:52 2013
+ * C/C++ source code generated on : Thu Jun 13 11:54:35 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Generic->32-bit x86 compatible

@@ -9,6 +9,6 @@
   <review status="unreviewed" notes=""/>
   <url>http://floribot.de</url>
   <depend package="roscpp"/>
-  <depend package="sensor_msgs"/>
   <depend package="geometry_msgs"/>
+  <depend package="sensor_msgs"/>
 </package>

@@ -190,6 +190,19 @@ floribot_find_goal_node/fast:
 .PHONY : floribot_find_goal_node/fast
 
 #=============================================================================
+# Target rules for targets named floribot_histogramm
+
+# Build rule for target.
+floribot_histogramm: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 floribot_histogramm
+.PHONY : floribot_histogramm
+
+# fast build rule for target.
+floribot_histogramm/fast:
+	$(MAKE) -f CMakeFiles/floribot_histogramm.dir/build.make CMakeFiles/floribot_histogramm.dir/build
+.PHONY : floribot_histogramm/fast
+
+#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -335,6 +348,21 @@ src/Floribot_find_goal.s:
 .PHONY : src/Floribot_find_goal.s
 
 # target to build an object file
+src/Histogramm.o:
+	$(MAKE) -f CMakeFiles/floribot_histogramm.dir/build.make CMakeFiles/floribot_histogramm.dir/src/Histogramm.o
+.PHONY : src/Histogramm.o
+
+# target to preprocess a source file
+src/Histogramm.i:
+	$(MAKE) -f CMakeFiles/floribot_histogramm.dir/build.make CMakeFiles/floribot_histogramm.dir/src/Histogramm.i
+.PHONY : src/Histogramm.i
+
+# target to generate assembly for a file
+src/Histogramm.s:
+	$(MAKE) -f CMakeFiles/floribot_histogramm.dir/build.make CMakeFiles/floribot_histogramm.dir/src/Histogramm.s
+.PHONY : src/Histogramm.s
+
+# target to build an object file
 src/floribot_find_goal_node.o:
 	$(MAKE) -f CMakeFiles/floribot_find_goal_node.dir/build.make CMakeFiles/floribot_find_goal_node.dir/src/floribot_find_goal_node.o
 .PHONY : src/floribot_find_goal_node.o
@@ -363,6 +391,7 @@ help:
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
 	@echo "... floribot_find_goal_node"
+	@echo "... floribot_histogramm"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
@@ -377,6 +406,9 @@ help:
 	@echo "... src/Floribot_find_goal.o"
 	@echo "... src/Floribot_find_goal.i"
 	@echo "... src/Floribot_find_goal.s"
+	@echo "... src/Histogramm.o"
+	@echo "... src/Histogramm.i"
+	@echo "... src/Histogramm.s"
 	@echo "... src/floribot_find_goal_node.o"
 	@echo "... src/floribot_find_goal_node.i"
 	@echo "... src/floribot_find_goal_node.s"

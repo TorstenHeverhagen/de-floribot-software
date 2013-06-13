@@ -18,6 +18,8 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n)
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task1::scan_message, this);
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
+    direction = ;
+    n_.getParam("/floribot_task1/direction", direction);
     tick_rate = 100;
     n_.getParam("/floribot_task1/tick_rate", tick_rate);
     // Start of user code constructor

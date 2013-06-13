@@ -25,34 +25,6 @@
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
-<target name="[lib] Floribot_wiimote" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>Floribot_wiimote</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[lib] Floribot_wiimote/fast" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>Floribot_wiimote/fast</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="Build" path="[Targets]/[lib] Floribot_wiimote" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments>-C "/home/floribot/ros_workspace/floribot_wiimote" </buildArguments>
-<buildTarget>Floribot_wiimote</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="Clean" path="[Targets]/[lib] Floribot_wiimote" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/cmake</buildCommand>
-<buildArguments>-E chdir "/home/floribot/ros_workspace/floribot_wiimote" "/usr/bin/cmake" -P "CMakeFiles/Floribot_wiimote.dir/cmake_clean.cmake"</buildArguments>
-<buildTarget></buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
 <target name=": ROSBUILD_genmsg_cpp" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments></buildArguments>
@@ -85,34 +57,6 @@
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments></buildArguments>
 <buildTarget>clean-test-results</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[exe] floribot_wiimote_node" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>floribot_wiimote_node</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[exe] floribot_wiimote_node/fast" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>floribot_wiimote_node/fast</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="Build" path="[Targets]/[exe] floribot_wiimote_node" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments>-C "/home/floribot/ros_workspace/floribot_wiimote" </buildArguments>
-<buildTarget>floribot_wiimote_node</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="Clean" path="[Targets]/[exe] floribot_wiimote_node" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/cmake</buildCommand>
-<buildArguments>-E chdir "/home/floribot/ros_workspace/floribot_wiimote" "/usr/bin/cmake" -P "CMakeFiles/floribot_wiimote_node.dir/cmake_clean.cmake"</buildArguments>
-<buildTarget></buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>
@@ -204,48 +148,6 @@
 <buildCommand>/usr/bin/make</buildCommand>
 <buildArguments></buildArguments>
 <buildTarget>clean</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[obj] src/Floribot_wiimote.o" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>src/Floribot_wiimote.o</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[pre] src/Floribot_wiimote.i" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>src/Floribot_wiimote.i</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[to asm] src/Floribot_wiimote.s" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>src/Floribot_wiimote.s</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[obj] src/floribot_wiimote_node.o" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>src/floribot_wiimote_node.o</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[pre] src/floribot_wiimote_node.i" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>src/floribot_wiimote_node.i</buildTarget>
-<stopOnError>true</stopOnError>
-<useDefaultCommand>false</useDefaultCommand>
-</target>
-<target name="[to asm] src/floribot_wiimote_node.s" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
-<buildCommand>/usr/bin/make</buildCommand>
-<buildArguments></buildArguments>
-<buildTarget>src/floribot_wiimote_node.s</buildTarget>
 <stopOnError>true</stopOnError>
 <useDefaultCommand>false</useDefaultCommand>
 </target>

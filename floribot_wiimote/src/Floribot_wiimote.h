@@ -10,10 +10,10 @@
 
 #include <ros/ros.h>
 #include <string>
+#include <sensor_msgs/JoyFeedbackArray.h>
+#include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/Joy.h>
-#include <geometry_msgs/Twist.h>
-#include <sensor_msgs/JoyFeedbackArray.h>
 // Start of user code specific includes
 // TODO: include your own headers
 // End of user code don't delete this line
@@ -28,18 +28,21 @@ public:
 	void tick();
 	int get_tick_rate();
 
-	void publish_cmd_vel (geometry_msgs::Twist msg);
-	void joy_message (const sensor_msgs::Joy::ConstPtr& msg);
-	void task_cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg);
 	void publish_joy_set_feedback (sensor_msgs::JoyFeedbackArray msg);
+	void publish_cmd_vel (geometry_msgs::Twist msg);
+	void task_cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg);
+	void joy_message (const sensor_msgs::Joy::ConstPtr& msg);
 
+	// Start of user code additional public members
+	// TODO: declare your variables and methods
+	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
 	int tick_rate;
-	ros::Publisher cmd_vel_pub;
-	ros::Subscriber joy_sub;
-	ros::Subscriber task_cmd_vel_sub;
 	ros::Publisher joy_set_feedback_pub;
+	ros::Publisher cmd_vel_pub;
+	ros::Subscriber task_cmd_vel_sub;
+	ros::Subscriber joy_sub;
 	// Start of user code additional members
 
 	geometry_msgs::Twist joy_to_vel();
