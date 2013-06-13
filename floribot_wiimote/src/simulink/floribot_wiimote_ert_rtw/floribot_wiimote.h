@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_wiimote'.
  *
- * Model version                  : 1.26
+ * Model version                  : 1.31
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 13 22:48:14 2013
+ * C/C++ source code generated on : Fri Jun 14 00:02:09 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic

@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_wiimote'.
  *
- * Model version                  : 1.26
+ * Model version                  : 1.31
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 13 22:48:14 2013
+ * C/C++ source code generated on : Fri Jun 14 00:02:09 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -120,19 +120,10 @@ void floribot_wiimote_step(void)
 
       /* Outport: '<Root>/cmd_vel_yaw' */
       floribot_wiimote_Y.cmd_vel_yaw = 0.0;
-    }
-  } else {
-    /* During 'manual': '<S1>:17' */
-    if (floribot_wiimote_U.Button2 && (!floribot_wiimote_U.Button1)) {
-      /* Transition: '<S1>:20' */
-      /* Exit Internal 'manual': '<S1>:17' */
-      floribot_wiimote_DW.is_manual = floribot_wii_IN_NO_ACTIVE_CHILD;
-      floribot_wiimote_DW.is_c1_floribot_wiimote = floribot_wiimote_IN_automatic;
-
+    } else {
       /* Outport: '<Root>/cmd_vel_x' incorporates:
        *  Inport: '<Root>/task_x'
        */
-      /* Entry 'automatic': '<S1>:18' */
       floribot_wiimote_Y.cmd_vel_x = floribot_wiimote_U.task_x;
 
       /* Outport: '<Root>/cmd_vel_yaw' incorporates:
@@ -151,6 +142,14 @@ void floribot_wiimote_step(void)
 
       /* Outport: '<Root>/joy_led4' */
       floribot_wiimote_Y.joy_led4 = FALSE;
+    }
+  } else {
+    /* During 'manual': '<S1>:17' */
+    if (floribot_wiimote_U.Button2 && (!floribot_wiimote_U.Button1)) {
+      /* Transition: '<S1>:20' */
+      /* Exit Internal 'manual': '<S1>:17' */
+      floribot_wiimote_DW.is_manual = floribot_wii_IN_NO_ACTIVE_CHILD;
+      floribot_wiimote_DW.is_c1_floribot_wiimote = floribot_wiimote_IN_automatic;
     } else {
       switch (floribot_wiimote_DW.is_manual) {
        case floribot_wiimote_IN_Down:
@@ -265,19 +264,10 @@ void floribot_wiimote_step(void)
 
           /* Outport: '<Root>/cmd_vel_yaw' */
           floribot_wiimote_Y.cmd_vel_yaw = 0.0;
-        }
-        break;
-
-       default:
-        /* During 'stand_still': '<S1>:22' */
-        if (floribot_wiimote_U.B) {
-          /* Transition: '<S1>:25' */
-          floribot_wiimote_DW.is_manual = floribot_w_IN_control_x_and_yaw;
-
+        } else {
           /* Outport: '<Root>/cmd_vel_x' incorporates:
            *  Inport: '<Root>/joy_pitch'
            */
-          /* Entry 'control_x_and_yaw': '<S1>:24' */
           floribot_wiimote_Y.cmd_vel_x = floribot_wiimote_U.joy_pitch /
             floribot__DIRECT_PITCH_AXIS_DIV;
 
@@ -286,6 +276,14 @@ void floribot_wiimote_step(void)
            */
           floribot_wiimote_Y.cmd_vel_yaw = floribot_wiimote_U.joy_roll /
             floribot_w_DIRECT_ROLL_AXIS_DIV;
+        }
+        break;
+
+       default:
+        /* During 'stand_still': '<S1>:22' */
+        if (floribot_wiimote_U.B) {
+          /* Transition: '<S1>:25' */
+          floribot_wiimote_DW.is_manual = floribot_w_IN_control_x_and_yaw;
         } else if (floribot_wiimote_U.Up) {
           /* Transition: '<S1>:34' */
           floribot_wiimote_DW.is_manual = floribot_wiimote_IN_Up;
