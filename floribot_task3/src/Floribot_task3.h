@@ -1,48 +1,56 @@
 /*
- * File: Floribot_task2.h
- * node floribot_task2
+ * File: Floribot_task3.h
+ * node floribot_task3
  *
  * @author: floribot_acceleo
  */
 
-#ifndef FLORIBOT_TASK2_H_
-#define FLORIBOT_TASK2_H_
+#ifndef FLORIBOT_TASK3_H_
+#define FLORIBOT_TASK3_H_
 
 #include <ros/ros.h>
 #include <string>
-#include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/LaserScan.h>
 // Start of user code specific includes
-// TODO: include your own headers
+#include "Histogramm.h"
 // End of user code don't delete this line
 
-namespace floribot_task2 {
+namespace floribot_task3 {
 
-class Floribot_task2 
+class Floribot_task3 
 {
 public:
-	Floribot_task2(ros::NodeHandle n);
-	virtual ~Floribot_task2();
+	Floribot_task3(ros::NodeHandle n);
+	virtual ~Floribot_task3();
 	void tick();
 	int get_tick_rate();
 
-	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
+	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
+	double y_hist_width;
 	int tick_rate;
-	std::string CodePattern;
-	ros::Subscriber scan_sub;
+	double x_hist_min;
+	double row_width;
+	double y_hist_min;
+	double max_scan_distance;
+	double y_hist_max;
+	double x_hist_max;
+	double x_hist_width;
 	ros::Publisher task_cmd_vel_pub;
+	ros::Subscriber scan_sub;
 	// Start of user code additional members
-	// TODO: declare your variables and methods
+	Histogramm *x_hist;
+	Histogramm *y_hist;
 	// End of user code  don't delete this line
 };
 
 } // end of namespace
 
-#endif /* FLORIBOT_TASK2_H_ */
+#endif /* FLORIBOT_TASK3_H_ */

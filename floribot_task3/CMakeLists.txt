@@ -20,18 +20,15 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+rosbuild_add_library(Floribot_task3 src/Floribot_task3.cpp)
+rosbuild_add_executable(floribot_task3_node src/floribot_task3_node.cpp)
+target_link_libraries(floribot_task3_node Floribot_task3)
+rosbuild_add_library(simulink_floribot_task3 src/simulink/floribot_task3_ert_rtw/floribot_task3.cpp)
+target_link_libraries(floribot_task3_node simulink_floribot_task3)
 
 #Start of user code user defined libraries
 
-	#uncomment if you have defined messages
-	#rosbuild_genmsg()
-	#uncomment if you have defined services
-	#rosbuild_gensrv()
-	
-	#common commands for building c++ executables and libraries
-	#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-	#target_link_libraries(${PROJECT_NAME} another_library)
-	#rosbuild_add_boost_directories()
-	#rosbuild_link_boost(${PROJECT_NAME} thread)
+rosbuild_add_library(task3_histogramm src/Histogramm.cpp)
+target_link_libraries(floribot_task3_node task3_histogramm)
 
 #End of user code

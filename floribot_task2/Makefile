@@ -99,6 +99,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Floribot_task2
+
+# Build rule for target.
+Floribot_task2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Floribot_task2
+.PHONY : Floribot_task2
+
+# fast build rule for target.
+Floribot_task2/fast:
+	$(MAKE) -f CMakeFiles/Floribot_task2.dir/build.make CMakeFiles/Floribot_task2.dir/build
+.PHONY : Floribot_task2/fast
+
+#=============================================================================
 # Target rules for targets named ROSBUILD_genmsg_cpp
 
 # Build rule for target.
@@ -162,6 +175,19 @@ clean-test-results: cmake_check_build_system
 clean-test-results/fast:
 	$(MAKE) -f CMakeFiles/clean-test-results.dir/build.make CMakeFiles/clean-test-results.dir/build
 .PHONY : clean-test-results/fast
+
+#=============================================================================
+# Target rules for targets named floribot_task2_node
+
+# Build rule for target.
+floribot_task2_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 floribot_task2_node
+.PHONY : floribot_task2_node
+
+# fast build rule for target.
+floribot_task2_node/fast:
+	$(MAKE) -f CMakeFiles/floribot_task2_node.dir/build.make CMakeFiles/floribot_task2_node.dir/build
+.PHONY : floribot_task2_node/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_precompile
@@ -293,18 +319,50 @@ tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
 
+# target to build an object file
+src/Floribot_task2.o:
+	$(MAKE) -f CMakeFiles/Floribot_task2.dir/build.make CMakeFiles/Floribot_task2.dir/src/Floribot_task2.o
+.PHONY : src/Floribot_task2.o
+
+# target to preprocess a source file
+src/Floribot_task2.i:
+	$(MAKE) -f CMakeFiles/Floribot_task2.dir/build.make CMakeFiles/Floribot_task2.dir/src/Floribot_task2.i
+.PHONY : src/Floribot_task2.i
+
+# target to generate assembly for a file
+src/Floribot_task2.s:
+	$(MAKE) -f CMakeFiles/Floribot_task2.dir/build.make CMakeFiles/Floribot_task2.dir/src/Floribot_task2.s
+.PHONY : src/Floribot_task2.s
+
+# target to build an object file
+src/floribot_task2_node.o:
+	$(MAKE) -f CMakeFiles/floribot_task2_node.dir/build.make CMakeFiles/floribot_task2_node.dir/src/floribot_task2_node.o
+.PHONY : src/floribot_task2_node.o
+
+# target to preprocess a source file
+src/floribot_task2_node.i:
+	$(MAKE) -f CMakeFiles/floribot_task2_node.dir/build.make CMakeFiles/floribot_task2_node.dir/src/floribot_task2_node.i
+.PHONY : src/floribot_task2_node.i
+
+# target to generate assembly for a file
+src/floribot_task2_node.s:
+	$(MAKE) -f CMakeFiles/floribot_task2_node.dir/build.make CMakeFiles/floribot_task2_node.dir/src/floribot_task2_node.s
+.PHONY : src/floribot_task2_node.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... Floribot_task2"
 	@echo "... ROSBUILD_genmsg_cpp"
 	@echo "... ROSBUILD_genmsg_lisp"
 	@echo "... ROSBUILD_gensrv_cpp"
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
+	@echo "... floribot_task2_node"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
@@ -316,6 +374,12 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
+	@echo "... src/Floribot_task2.o"
+	@echo "... src/Floribot_task2.i"
+	@echo "... src/Floribot_task2.s"
+	@echo "... src/floribot_task2_node.o"
+	@echo "... src/floribot_task2_node.i"
+	@echo "... src/floribot_task2_node.s"
 .PHONY : help
 
 

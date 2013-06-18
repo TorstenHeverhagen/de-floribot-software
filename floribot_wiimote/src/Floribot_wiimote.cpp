@@ -16,12 +16,12 @@ namespace floribot_wiimote {
 
 Floribot_wiimote::Floribot_wiimote(ros::NodeHandle n) : n_(n)
 {
+	joy_set_feedback_pub = n_.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback",1);
+	cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
 	task_cmd_vel_sub = n_.subscribe("task_cmd_vel", 1,
 			&Floribot_wiimote::task_cmd_vel_message, this);
 	joy_sub = n_.subscribe("joy", 1,
 			&Floribot_wiimote::joy_message, this);
-	cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
-	joy_set_feedback_pub = n_.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback",1);
     tick_rate = 100;
     n_.getParam("/floribot_wiimote/tick_rate", tick_rate);
     /* Initialize simulink model */
@@ -42,38 +42,13 @@ Floribot_wiimote::~Floribot_wiimote()
 } // end of destructor
 
 /**
- * process messages from topic task_cmd_vel
+ * publish messages to topic joy/set_feedback
  *
  * @generated
  */
-void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
+void Floribot_wiimote::publish_joy_set_feedback (sensor_msgs::JoyFeedbackArray msg)
 {
-	// Start of user code process message
-	task1_vel = *msg;
-	// End of user code don't delete this line
-}
-
-/**
- * process messages from topic joy
- *
- * @generated
- */
-void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
-{
-	// Start of user code process message
-	floribot_wiimote_U.Button1 = msg->buttons[0];
-	floribot_wiimote_U.Button2 = msg->buttons[1];
-	floribot_wiimote_U.A = msg->buttons[2];
-	floribot_wiimote_U.B = msg->buttons[3];
-	floribot_wiimote_U.Left = msg->buttons[6];
-	floribot_wiimote_U.Right = msg->buttons[7];
-	floribot_wiimote_U.Up = msg->buttons[8];
-	floribot_wiimote_U.Down = msg->buttons[9];
-	floribot_wiimote_U.joy_roll = msg->axes[0];
-	floribot_wiimote_U.joy_pitch = msg->axes[1];
-	floribot_wiimote_U.joy_yaw = msg->axes[2];
-	new_msg = true;
-	// End of user code don't delete this line
+	joy_set_feedback_pub.publish(msg);
 }
 
 /**
@@ -87,15 +62,28 @@ void Floribot_wiimote::publish_cmd_vel (geometry_msgs::Twist msg)
 }
 
 /**
- * publish messages to topic joy/set_feedback
+ * process messages from topic task_cmd_vel
  *
  * @generated
  */
-void Floribot_wiimote::publish_joy_set_feedback (sensor_msgs::JoyFeedbackArray msg)
+void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
 {
-	joy_set_feedback_pub.publish(msg);
+	// Start of user code process message
+	// TODO: fill with your code
+	// End of user code don't delete this line
 }
 
+/**
+ * process messages from topic joy
+ *
+ * @generated
+ */
+void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
+{
+	// Start of user code process message
+	// TODO: fill with your code
+	// End of user code don't delete this line
+}
 
 /**
  * tick is triggered 
