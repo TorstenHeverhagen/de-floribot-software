@@ -26,6 +26,8 @@ public:
 	float get_min(int i);
 	float get_max(int i);
 	int get_n(int i);
+	float get_mean(float border1, float border2);
+	int get_sum(float border1, float border2);
 	MeanProb_T get_mean_and_prob(float border1, float border2);
 	int get_class_num(float value);
 	float get_class_middle(int index);

@@ -35,8 +35,8 @@ public:
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
-	std::string tty_ssc_32;
 	int tick_rate;
+	std::string tty_ssc_32;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
 

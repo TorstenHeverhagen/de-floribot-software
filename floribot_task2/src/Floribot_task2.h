@@ -34,8 +34,8 @@ public:
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
-	int tick_rate;
 	std::string CodePattern;
+	int tick_rate;
 	ros::Subscriber scan_sub;
 	ros::Publisher task_cmd_vel_pub;
 	// Start of user code additional members

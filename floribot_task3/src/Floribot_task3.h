@@ -34,15 +34,17 @@ public:
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
-	double y_hist_width;
 	int tick_rate;
-	double x_hist_min;
-	double row_width;
 	double y_hist_min;
-	double max_scan_distance;
 	double y_hist_max;
 	double x_hist_max;
+	double y_hist_width;
+	double x_hist_min;
+	double row_width;
+	double max_scan_distance;
+	double robot_width;
 	double x_hist_width;
+	double x_sec;
 	ros::Publisher task_cmd_vel_pub;
 	ros::Subscriber scan_sub;
 	// Start of user code additional members
