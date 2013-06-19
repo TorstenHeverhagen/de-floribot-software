@@ -26,11 +26,12 @@ public:
 	void tick();
 	int get_tick_rate();
 
-	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
+	void scan_message (const sensor_msgs::LaserScan::ConstPtr& scan);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
-
+	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
+	void turn(bool direction, int rows);
 
 private:
 	ros::NodeHandle n_;

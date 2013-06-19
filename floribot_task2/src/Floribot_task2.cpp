@@ -52,11 +52,10 @@ if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet di
 	int i = 0;
 	while(i<=code.get_Amount_Commands())
 	{
-		if (code.get_Rows(code.starts[i]) == "S")
-		{
-
-		}
-
+		bool direction = code.get_Direction(code.command[i]);
+		int rows = code.get_Rows(code.command[i]);
+		throughRow(msg);
+		turn(direction,rows);
 		i++;
 	}
 	}
@@ -102,5 +101,11 @@ int Floribot_task2::get_tick_rate ()
 
 
 // End of user code don't delete this line
+
+void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
+}
+
+void Floribot_task2::turn(bool direction, int rows) {
+}
 
 } // end of namespace

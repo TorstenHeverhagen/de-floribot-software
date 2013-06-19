@@ -24,7 +24,7 @@ public:
 
 private:
 	std::string code;
-	int starts[get_Amount_Commands()];
+	int command[get_Amount_Commands()];
 };
 } /* namespace floribot_task2 */
 #endif /* CODEPATTERN_H_ */

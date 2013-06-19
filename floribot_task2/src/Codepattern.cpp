@@ -13,14 +13,14 @@ Codepattern::Codepattern(std::string codepattern) {
 	// TODO Auto-generated constructor stub
 	code = new std::string[codepattern.length()];
 	code = codepattern;
-	starts=get_Starts_Commands();
+	command=get_Starts_Commands();
 
 }
 
 Codepattern::~Codepattern() {
 	// TODO Auto-generated destructor stub
 	delete code;
-	delete starts;
+	delete command;
 }
 
 bool Codepattern::check() {
