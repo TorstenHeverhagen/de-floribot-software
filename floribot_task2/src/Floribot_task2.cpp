@@ -8,7 +8,8 @@
 
 #include "Floribot_task2.h"
 // Start of user code specific includes
-// TODO: include your own headers
+#include "Histogramm.h"
+#include "Codepattern.h"
 // End of user code don't delete this line
 
 namespace floribot_task2 {
@@ -44,6 +45,22 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
 	// TODO: fill with your code
+	Codepattern code(CodePattern);
+
+if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet die Fahrt
+	{
+	int i = 0;
+	while(i<=code.get_Amount_Commands())
+	{
+		if (code.get_Rows(code.starts[i]) == "S")
+		{
+
+		}
+
+		i++;
+	}
+	}
+
 	// End of user code don't delete this line
 }
 
@@ -82,6 +99,7 @@ int Floribot_task2::get_tick_rate ()
 // Start of user code additional members
 
 // TODO: define your methods
+
 
 // End of user code don't delete this line
 
