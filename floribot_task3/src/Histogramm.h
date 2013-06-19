@@ -12,12 +12,6 @@ namespace floribot_task3 {
 
 class Histogramm {
 public:
-
-	typedef struct MeanProb {
-		float mean;
-		float prob;
-	} MeanProb_T;
-
 	Histogramm(float min, float max, float width);
 	virtual ~Histogramm();
 	void print();
@@ -28,7 +22,6 @@ public:
 	int get_n(int i);
 	float get_mean(float border1, float border2);
 	int get_sum(float border1, float border2);
-	MeanProb_T get_mean_and_prob(float border1, float border2);
 	int get_class_num(float value);
 	float get_class_middle(int index);
 	void clear();

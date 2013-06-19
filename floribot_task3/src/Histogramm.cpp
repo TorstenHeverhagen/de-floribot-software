@@ -57,24 +57,6 @@ void Histogramm::print() {
 	printf( "\n");
 }
 
-Histogramm::MeanProb_T Histogramm::get_mean_and_prob(float border1, float border2) {
-	float weighted_sum = 0;
-	float sum = 0;
-	for(int i = get_class_num(border1); i <= get_class_num(border2); i++) {
-		weighted_sum += get_n(i) * get_class_middle(i);
-		sum += get_n(i);
-	}
-	Histogramm::MeanProb_T result;
-	if(sum > 0) {
-		result.mean = weighted_sum/sum;
-		result.prob = get_n(get_class_num(result.mean)) / sum;
-	} else {
-		result.mean = 0;
-		result.prob = 0;
-	}
-	return result;
-}
-
 int Histogramm::get_class_num(float value) {
 	return -min/width + value/width;
 }
