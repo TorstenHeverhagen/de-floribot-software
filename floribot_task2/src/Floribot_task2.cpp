@@ -19,10 +19,10 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task2::scan_message, this);
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
-    tick_rate = 100;
-    n_.getParam("/floribot_task2/tick_rate", tick_rate);
     CodePattern = "";
     n_.getParam("/floribot_task2/CodePattern", CodePattern);
+    tick_rate = 100;
+    n_.getParam("/floribot_task2/tick_rate", tick_rate);
     // Start of user code constructor
     // TODO: fill with your code
     // End of user code don't delete this line

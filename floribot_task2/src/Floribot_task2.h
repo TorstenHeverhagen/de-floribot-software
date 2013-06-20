@@ -37,8 +37,8 @@ public:
 	float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
 private:
 	ros::NodeHandle n_;
-	int tick_rate;
 	std::string CodePattern;
+	int tick_rate;
 	ros::Subscriber scan_sub;
 	ros::Publisher task_cmd_vel_pub;
 

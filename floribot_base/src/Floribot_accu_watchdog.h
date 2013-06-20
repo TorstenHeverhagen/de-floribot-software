@@ -10,8 +10,8 @@
 
 #include <ros/ros.h>
 #include <string>
-#include <std_msgs/Bool.h>
 #include <phidgets/interface_kit_params.h>
+#include <std_msgs/Bool.h>
 // Start of user code specific includes
 // TODO: include your own headers
 // End of user code don't delete this line
@@ -26,8 +26,8 @@ public:
 	void tick();
 	int get_tick_rate();
 
-	void publish_accu_low (std_msgs::Bool msg);
 	void phidgets_interface_kit_message (const phidgets::interface_kit_params::ConstPtr& msg);
+	void publish_accu_low (std_msgs::Bool msg);
 
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
@@ -35,8 +35,8 @@ public:
 private:
 	ros::NodeHandle n_;
 	int tick_rate;
-	ros::Publisher accu_low_pub;
 	ros::Subscriber phidgets_interface_kit_sub;
+	ros::Publisher accu_low_pub;
 	// Start of user code additional members
 	// TODO: declare your variables and methods
 	// End of user code  don't delete this line
