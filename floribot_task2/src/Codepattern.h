@@ -16,7 +16,7 @@ public:
 	virtual ~Codepattern();
 
 	bool check();
-	bool get_Direction(int n);
+	int get_Direction(int n);
 	int get_Rows(int n);
 	int get_Amount_Commands();
 	int* get_Starts_Commands();

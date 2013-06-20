@@ -10,7 +10,7 @@
 namespace floribot_task2 {
 
 Codepattern::Codepattern(std::string codepattern) {
-	// TODO Auto-generated constructor stub
+
 	code = new std::string[codepattern.length()];
 	code = codepattern;
 	command=get_Starts_Commands();
@@ -18,7 +18,7 @@ Codepattern::Codepattern(std::string codepattern) {
 }
 
 Codepattern::~Codepattern() {
-	// TODO Auto-generated destructor stub
+
 	delete code;
 	delete command;
 }
@@ -94,14 +94,18 @@ bool Codepattern::check() {
 
 }
 
-bool Codepattern::get_Direction(int n) {
+int Codepattern::get_Direction(int n) {
+	// Gibt die Richtung eines Kommandos aus
 	// Directions: true = left , false = right
-	if (code[n] = "R") return false;
-	if (code[n] = "L") return true;
+	if (code[n] == "R") return -1;
+	if (code[n]== "F" or code [n] == "S") return 0;
+	if (code[n] == "L") return 1;
 }
 
 int Codepattern::get_Rows(int n) {
-	/*erlaubter Acsii-Code:
+	/*Gibt die Anzahl der Reihen, welche übersprungen werden sollen aus
+	 *
+	 * erlaubter Acsii-Code:
 	 *  Zahlen "0" bis "9" entspricht ASCII 48 bis 57
 	 */
 	int ascii = int(code[n]);
@@ -134,6 +138,7 @@ int Codepattern::get_Rows(int n) {
 
 
 int Codepattern::get_Amount_Commands() {
+	// gibt die Anzahl der Kommandos aus
 	int starts = 0;
 		int i = 0;
 		while (i<code.length)
@@ -145,7 +150,8 @@ int Codepattern::get_Amount_Commands() {
 }
 
 int* Codepattern::get_Starts_Commands() {
-
+// gibt ein array aus, welches die stellen der commandos im codepattern enthält,
+	//beginnend beim ersten Kommandozeichen
 
 	int start[get_Amount_Commands()];
 	int i=0, n=0;
