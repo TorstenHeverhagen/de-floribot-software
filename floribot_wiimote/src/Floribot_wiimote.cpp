@@ -50,6 +50,8 @@ void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPt
 {
 	// Start of user code process message
 	task1_vel = *msg;
+	floribot_wiimote_U.task_x = msg->linear.x;
+	floribot_wiimote_U.task_yaw = msg->angular.z;
 	// End of user code don't delete this line
 }
 
