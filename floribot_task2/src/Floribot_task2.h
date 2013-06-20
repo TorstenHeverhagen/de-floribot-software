@@ -13,7 +13,8 @@
 #include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
 // Start of user code specific includes
-// TODO: include your own headers
+#include "Histogramm.h"
+#include "Codepattern.h"
 // End of user code don't delete this line
 
 namespace floribot_task2 {
@@ -26,20 +27,21 @@ public:
 	void tick();
 	int get_tick_rate();
 
-	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
+	void scan_message (const sensor_msgs::LaserScan::ConstPtr& scan);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
-
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
-	// End of user code  don't delete this line
+	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
+	void turn(bool direction, int rows);
+	float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
+	float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
 private:
 	ros::NodeHandle n_;
 	std::string CodePattern;
 	int tick_rate;
 	ros::Subscriber scan_sub;
 	ros::Publisher task_cmd_vel_pub;
-	// Start of user code additional members
-	// TODO: declare your variables and methods
+
 	// End of user code  don't delete this line
 };
 

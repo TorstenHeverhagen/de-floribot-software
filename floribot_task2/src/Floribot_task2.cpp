@@ -8,7 +8,8 @@
 
 #include "Floribot_task2.h"
 // Start of user code specific includes
-// TODO: include your own headers
+#include "Histogramm.h"
+#include "Codepattern.h"
 // End of user code don't delete this line
 
 namespace floribot_task2 {
@@ -43,7 +44,28 @@ Floribot_task2::~Floribot_task2()
 void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
+
+	Codepattern code(CodePattern);
+
+if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet die Fahrt
+	{
+	int direction;
+	int rows;
+	throughRow(msg); // Reihenfahrt inkl. wenden bei hinderniss
+	int i = 0;
+	while(i<=code.get_Amount_Commands())
+	{
+		rows = code.get_Rows(code.command[i]);
+		if (rows!=0) {
+			direction = code.get_Direction(code.command[i]+1);
+		}
+		else direction = 0;
+		turn(direction,rows); // beachte "0" kommando -> wenden und gleiche reihe zurück fahren
+		throughRow(msg); // Wenn fahrbefehl
+		i++;
+	}
+	}
+
 	// End of user code don't delete this line
 }
 
@@ -81,8 +103,58 @@ int Floribot_task2::get_tick_rate ()
 
 // Start of user code additional members
 
-// TODO: define your methods
+
+void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
+
+// TODO Fill in Bene Bauers Code ;)
+
+	// Durch Reihe navigieren
+
+
+		int numRanges = scan->ranges.size();
+		float angleIncrement = scan->angle_increment;
+
+
+		float speed = 0.2;
+
+		float x = 0;
+		float y = 0, yr = 0, yl = 0;
+
+		x = this->calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
+		y = this->calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+
+		this->setVelocity(x, y, speed);
+
+}
+
+void Floribot_task2::turn(bool direction, int rows) {
+
+	switch (direction){
+		case -1: //TODO Fill in right turn
+
+			break;
+
+		case 0: // TODO Return same row
+
+			break;
+
+		case 1: // TODO Fill in left turn
+			break;
+
+		default:
+	}
+
+
+}
+
+// TODO Implement Method to Count Rows
 
 // End of user code don't delete this line
+
+float Floribot_task2::calcFieldOfAttentionX(scan, angleIncrement, numRanges,x) {
+}
+
+float Floribot_task2::calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl) {
+}
 
 } // end of namespace
