@@ -26,15 +26,10 @@ target_link_libraries(floribot_task2_node Floribot_task2)
 
 #Start of user code user defined libraries
 
-	#uncomment if you have defined messages
-	#rosbuild_genmsg()
-	#uncomment if you have defined services
-	#rosbuild_gensrv()
-	
-	#common commands for building c++ executables and libraries
-	#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-	#target_link_libraries(${PROJECT_NAME} another_library)
-	#rosbuild_add_boost_directories()
-	#rosbuild_link_boost(${PROJECT_NAME} thread)
+rosbuild_add_library(Codepattern src/Codepattern.cpp)
+target_link_libraries(floribot_task2_node Codepattern)
+
+rosbuild_add_library(Statediagramm src/Statediagramm.cpp)
+target_link_libraries(floribot_task2_node Statediagramm)
 
 #End of user code

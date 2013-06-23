@@ -99,6 +99,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Codepattern
+
+# Build rule for target.
+Codepattern: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Codepattern
+.PHONY : Codepattern
+
+# fast build rule for target.
+Codepattern/fast:
+	$(MAKE) -f CMakeFiles/Codepattern.dir/build.make CMakeFiles/Codepattern.dir/build
+.PHONY : Codepattern/fast
+
+#=============================================================================
 # Target rules for targets named Floribot_task2
 
 # Build rule for target.
@@ -162,6 +175,19 @@ ROSBUILD_gensrv_lisp: cmake_check_build_system
 ROSBUILD_gensrv_lisp/fast:
 	$(MAKE) -f CMakeFiles/ROSBUILD_gensrv_lisp.dir/build.make CMakeFiles/ROSBUILD_gensrv_lisp.dir/build
 .PHONY : ROSBUILD_gensrv_lisp/fast
+
+#=============================================================================
+# Target rules for targets named Statediagramm
+
+# Build rule for target.
+Statediagramm: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Statediagramm
+.PHONY : Statediagramm
+
+# fast build rule for target.
+Statediagramm/fast:
+	$(MAKE) -f CMakeFiles/Statediagramm.dir/build.make CMakeFiles/Statediagramm.dir/build
+.PHONY : Statediagramm/fast
 
 #=============================================================================
 # Target rules for targets named clean-test-results
@@ -320,6 +346,21 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
+src/Codepattern.o:
+	$(MAKE) -f CMakeFiles/Codepattern.dir/build.make CMakeFiles/Codepattern.dir/src/Codepattern.o
+.PHONY : src/Codepattern.o
+
+# target to preprocess a source file
+src/Codepattern.i:
+	$(MAKE) -f CMakeFiles/Codepattern.dir/build.make CMakeFiles/Codepattern.dir/src/Codepattern.i
+.PHONY : src/Codepattern.i
+
+# target to generate assembly for a file
+src/Codepattern.s:
+	$(MAKE) -f CMakeFiles/Codepattern.dir/build.make CMakeFiles/Codepattern.dir/src/Codepattern.s
+.PHONY : src/Codepattern.s
+
+# target to build an object file
 src/Floribot_task2.o:
 	$(MAKE) -f CMakeFiles/Floribot_task2.dir/build.make CMakeFiles/Floribot_task2.dir/src/Floribot_task2.o
 .PHONY : src/Floribot_task2.o
@@ -333,6 +374,21 @@ src/Floribot_task2.i:
 src/Floribot_task2.s:
 	$(MAKE) -f CMakeFiles/Floribot_task2.dir/build.make CMakeFiles/Floribot_task2.dir/src/Floribot_task2.s
 .PHONY : src/Floribot_task2.s
+
+# target to build an object file
+src/Statediagramm.o:
+	$(MAKE) -f CMakeFiles/Statediagramm.dir/build.make CMakeFiles/Statediagramm.dir/src/Statediagramm.o
+.PHONY : src/Statediagramm.o
+
+# target to preprocess a source file
+src/Statediagramm.i:
+	$(MAKE) -f CMakeFiles/Statediagramm.dir/build.make CMakeFiles/Statediagramm.dir/src/Statediagramm.i
+.PHONY : src/Statediagramm.i
+
+# target to generate assembly for a file
+src/Statediagramm.s:
+	$(MAKE) -f CMakeFiles/Statediagramm.dir/build.make CMakeFiles/Statediagramm.dir/src/Statediagramm.s
+.PHONY : src/Statediagramm.s
 
 # target to build an object file
 src/floribot_task2_node.o:
@@ -355,11 +411,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... Codepattern"
 	@echo "... Floribot_task2"
 	@echo "... ROSBUILD_genmsg_cpp"
 	@echo "... ROSBUILD_genmsg_lisp"
 	@echo "... ROSBUILD_gensrv_cpp"
 	@echo "... ROSBUILD_gensrv_lisp"
+	@echo "... Statediagramm"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
 	@echo "... floribot_task2_node"
@@ -374,9 +432,15 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
+	@echo "... src/Codepattern.o"
+	@echo "... src/Codepattern.i"
+	@echo "... src/Codepattern.s"
 	@echo "... src/Floribot_task2.o"
 	@echo "... src/Floribot_task2.i"
 	@echo "... src/Floribot_task2.s"
+	@echo "... src/Statediagramm.o"
+	@echo "... src/Statediagramm.i"
+	@echo "... src/Statediagramm.s"
 	@echo "... src/floribot_task2_node.o"
 	@echo "... src/floribot_task2_node.i"
 	@echo "... src/floribot_task2_node.s"

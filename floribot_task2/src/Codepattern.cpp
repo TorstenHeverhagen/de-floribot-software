@@ -6,21 +6,22 @@
  */
 
 #include "Codepattern.h"
+#include "stdio.h"
 
 namespace floribot_task2 {
 
 Codepattern::Codepattern(std::string codepattern) {
 
-	code = new std::string[codepattern.length()];
-	code = codepattern;
-	command=get_Starts_Commands();
+
+	this-> code = codepattern;
+	//this -> code = ;
+	this -> gro = get_Amount_Commands();
+
 
 }
 
 Codepattern::~Codepattern() {
 
-	delete code;
-	delete command;
 }
 
 bool Codepattern::check() {
@@ -29,6 +30,7 @@ bool Codepattern::check() {
 		 * | 70 -> "F" | 76 = "L" | 82 = "R" | 83 = "S" | 45 = "-" |
 		 *  Zahlen "0" bis "9" entspricht ASCII 48 bis 57
 		 */
+		bool check = false;
 		unsigned int i = 0;
 		int iAscii; // Zeichen an Stelle i
 		int iAsciiN;// Zeichen an Stelle i+1
@@ -37,7 +39,9 @@ bool Codepattern::check() {
 			{
 					iAscii = int(code[i]);
 					if (i<code.size()-1) iAsciiN = int(code[i+1]);
+					else iAsciiN = 0;
 					if (i>0) iAsciiV = int(code[i-1]);
+					else iAsciiV = 0;
 				//printf("%i %i\n", iAscii, iAsciiN);
 
 				if (iAscii == 70 or iAscii == 76 or iAscii == 82 or iAscii == 83 or iAscii == 45  or (iAscii >= 48 and iAscii <=57))
@@ -46,15 +50,15 @@ bool Codepattern::check() {
 						if (i == code.length() and iAscii == 70)
 							{
 							printf("CodePattern akzeptiert\n");
-							return true;
+							check =  true;
 							}
 						else if (i == code.length() and iAscii != 70){
 							printf("CodePattern endet nicht mit 'F'");
-							return false;
+							check =   false;
 						}
 						else	{
 							printf("CodePattern unbekannt");
-							return false;
+							check =   false;
 							}
 					}
 				else
@@ -66,9 +70,9 @@ bool Codepattern::check() {
 						else printf("  Stelle %i, '%c' n.def.\n",i+1, code[i]);
 						printf("###########################\n");
 						i = code.length();
-						return false;
+						check =   false;
 					}
-				if (iAscii >= 49 && iAscii <=57 && !(iAsciiN != 76 xor iAsciiN != 82) )
+				if (  (iAscii >= 49) and (iAscii <=57) and  !((iAsciiN != 76) xor (iAsciiN != 82)))
 					{//Prüft ob nach Stelle i (mit Zahl) ein Richtungszeichen kommt, wenn nein
 						printf("###########################\n");
 						printf("  Launchscript überprüfen\n");
@@ -77,9 +81,9 @@ bool Codepattern::check() {
 						printf("  Muss 'L' oder 'R' sein\n");
 						printf("###########################\n");
 						i = code.length();
-						return false;
+						check =   false;
 					}
-				if ((iAscii == 76 or iAscii == 82) && !(iAsciiV >= 49 && iAsciiV <=57) )
+				if ((iAscii == 76 or iAscii == 82) && !(iAsciiV >= 49 && iAsciiV <=57))
 					{//Prüft ob vor Stelle i (mit Richtungszeichen) eine Zahl kommt
 						printf("###########################\n");
 						printf("  Launchscript überprüfen\n");
@@ -88,19 +92,23 @@ bool Codepattern::check() {
 						//printf("  Zeichen zuviel \n");
 						printf("###########################\n");
 						i = code.length();
-						return false;
+						check =   false;
 					}
 			}
-
+		return check;
 }
 
 int Codepattern::get_Direction(int n) {
 	// Gibt die Richtung eines Kommandos aus
+	//| 70 -> "F" | 76 = "L" | 82 = "R" | 83 = "S" | 45 = "-" |
 	// Directions: true = left , false = right
-	if (code[n] == "R") return -1;
-	if (code[n]== "F" or code [n] == "S") return 0;
-	if (code[n] == "L") return 1;
+	int x = 2;
+	if (int(code[n]) == 82) x = -1;
+	if (int(code[n]) == 70 or int(code [n]) == 83) x = 0;
+	if (int(code[n]) == 76) x =  1;
+	return x;
 }
+
 
 int Codepattern::get_Rows(int n) {
 	/*Gibt die Anzahl der Reihen, welche übersprungen werden sollen aus
@@ -140,8 +148,8 @@ int Codepattern::get_Rows(int n) {
 int Codepattern::get_Amount_Commands() {
 	// gibt die Anzahl der Kommandos aus
 	int starts = 0;
-		int i = 0;
-		while (i<code.length)
+		unsigned int i = 0;
+		while (i<code.size())
 		{
 			if (int(code[i]) == 45) starts++;
 			i++;
@@ -149,22 +157,21 @@ int Codepattern::get_Amount_Commands() {
 		return starts;
 }
 
-int* Codepattern::get_Starts_Commands() {
+void Codepattern::get_Starts_Commands() {
 // gibt ein array aus, welches die stellen der commandos im codepattern enthält,
 	//beginnend beim ersten Kommandozeichen
 
-	int start[get_Amount_Commands()];
-	int i=0, n=0;
-	while (i<code.length)
+	unsigned int i=0, n=0;
+	while (i<code.length())
 	{
 		if (int(code[i]) == 45) // Ascii 45 = "-"
 			{
-			start[n]=i+1;
+			command[n] = i+1;
 			n++;
 			}
 		i++;
 	}
-	return start;
+
 }
 
 } /* namespace floribot_task2 */

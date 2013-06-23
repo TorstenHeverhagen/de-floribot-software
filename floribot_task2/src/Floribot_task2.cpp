@@ -21,6 +21,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
     CodePattern = "";
     n_.getParam("/floribot_task2/CodePattern", CodePattern);
+    CodePattern = "S-1L-2R-0-2R-F";
     tick_rate = 100;
     n_.getParam("/floribot_task2/tick_rate", tick_rate);
     // Start of user code constructor
@@ -60,8 +61,11 @@ if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet di
 			direction = code.get_Direction(code.command[i]+1);
 		}
 		else direction = 0;
+		printf("Commando-Nr.: %i  Richtung: %i  Reihenanzahl %i",i, direction, rows);
+		/*
 		turn(direction,rows); // beachte "0" kommando -> wenden und gleiche reihe zurück fahren
 		throughRow(msg); // Wenn fahrbefehl
+		*/
 		i++;
 	}
 	}
@@ -109,7 +113,7 @@ void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
 // TODO Fill in Bene Bauers Code ;)
 
 	// Durch Reihe navigieren
-
+/*
 
 		int numRanges = scan->ranges.size();
 		float angleIncrement = scan->angle_increment;
@@ -124,10 +128,10 @@ void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
 		y = this->calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
 
 		this->setVelocity(x, y, speed);
-
+*/
 }
 
-void Floribot_task2::turn(bool direction, int rows) {
+void Floribot_task2::turn(int direction, int rows) {
 
 	switch (direction){
 		case -1: //TODO Fill in right turn
@@ -141,7 +145,7 @@ void Floribot_task2::turn(bool direction, int rows) {
 		case 1: // TODO Fill in left turn
 			break;
 
-		default:
+		default: ;
 	}
 
 
@@ -150,11 +154,11 @@ void Floribot_task2::turn(bool direction, int rows) {
 // TODO Implement Method to Count Rows
 
 // End of user code don't delete this line
-
+/*
 float Floribot_task2::calcFieldOfAttentionX(scan, angleIncrement, numRanges,x) {
 }
 
 float Floribot_task2::calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl) {
 }
-
+*/
 } // end of namespace
