@@ -10,7 +10,7 @@
 
 namespace floribot_task2 {
 
-Histogramm::Histogramm(float width, float min, float max)
+Histogramm::Histogramm(double width, double min, double max)
 {
 	this->num_classes = (max-min)/width + 1;
 		this->min = min;

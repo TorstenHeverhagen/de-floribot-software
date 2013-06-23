@@ -50,17 +50,21 @@ private:
 
 	float angular, linear;
 
-	int tick_rate;
-		double y_hist_min;
-		double y_hist_max;
-		double x_hist_max;
-		double y_hist_width;
-		double x_hist_min;
-		double row_width;
-		double max_scan_distance;
-		double robot_width;
-		double x_hist_width;
-		double x_sec;
+	double y_hist_min;
+	double y_hist_max;
+	double x_hist_max;
+	double y_hist_width;
+	double x_hist_min;
+	double row_width;
+	double max_scan_distance;
+	double robot_width;
+	double x_hist_width;
+	double x_sec;
+	//Box parameters for direction adjustment at turning left or right (FB)
+	bool turn_direction;	//true = left, false = right
+	double x_box;
+	double y_box;
+	bool stop_turn;
 
 
 	// End of user code  don't delete this line
