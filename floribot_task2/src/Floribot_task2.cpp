@@ -26,6 +26,33 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
     n_.getParam("/floribot_task2/tick_rate", tick_rate);
     // Start of user code constructor
     // TODO: fill with your code
+    tick_rate = 100;
+        n_.getParam("/floribot_task2/tick_rate", tick_rate);
+        y_hist_min = -2;
+        n_.getParam("/floribot_task2/y_hist_min", y_hist_min);
+        y_hist_max = 2;
+        n_.getParam("/floribot_task2/y_hist_max", y_hist_max);
+        x_hist_max = 2;
+        n_.getParam("/floribot_task2/x_hist_max", x_hist_max);
+        y_hist_width = 0.1;
+        n_.getParam("/floribot_task2/y_hist_width", y_hist_width);
+        x_hist_min = 0;
+        n_.getParam("/floribot_task2/x_hist_min", x_hist_min);
+        row_width = 0.75;
+        n_.getParam("/floribot_task2/row_width", row_width);
+        max_scan_distance = 1.0;
+        n_.getParam("/floribot_task2/max_scan_distance", max_scan_distance);
+        robot_width = 0.5;
+        n_.getParam("/floribot_task2/robot_width", robot_width);
+        x_hist_width = 0.1;
+        n_.getParam("/floribot_task2/x_hist_width", x_hist_width);
+        x_sec = 1;
+        n_.getParam("/floribot_task2/x_sec", x_sec);
+
+    x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
+    y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+	floribot_task2_U.prob_threshold = 0.2;
+	floribot_task2_U.direction = 1.0;
     // End of user code don't delete this line
 
 } // end of constructor

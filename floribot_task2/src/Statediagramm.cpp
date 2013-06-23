@@ -6,6 +6,14 @@
  */
 
 #include "Statediagramm.h"
+#define floribot_tas_IN_NO_ACTIVE_CHILD ((uint8_T)0U)
+#define floribot_task3_IN_inside_row   ((uint8_T)1U)
+#define floribot_task3_IN_leaving_row  ((uint8_T)2U)
+#define floribot_task3_IN_turning90Lo      ((uint8_T)3U)
+#define floribot_task3_IN_turning90Ro      ((uint8_T)4U)
+#define floribot_task3_IN_outside_row   ((uint8_T)5U)
+#define floribot_task3_IN_turning90Li      ((uint8_T)6U)
+#define floribot_task3_IN_turning90Ri      ((uint8_T)7U)
 
 namespace floribot_task2 {
 

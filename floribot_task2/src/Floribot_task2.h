@@ -36,6 +36,9 @@ public:
 	void turn(int direction, int rows);
 	//float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
 	//float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+
+	Histogramm x_hist;
+	Histogramm y_hist;
 private:
 	ros::NodeHandle n_;
 	std::string CodePattern;
@@ -44,7 +47,21 @@ private:
 	ros::Publisher task_cmd_vel_pub;
 
 	geometry_msgs::Twist last_published;
+
 	float angular, linear;
+
+	int tick_rate;
+		double y_hist_min;
+		double y_hist_max;
+		double x_hist_max;
+		double y_hist_width;
+		double x_hist_min;
+		double row_width;
+		double max_scan_distance;
+		double robot_width;
+		double x_hist_width;
+		double x_sec;
+
 
 	// End of user code  don't delete this line
 };

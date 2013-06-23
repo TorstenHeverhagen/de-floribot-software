@@ -21,14 +21,7 @@ public:
 	virtual ~Statediagramm();
 	void switch_State(int state);
 
-#define START 0
-#define INROW 1
-#define ENDROW 2
-#define LEFTTURN 3
-#define RIGHTURN 4
-#define CROSSRIGHT 5
-#define CROSSLEFT 6
-#define FULLTURN 7
+
 
 	geometry_msgs::Twist last_published;
 		float angular, linear;
@@ -38,6 +31,7 @@ public:
 
 private:
 	int state;
+
 
 
 };
