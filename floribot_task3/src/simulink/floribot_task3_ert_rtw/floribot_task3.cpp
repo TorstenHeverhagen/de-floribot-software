@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_task3'.
  *
- * Model version                  : 1.69
+ * Model version                  : 1.72
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Wed Jun 19 01:26:32 2013
+ * C/C++ source code generated on : Thu Jun 20 15:37:02 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -43,10 +43,8 @@ void floribot_task3_step(void)
    *  Inport: '<Root>/direction'
    *  Inport: '<Root>/front_row_x'
    *  Inport: '<Root>/left_row_prob'
-   *  Inport: '<Root>/left_row_y'
    *  Inport: '<Root>/prob_threshold'
    *  Inport: '<Root>/right_row_prob'
-   *  Inport: '<Root>/right_row_y'
    */
   floribot_task3_DW.presentTicks = floribot_task3_M->Timing.clockTick0;
   floribot_task3_DW.elapsedTicks = floribot_task3_DW.presentTicks -
@@ -119,9 +117,11 @@ void floribot_task3_step(void)
         floribot_task3_Y.cmd_vel_yaw = (floribot_task3_U.left_row_y +
           floribot_task3_U.right_row_y) / 2.0 * 1.5;
         floribot_task3_DW.is_c1_floribot_task3 = floribot_task3_IN_inside_row;
-      } else if ((floribot_task3_U.front_row_x == 0.0) &&
-                 (floribot_task3_U.left_row_y == 0.0) &&
-                 (floribot_task3_U.right_row_y == 0.0)) {
+      } else if ((floribot_task3_U.left_row_prob <
+                  floribot_task3_U.prob_threshold) &&
+                 (floribot_task3_U.right_row_prob <
+                  floribot_task3_U.prob_threshold) &&
+                 (floribot_task3_U.front_row_x == 0.0)) {
         /* Transition: '<S1>:17' */
         floribot_task3_DW.is_c1_floribot_task3 = floribot_task3_IN_leaving_row;
         floribot_task3_DW.temporalCounter_i1 = 0U;
@@ -178,7 +178,7 @@ void floribot_task3_step(void)
 
      case floribot_task3_IN_leaving_row:
       /* During 'leaving_row': '<S1>:14' */
-      if (floribot_task3_DW.temporalCounter_i1 >= 40U) {
+      if (floribot_task3_DW.temporalCounter_i1 >= 45U) {
         /* Transition: '<S1>:29' */
         floribot_task3_DW.is_c1_floribot_task3 = floribot_task3_IN_turning;
         floribot_task3_DW.temporalCounter_i1 = 0U;
