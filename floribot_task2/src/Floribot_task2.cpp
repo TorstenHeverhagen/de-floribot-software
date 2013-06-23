@@ -50,15 +50,15 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
 	x_sec = 1;
 	n_.getParam("/floribot_task2/x_sec", x_sec);
 
-	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
-	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+	//x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
+	//y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
 	//floribot_task2_U.prob_threshold = 0.2;
 	//floribot_task2_U.direction = 1.0;
 
 	//Start paremeters fot the direction adjustment (FB)
 	linear = 0.5;
 	angular = 0.5;
-	x_box = 0.3;
+	x_box = 0.5;
 	y_box = 0.3;
 	turn_direction = false;	//true = left, false = right
 	stop_turn = false;
@@ -123,68 +123,80 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	//turn right
 	if (turn_direction == false){
+		uint counta = 0;
+
 		for(uint i = 0; i < sizeof(y_array)/2; i++){	//Use only the right half of the scan
 			if (y_array[i]>= -y_box && x_array[i] <= x_box){
-				stop_turn = true;
-				printf("%d",stop_turn);
+				counta++;
+
+				if (counta > 5){			//Turn stops if atleast 5 points are found
+					stop_turn = true;
+					printf("%d",stop_turn);
+				}
 			}
 		}
 	}
 
 	//turn left
 	if (turn_direction == true){
+		uint counta = 0;
+
 		for(uint i = sizeof(y_array)/2; i < sizeof(y_array); i++){	//Use only the left half of the scan
 			if (y_array[i]<= y_box && x_array[i] <= x_box){
-				stop_turn = true;
-				printf("%d",stop_turn);
+
+				counta++;
+				if (counta > 5){			//Turn stops if atleast 5 points are found
+					stop_turn = true;
+					printf("%d",stop_turn);
+				}
 			}
 		}
 	}
 
-	// End of user code don't delete this line
-}
+		// End of user code don't delete this line
+	}
 
-/**
- * publish messages to topic task_cmd_vel
- *
- * @generated
- */
-void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
-{
-	task_cmd_vel_pub.publish(msg);
-}
+	/**
+	 * publish messages to topic task_cmd_vel
+	 *
+	 * @generated
+	 */
+	void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
+	{
+		task_cmd_vel_pub.publish(msg);
+	}
 
-/**
- * tick is triggered 
- *
- * @generated
- */
-void Floribot_task2::tick ()
-{
-	// Start of user code call your own code
-	// TODO: fill with your code
-	// End of user code don't delete this line
-}
+	/**
+	 * tick is triggered
+	 *
+	 * @generated
+	 */
+	void Floribot_task2::tick ()
+	{
+		// Start of user code call your own code
+		// TODO: fill with your code
+		// End of user code don't delete this line
+	}
 
-/**
- * returns the tick rate
- *
- * @generated
- */
-int Floribot_task2::get_tick_rate ()
-{
-	return tick_rate;
-}
+	/**
+	 * returns the tick rate
+	 *
+	 * @generated
+	 */
+	int Floribot_task2::get_tick_rate ()
+	{
+		return tick_rate;
+	}
 
-// Start of user code additional members
+	// Start of user code additional members
 
 
-void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
+	void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
 
-	// TODO Fill in Bene Bauers Code ;)
+		// TODO Fill in Bene Bauers Code ;)
 
-	// Durch Reihe navigieren
-	/*
+		// Durch Reihe navigieren
+		/*
 
 		int numRanges = scan->ranges.size();
 		float angleIncrement = scan->angle_increment;
@@ -199,37 +211,37 @@ void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
 		y = this->calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
 
 		this->setVelocity(x, y, speed);
-	 */
-}
-
-void Floribot_task2::turn(int direction, int rows) {
-
-	switch (direction){
-	case -1: //TODO Fill in right turn
-
-		break;
-
-	case 0: // TODO Return same row
-
-		break;
-
-	case 1: // TODO Fill in left turn
-		break;
-
-	default: ;
+		 */
 	}
 
+	void Floribot_task2::turn(int direction, int rows) {
 
-}
+		switch (direction){
+		case -1: //TODO Fill in right turn
 
-// TODO Implement Method to Count Rows
+			break;
 
-// End of user code don't delete this line
-/*
+		case 0: // TODO Return same row
+
+			break;
+
+		case 1: // TODO Fill in left turn
+			break;
+
+		default: ;
+		}
+
+
+	}
+
+	// TODO Implement Method to Count Rows
+
+	// End of user code don't delete this line
+	/*
 float Floribot_task2::calcFieldOfAttentionX(scan, angleIncrement, numRanges,x) {
 }
 
 float Floribot_task2::calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl) {
 }
- */
+	 */
 } // end of namespace
