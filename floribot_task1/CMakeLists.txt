@@ -26,6 +26,11 @@ target_link_libraries(floribot_task1_node Floribot_task1)
 
 #Start of user code user defined libraries
 
+rosbuild_add_library(task1_histogramm src/Histogramm.cpp)
+target_link_libraries(floribot_task1_node task1_histogramm)
+rosbuild_add_library(task1_statediagramm src/Statediagramm.cpp)
+target_link_libraries(floribot_task1_node task1_statediagramm)
+
 	#uncomment if you have defined messages
 	#rosbuild_genmsg()
 	#uncomment if you have defined services

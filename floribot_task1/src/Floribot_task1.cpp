@@ -16,16 +16,38 @@ namespace floribot_task1 {
 Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n)
 {
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
-	scan_sub = n_.subscribe("scan", 1,
-			&Floribot_task1::scan_message, this);
-    direction = ;
+	scan_sub = n_.subscribe("scan", 1, &Floribot_task1::scan_message, this);
+
+    direction = 1;
     n_.getParam("/floribot_task1/direction", direction);
-    tick_rate = ;
-    n_.getParam("/floribot_task1/tick_rate", tick_rate);
     tick_rate = 100;
     n_.getParam("/floribot_task1/tick_rate", tick_rate);
+
     // Start of user code constructor
-    // TODO: fill with your code
+
+    max_scan_distance = 2.0;
+    n_.getParam("/floribot_task1/max_scan_distance", max_scan_distance);
+	robot_width = 0.5;
+    n_.getParam("/floribot_task1/robot_width", robot_width);
+	row_width = 0.75;
+    n_.getParam("/floribot_task1/row_width", row_width);
+
+
+	x_hist_min = 0.0;
+    n_.getParam("/floribot_task1/x_hist_min", x_hist_min);
+	x_hist_max = 2.0;
+    n_.getParam("/floribot_task1/x_hist_max", x_hist_max);
+	x_hist_width = 0.1;
+    n_.getParam("/floribot_task1/x_hist_width", x_hist_width);
+	y_hist_min = -2.0;
+    n_.getParam("/floribot_task1/y_hist_min", y_hist_min);
+	y_hist_max = 2.0;
+    n_.getParam("/floribot_task1/y_hist_max", y_hist_max);
+	y_hist_width = 0.1;
+    n_.getParam("/floribot_task1/y_hist_width", y_hist_width);
+	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
+	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+
     // End of user code don't delete this line
 
 } // end of constructor
@@ -33,7 +55,10 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n)
 Floribot_task1::~Floribot_task1()
 {
     // Start of user code destructor
-    // TODO: fill with your code
+
+    delete x_hist;
+    delete y_hist;
+
     // End of user code don't delete this line
 } // end of destructor
 
@@ -55,7 +80,25 @@ void Floribot_task1::publish_task_cmd_vel (geometry_msgs::Twist msg)
 void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
-	// TODO: fill with your code
+
+	x_hist->clear();
+	y_hist->clear();
+	sensor_msgs::LaserScan scan = *msg;
+
+	for (uint i = 0; i < scan.ranges.size(); i++) {
+		if(scan.ranges[i] < max_scan_distance) {
+			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
+			x_hist->put(x);
+			y_hist->put(y);
+		}
+	}
+
+	// x_hist->print();
+	// y_hist->print();
+
+
+
 	// End of user code don't delete this line
 }
 

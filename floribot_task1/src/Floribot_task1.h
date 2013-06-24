@@ -13,7 +13,8 @@
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/LaserScan.h>
 // Start of user code specific includes
-// TODO: include your own headers
+#include "Histogramm.h"
+#include "Statediagramm.h"
 // End of user code don't delete this line
 
 namespace floribot_task1 {
@@ -36,11 +37,23 @@ private:
 	ros::NodeHandle n_;
 	bool direction;
 	int tick_rate;
-	int tick_rate;
 	ros::Publisher task_cmd_vel_pub;
 	ros::Subscriber scan_sub;
 	// Start of user code additional members
-	// TODO: declare your variables and methods
+
+	double max_scan_distance;
+	double robot_width;
+	double row_width;
+
+	double x_hist_min;
+	double x_hist_max;
+	double x_hist_width;
+	double y_hist_min;
+	double y_hist_max;
+	double y_hist_width;
+	Histogramm *x_hist;
+	Histogramm *y_hist;
+
 	// End of user code  don't delete this line
 };
 
