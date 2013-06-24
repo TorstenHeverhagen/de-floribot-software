@@ -20,6 +20,7 @@ Statediagramm::Statediagramm() {
 	angular = 0;
 	linear = 0;
 	Leaving_Row_timer = 0;
+	tick_rate = 0;
 }
 
 Statediagramm::~Statediagramm() {
