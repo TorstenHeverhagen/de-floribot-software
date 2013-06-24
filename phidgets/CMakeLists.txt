@@ -1,9 +1,5 @@
-# @generated
-
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-
-set (CMAKE_VERBOSE_MAKEFILE 1)
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -19,19 +15,59 @@ rosbuild_init()
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+#access to phidgets library
+set(CMAKE_EXE_LINKER_FLAGS "-Wl,-lphidget21")
+
+#uncomment if you have defined messages
+rosbuild_genmsg()
+#uncomment if you have defined services
+rosbuild_gensrv()
+
+#common commands for building c++ executables and libraries
+#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
+#target_link_libraries(${PROJECT_NAME} another_library)
+#rosbuild_add_boost_directories()
+#rosbuild_link_boost(${PROJECT_NAME} thread)
+#rosbuild_add_executable(example examples/example.cpp)
+#target_link_libraries(phidget21 ${PROJECT_NAME})
 
 
-#Start of user code user defined libraries
 
-	#uncomment if you have defined messages
-	#rosbuild_genmsg()
-	#uncomment if you have defined services
-	#rosbuild_gensrv()
-	
-	#common commands for building c++ executables and libraries
-	#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-	#target_link_libraries(${PROJECT_NAME} another_library)
-	#rosbuild_add_boost_directories()
-	#rosbuild_link_boost(${PROJECT_NAME} thread)
+#rosbuild_add_executable(advanced_servo src/advanced_servo.cpp)
+#rosbuild_add_executable(advanced_servo_client src/advanced_servo_client.cpp)
+rosbuild_add_executable(high_speed_encoder src/high_speed_encoder.cpp)
+rosbuild_add_executable(high_speed_encoder_client src/high_speed_encoder_client.cpp)
+#rosbuild_add_executable(motor_control_hc src/motor_control_hc.cpp)
+#rosbuild_add_executable(motor_control_hc_client src/motor_control_hc_client.cpp)
+rosbuild_add_executable(interface_kit src/interface_kit.cpp)
+rosbuild_add_executable(interface_kit_client src/interface_kit_client.cpp)
+#rosbuild_add_executable(accelerometer src/accelerometer.cpp)
+#rosbuild_add_executable(accelerometer_client src/accelerometer_client.cpp)
+rosbuild_add_executable(manager src/manager.cpp)
+#rosbuild_add_executable(manager_client src/manager_client.cpp)
+#rosbuild_add_executable(stepper src/stepper.cpp)
+#rosbuild_add_executable(stepper_client src/stepper_client.cpp)
+rosbuild_add_executable(odometry src/odometry.cpp)
+#rosbuild_add_executable(joystick src/joystick.cpp)
+#rosbuild_add_executable(pid src/pid.cpp)
+#rosbuild_add_executable(lidar src/lidar.cpp)
+#rosbuild_add_executable(lidar_client src/lidar_client.cpp)
+#rosbuild_add_executable(joystick_motor_control src/joystick_motor_control.cpp)
+#rosbuild_add_executable(joystick_servo_control src/joystick_servo_control.cpp)
+#rosbuild_add_executable(servo_glimpse src/servo_glimpse.cpp)
+#rosbuild_add_executable(rfid src/rfid.cpp)
+#rosbuild_add_executable(rfid_client src/rfid_client.cpp)
+#rosbuild_add_executable(textlcd src/textlcd.cpp)
+#rosbuild_add_executable(textlcd_client src/textlcd_client.cpp)
+#rosbuild_add_executable(phsensor src/phsensor.cpp)
+#rosbuild_add_executable(phsensor_client src/phsensor_client.cpp)
+#rosbuild_add_executable(spatial src/spatial.cpp)
+#rosbuild_add_executable(spatial_client src/spatial_client.cpp)
+#rosbuild_add_executable(led src/led.cpp)
+#rosbuild_add_executable(led_client src/led_client.cpp)
+#rosbuild_add_executable(ir src/ir.cpp)
+#rosbuild_add_executable(ir_client src/ir_client.cpp)
 
-#End of user code
+target_link_libraries(high_speed_encoder phidget21)
+target_link_libraries(interface_kit phidget21)
+target_link_libraries(manager phidget21)
