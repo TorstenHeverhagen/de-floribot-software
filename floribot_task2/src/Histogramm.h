@@ -12,7 +12,7 @@ namespace floribot_task2 {
 
 class Histogramm {
 public:
-	Histogramm(float width, float min, float max);
+	Histogramm(double width, double min, double max);
 	virtual ~Histogramm();
 
 	void print();
@@ -36,7 +36,7 @@ public:
 		}
 private:
 		int num_classes;
-		float min, max, width;
+		double min, max, width;
 		int *histogramm;
 };
 

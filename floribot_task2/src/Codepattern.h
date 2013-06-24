@@ -7,7 +7,7 @@
 
 #ifndef CODEPATTERN_H_
 #define CODEPATTERN_H_
-
+#include <string>
 namespace floribot_task2 {
 
 class Codepattern {
@@ -19,12 +19,13 @@ public:
 	int get_Direction(int n);
 	int get_Rows(int n);
 	int get_Amount_Commands();
-	int* get_Starts_Commands();
+	void get_Starts_Commands();
+	int command [20];
 
 
 private:
 	std::string code;
-	int command[get_Amount_Commands()];
+
 };
 } /* namespace floribot_task2 */
 #endif /* CODEPATTERN_H_ */

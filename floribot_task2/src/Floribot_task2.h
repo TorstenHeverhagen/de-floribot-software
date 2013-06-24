@@ -15,6 +15,7 @@
 // Start of user code specific includes
 #include "Histogramm.h"
 #include "Codepattern.h"
+#include "Statediagramm.h"
 // End of user code don't delete this line
 
 namespace floribot_task2 {
@@ -32,15 +33,39 @@ public:
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
 	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
-	void turn(bool direction, int rows);
-	float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
-	float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+	void turn(int direction, int rows);
+	//float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
+	//float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+
+	//Histogramm x_hist;
+	//Histogramm y_hist;
 private:
 	ros::NodeHandle n_;
 	std::string CodePattern;
 	int tick_rate;
 	ros::Subscriber scan_sub;
 	ros::Publisher task_cmd_vel_pub;
+
+	geometry_msgs::Twist last_published;
+
+	float angular, linear;
+
+	double y_hist_min;
+	double y_hist_max;
+	double x_hist_max;
+	double y_hist_width;
+	double x_hist_min;
+	double row_width;
+	double max_scan_distance;
+	double robot_width;
+	double x_hist_width;
+	double x_sec;
+	//Box parameters for direction adjustment at turning left or right (FB)
+	bool turn_direction;	//true = left, false = right
+	double x_box;
+	double y_box;
+	bool stop_turn;
+
 
 	// End of user code  don't delete this line
 };
