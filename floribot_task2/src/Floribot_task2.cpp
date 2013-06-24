@@ -88,29 +88,6 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	Codepattern code(CodePattern);
 
-	if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet die Fahrt
-	{
-		int direction;
-		int rows;
-		code.get_Starts_Commands();
-		//throughRow(msg); // Reihenfahrt inkl. wenden bei hinderniss
-		int i = 0;
-		while(i<=code.get_Amount_Commands())
-		{
-			rows = code.get_Rows(code.command[i]);
-			if (rows!=0) {
-				direction = code.get_Direction(code.command[i]+1);
-			}
-			else direction = 0;
-			printf("Commando-Nr.: %i  Richtung: %i  Reihenanzahl %i",i, direction, rows);
-			/*
-		turn(direction,rows); // beachte "0" kommando -> wenden und gleiche reihe zurück fahren
-		throughRow(msg); // Wenn fahrbefehl
-			 */
-			i++;
-		}
-	}
-
 	//Turn right/left (FB)
 	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right
 	sensor_msgs::LaserScan scan = *msg;
@@ -157,56 +134,56 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 	}
 
-		// fill inputs of statechart
-		statechart.setLeftRowY(0);
-		statechart.setRightRowY(0);
-		// End of user code don't delete this line
-	}
+	// fill inputs of statechart
+	statechart.setLeftRowY(0);
+	statechart.setRightRowY(0);
+	// End of user code don't delete this line
+}
 
-	/**
-	 * publish messages to topic task_cmd_vel
-	 *
-	 * @generated
-	 */
-	void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
-	{
-		task_cmd_vel_pub.publish(msg);
-	}
+/**
+ * publish messages to topic task_cmd_vel
+ *
+ * @generated
+ */
+void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
+{
+	task_cmd_vel_pub.publish(msg);
+}
 
-	/**
-	 * tick is triggered
-	 *
-	 * @generated
-	 */
-	void Floribot_task2::tick ()
-	{
-		// Start of user code call your own code
-		statechart.switch_State();
-		geometry_msgs::Twist msg;
-		msg.linear.x = statechart.getLinear();
-		msg.angular.z = statechart.getAngular();
-		// End of user code don't delete this line
-	}
+/**
+ * tick is triggered
+ *
+ * @generated
+ */
+void Floribot_task2::tick ()
+{
+	// Start of user code call your own code
+	statechart.switch_State();
+	geometry_msgs::Twist msg;
+	msg.linear.x = statechart.getLinear();
+	msg.angular.z = statechart.getAngular();
+	// End of user code don't delete this line
+}
 
-	/**
-	 * returns the tick rate
-	 *
-	 * @generated
-	 */
-	int Floribot_task2::get_tick_rate ()
-	{
-		return tick_rate;
-	}
+/**
+ * returns the tick rate
+ *
+ * @generated
+ */
+int Floribot_task2::get_tick_rate ()
+{
+	return tick_rate;
+}
 
-	// Start of user code additional members
+// Start of user code additional members
 
 
-	void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
+void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
 
-		// TODO Fill in Bene Bauers Code ;)
+	// TODO Fill in Bene Bauers Code ;)
 
-		// Durch Reihe navigieren
-		/*
+	// Durch Reihe navigieren
+	/*
 
 		int numRanges = scan->ranges.size();
 		float angleIncrement = scan->angle_increment;
@@ -221,37 +198,37 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		y = this->calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
 
 		this->setVelocity(x, y, speed);
-		 */
+	 */
+}
+
+void Floribot_task2::turn(int direction, int rows) {
+
+	switch (direction){
+	case -1: //TODO Fill in right turn
+
+		break;
+
+	case 0: // TODO Return same row
+
+		break;
+
+	case 1: // TODO Fill in left turn
+		break;
+
+	default: ;
 	}
 
-	void Floribot_task2::turn(int direction, int rows) {
 
-		switch (direction){
-		case -1: //TODO Fill in right turn
+}
 
-			break;
+// TODO Implement Method to Count Rows
 
-		case 0: // TODO Return same row
-
-			break;
-
-		case 1: // TODO Fill in left turn
-			break;
-
-		default: ;
-		}
-
-
-	}
-
-	// TODO Implement Method to Count Rows
-
-	// End of user code don't delete this line
-	/*
+// End of user code don't delete this line
+/*
 float Floribot_task2::calcFieldOfAttentionX(scan, angleIncrement, numRanges,x) {
 }
 
 float Floribot_task2::calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl) {
 }
-	 */
+ */
 } // end of namespace

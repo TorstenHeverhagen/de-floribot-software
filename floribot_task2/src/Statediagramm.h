@@ -19,7 +19,14 @@ class Statediagramm {
 	typedef enum {
 		Init = 0,
 		Inside_Row = 10,
-		Leaving_Row = 20
+		Leaving_Row = 20,
+		Turning_LO = 30,
+		Turning_RO = 40,
+		Outside_Row = 50,
+		Turning_LI = 60,
+		Turning_RI = 70,
+		U_Turn = 80,
+
 	} Task2_States;
 public:
 	Statediagramm();
