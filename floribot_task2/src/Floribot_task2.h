@@ -22,6 +22,9 @@ namespace floribot_task2 {
 
 class Floribot_task2 
 {
+	typedef Task2_States_T enum Task2_States {
+		Init 0;
+	};
 public:
 	Floribot_task2(ros::NodeHandle n);
 	virtual ~Floribot_task2();
@@ -65,6 +68,7 @@ private:
 	double x_box;
 	double y_box;
 	bool stop_turn;
+	Statediagramm statechart;
 
 
 	// End of user code  don't delete this line

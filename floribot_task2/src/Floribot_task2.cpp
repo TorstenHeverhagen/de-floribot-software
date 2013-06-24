@@ -16,7 +16,7 @@
 
 namespace floribot_task2 {
 
-Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
+Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 {
 	printf("test\n");
 	scan_sub = n_.subscribe("scan", 1,
@@ -28,9 +28,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
 	tick_rate = 100;
 	n_.getParam("/floribot_task2/tick_rate", tick_rate);
 	// Start of user code constructor
-	// TODO: fill with your code
-	tick_rate = 100;
-	n_.getParam("/floribot_task2/tick_rate", tick_rate);
+	// TODO: constructor fill with your code
 	y_hist_min = -2;
 	n_.getParam("/floribot_task2/y_hist_min", y_hist_min);
 	y_hist_max = 2;
@@ -64,6 +62,9 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
 	y_box = 0.3;
 	turn_direction = false;	//true = left, false = right
 	stop_turn = false;
+
+	// fill statechart constants
+	statechart.setRowWidth(row_width);
 
 	// End of user code don't delete this line
 
@@ -156,6 +157,9 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 	}
 
+		// fill inputs of statechart
+		statechart.setLeftRowY(0);
+		statechart.setRightRowY(0);
 		// End of user code don't delete this line
 	}
 
@@ -177,7 +181,10 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	void Floribot_task2::tick ()
 	{
 		// Start of user code call your own code
-		// TODO: fill with your code
+		statechart.switch_State();
+		geometry_msgs::Twist msg;
+		msg.linear.x = statechart.getLinear();
+		msg.angular.z = statechart.getAngular();
 		// End of user code don't delete this line
 	}
 

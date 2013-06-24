@@ -6,52 +6,69 @@
  */
 
 #include "Statediagramm.h"
-#define floribot_tas_IN_NO_ACTIVE_CHILD ((uint8_T)0U)
-#define floribot_task3_IN_inside_row   ((uint8_T)1U)
-#define floribot_task3_IN_leaving_row  ((uint8_T)2U)
-#define floribot_task3_IN_turning90Lo      ((uint8_T)3U)
-#define floribot_task3_IN_turning90Ro      ((uint8_T)4U)
-#define floribot_task3_IN_outside_row   ((uint8_T)5U)
-#define floribot_task3_IN_turning90Li      ((uint8_T)6U)
-#define floribot_task3_IN_turning90Ri      ((uint8_T)7U)
 
 namespace floribot_task2 {
 
-Statediagramm::Statediagramm(int state) {
-	// TODO Auto-generated constructor stub
+Statediagramm::Statediagramm() {
+	state = Init;
+	next_state = Init;
+	last_state = Init;
 
-	this->state = state;
-
+	row_width = 0;
+	left_row_y = 0;
+	right_row_y = 0;
+	angular = 0;
+	linear = 0;
+	Leaving_Row_timer = 0;
 }
-
-
 
 Statediagramm::~Statediagramm() {
 
 }
 
-void Statediagramm::switch_State(int zustand) {
+void Statediagramm::switch_State() {
 	geometry_msgs::Twist vel;
 
-	 switch (zustand) {
-		case 0:
-		vel.angular.z = 0;
-		vel.linear.x = 0;
-		last_published = vel;
+	 switch (state) {
+		case Init:
+			vel.angular.z = 0;
+			vel.linear.x = 0;
 
+			next_state = Inside_Row;
+			break;
+
+	    case Inside_Row:
+	    	// entry action
+	    	if(state != last_state) {
+	    		// do something
+
+	    		last_state = state;
+	    	}
+	    	// during actions
+
+	    	// transitions
+	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
+	    		//compute angular
+	    		angular = (left_row_y + right_row_y)/2*1.5;
+	    	} else if (left_row_y == 0 && right_row_y == 0 ) {
+	    		next_state = Leaving_Row;
+	    	}
 
 
 			break;
-
-	    case 1:
-
-
-
-			break;
-		case 2:
-
-
-
+		case Leaving_Row:
+	    	// entry action
+	    	if(state != last_state) {
+	    		Leaving_Row_timer = 0;
+	    		last_state = state;
+	    	}
+	    	// during actions
+	    	Leaving_Row_timer++;
+	    	// transitions
+	    	if (Leaving_Row_timer/(double)tick_rate > 1.0) {
+				//compute angular
+				next_state = Inside_Row;
+			}
 			break;
 		case 3:
 
@@ -81,6 +98,7 @@ void Statediagramm::switch_State(int zustand) {
 		default:
 			break;
 	}
+	 state = next_state;
 }
 
 
