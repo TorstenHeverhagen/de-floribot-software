@@ -88,28 +88,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	Codepattern code(CodePattern);
 
-	if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet die Fahrt
-	{
-		int direction;
-		int rows;
-		code.get_Starts_Commands();
-		//throughRow(msg); // Reihenfahrt inkl. wenden bei hinderniss
-		int i = 0;
-		while(i<=code.get_Amount_Commands())
-		{
-			rows = code.get_Rows(code.command[i]);
-			if (rows!=0) {
-				direction = code.get_Direction(code.command[i]+1);
-			}
-			else direction = 0;
-			printf("Commando-Nr.: %i  Richtung: %i  Reihenanzahl %i",i, direction, rows);
-			/*
-		turn(direction,rows); // beachte "0" kommando -> wenden und gleiche reihe zurück fahren
-		throughRow(msg); // Wenn fahrbefehl
-			 */
-			i++;
-		}
-	}
+
 
 	//Turn right/left (FB)
 	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right

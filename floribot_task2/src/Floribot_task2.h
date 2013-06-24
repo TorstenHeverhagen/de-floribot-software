@@ -22,9 +22,7 @@ namespace floribot_task2 {
 
 class Floribot_task2 
 {
-	typedef Task2_States_T enum Task2_States {
-		Init 0;
-	};
+
 public:
 	Floribot_task2(ros::NodeHandle n);
 	virtual ~Floribot_task2();
