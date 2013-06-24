@@ -88,7 +88,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	Codepattern code(CodePattern);
 
-
+	// Codepattern auswerten und als eingangsvariablen übergeben
 
 	//Turn right/left (FB)
 	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right

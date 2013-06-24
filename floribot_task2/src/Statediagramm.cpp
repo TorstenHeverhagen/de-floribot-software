@@ -20,6 +20,7 @@ Statediagramm::Statediagramm() {
 	angular = 0;
 	linear = 0;
 	Leaving_Row_timer = 0;
+	tick_rate= 0;
 }
 
 Statediagramm::~Statediagramm() {
@@ -70,36 +71,72 @@ void Statediagramm::switch_State() {
 				next_state = Inside_Row;
 			}
 			break;
-		case 3:
+		case Turning_LO:
 
 
 
 			break;
-		case 4:
+		case Turning_RO:
 
 
 
 			break;
-		case 5:
+		case Outside_Row:
+			// entry action
+			if(state != last_state) {
+				// do something
+
+				last_state = state;
+			}
+			// during actions
+
+			// transitions
+			if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
+				//compute angular
+				angular = (left_row_y + right_row_y)/2*1.5;
+			} else if (left_row_y == 0 && right_row_y == 0 ) {
+				next_state = Leaving_Row;
+			}
 
 
 
 			break;
-		case 6:
+		case Turning_LI:
 
 
 
 			break;
-		case 7:
+		case Turning_RI:
+
+			break;
+
+		case U_Turn:
+			// entry action
+			if(state != last_state) {
+				// do something
+
+				last_state = state;
+			}
+			// during actions
+			linear = 0.5;
+			// transitions
+			if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
+				//compute angular
+				angular = (left_row_y + right_row_y)/2*1.5;
+			} else if (left_row_y == 0 && right_row_y == 0 ) {
+				next_state = Leaving_Row;
+			}
 
 			break;
 
 
 		default:
+			// fehlermeldung
 			break;
-	}
+	 	 }
 	 state = next_state;
-}
+
+	}
 
 
 
