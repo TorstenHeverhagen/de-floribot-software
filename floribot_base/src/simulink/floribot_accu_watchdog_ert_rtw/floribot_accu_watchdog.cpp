@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_accu_watchdog'.
  *
- * Model version                  : 1.22
+ * Model version                  : 1.24
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 13 11:54:35 2013
+ * C/C++ source code generated on : Fri Jun 21 00:24:15 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Generic->32-bit x86 compatible
@@ -41,6 +41,7 @@ void floribot_accu_watchdog_step(void)
 {
   /* Chart: '<Root>/Chart' incorporates:
    *  Inport: '<Root>/voltage'
+   *  Inport: '<Root>/voltage_threshold'
    */
   /* Gateway: Chart */
   /* During: Chart */
@@ -59,7 +60,8 @@ void floribot_accu_watchdog_step(void)
   } else if (floribot_accu_watchdog_DW.is_c1_floribot_accu_watchdog ==
              floribot_accu_watch_IN_Accu_low) {
     /* During 'Accu_low': '<S1>:4' */
-    if (floribot_accu_watchdog_U.voltage > 10.0) {
+    if (floribot_accu_watchdog_U.voltage >
+        floribot_accu_watchdog_U.voltage_threshold) {
       /* Transition: '<S1>:6' */
       floribot_accu_watchdog_DW.is_c1_floribot_accu_watchdog =
         floribot_accu_watchd_IN_Accu_ok;
@@ -70,7 +72,8 @@ void floribot_accu_watchdog_step(void)
     }
   } else {
     /* During 'Accu_ok': '<S1>:3' */
-    if (floribot_accu_watchdog_U.voltage < 10.0) {
+    if (floribot_accu_watchdog_U.voltage <
+        floribot_accu_watchdog_U.voltage_threshold) {
       /* Transition: '<S1>:5' */
       floribot_accu_watchdog_DW.is_c1_floribot_accu_watchdog =
         floribot_accu_watch_IN_Accu_low;
@@ -97,7 +100,8 @@ void floribot_accu_watchdog_initialize(void)
                 sizeof(DW_floribot_accu_watchdog_T));
 
   /* external inputs */
-  floribot_accu_watchdog_U.voltage = 0.0;
+  (void) memset((void *)&floribot_accu_watchdog_U, 0,
+                sizeof(ExtU_floribot_accu_watchdog_T));
 
   /* external outputs */
   floribot_accu_watchdog_Y.accu_low = FALSE;

@@ -26,7 +26,7 @@ Histogramm::~Histogramm() {
 
 void Histogramm::put(float value)
 {
-	if (value < max && value > min) {
+	if (value <= max && value >= min) {
 		//printf("put: %f ", value);
 		int index = get_class_num(value);
 		histogramm[index]++;
@@ -39,15 +39,11 @@ float Histogramm::get_min(int i) {
 }
 
 float Histogramm::get_max(int i) {
-	return i*get_width() + min + get_width();
+	return get_min(i) + get_width();
 }
 
 float Histogramm::get_width() {
 	return width;
-}
-
-int Histogramm::get_n(int i) {
-	return histogramm[i];
 }
 
 void Histogramm::print() {
@@ -58,7 +54,7 @@ void Histogramm::print() {
 }
 
 int Histogramm::get_class_num(float value) {
-	return -min/width + value/width;
+	return (value - min)/width;
 }
 
 float Histogramm::get_class_middle(int index) {
@@ -68,7 +64,7 @@ float Histogramm::get_class_middle(int index) {
 float Histogramm::get_mean(float border1, float border2) {
 	float weighted_sum = 0;
 	for(int i = get_class_num(border1); i <= get_class_num(border2); i++) {
-		weighted_sum += get_n(i) * get_class_middle(i);
+		weighted_sum += histogramm[i] * get_class_middle(i);
 	}
 	int sum = get_sum(border1, border2);
 	float mean = 0;
@@ -81,9 +77,13 @@ float Histogramm::get_mean(float border1, float border2) {
 int Histogramm::get_sum(float border1, float border2) {
 	int sum = 0;
 	for(int i = get_class_num(border1); i <= get_class_num(border2); i++) {
-		sum += get_n(i);
+		sum += histogramm[i];
 	}
 	return sum;
+}
+
+int Histogramm::get_n(float value) {
+	return histogramm[get_class_num(value)];
 }
 
 void Histogramm::clear() {

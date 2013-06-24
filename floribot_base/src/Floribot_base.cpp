@@ -62,7 +62,7 @@ Floribot_base::~Floribot_base()
  */
 void Floribot_base::cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
 {
-	// Start of user code process message
+	// Start of user code process message from topic cmd_vel
 	setVelX(msg->linear.x);
 	setVelYaw(msg->angular.z);
 	// End of user code don't delete this line

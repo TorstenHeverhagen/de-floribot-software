@@ -16,18 +16,20 @@ namespace floribot_wiimote {
 
 Floribot_wiimote::Floribot_wiimote(ros::NodeHandle n) : n_(n)
 {
+	joy_set_feedback_pub = n_.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback",1);
+	accu_low_sub = n_.subscribe("accu_low", 1,
+			&Floribot_wiimote::accu_low_message, this);
 	task_cmd_vel_sub = n_.subscribe("task_cmd_vel", 1,
 			&Floribot_wiimote::task_cmd_vel_message, this);
 	joy_sub = n_.subscribe("joy", 1,
 			&Floribot_wiimote::joy_message, this);
 	cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
-	joy_set_feedback_pub = n_.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback",1);
     tick_rate = 100;
     n_.getParam("/floribot_wiimote/tick_rate", tick_rate);
     /* Initialize simulink model */
     floribot_wiimote_initialize();
     // Start of user code constructor
-    new_msg = false;
+
     // End of user code don't delete this line
 
 } // end of constructor
@@ -42,14 +44,35 @@ Floribot_wiimote::~Floribot_wiimote()
 } // end of destructor
 
 /**
+ * publish messages to topic joy/set_feedback
+ *
+ * @generated
+ */
+void Floribot_wiimote::publish_joy_set_feedback (sensor_msgs::JoyFeedbackArray msg)
+{
+	joy_set_feedback_pub.publish(msg);
+}
+
+/**
+ * process messages from topic accu_low
+ *
+ * @generated
+ */
+void Floribot_wiimote::accu_low_message (const std_msgs::Bool::ConstPtr& msg)
+{
+	// Start of user code process message from topic accu_low
+	floribot_wiimote_U.accu_low = msg->data;
+	// End of user code don't delete this line
+}
+
+/**
  * process messages from topic task_cmd_vel
  *
  * @generated
  */
 void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
 {
-	// Start of user code process message
-	task1_vel = *msg;
+	// Start of user code process message from topic task_cmd_vel
 	floribot_wiimote_U.task_x = msg->linear.x;
 	floribot_wiimote_U.task_yaw = msg->angular.z;
 	// End of user code don't delete this line
@@ -62,7 +85,8 @@ void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPt
  */
 void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
 {
-	// Start of user code process message
+	// Start of user code process message from topic joy
+	
 	floribot_wiimote_U.Button1 = msg->buttons[0];
 	floribot_wiimote_U.Button2 = msg->buttons[1];
 	floribot_wiimote_U.A = msg->buttons[2];
@@ -74,7 +98,7 @@ void Floribot_wiimote::joy_message (const sensor_msgs::Joy::ConstPtr& msg)
 	floribot_wiimote_U.joy_roll = msg->axes[0];
 	floribot_wiimote_U.joy_pitch = msg->axes[1];
 	floribot_wiimote_U.joy_yaw = msg->axes[2];
-	new_msg = true;
+
 	// End of user code don't delete this line
 }
 
@@ -89,17 +113,6 @@ void Floribot_wiimote::publish_cmd_vel (geometry_msgs::Twist msg)
 }
 
 /**
- * publish messages to topic joy/set_feedback
- *
- * @generated
- */
-void Floribot_wiimote::publish_joy_set_feedback (sensor_msgs::JoyFeedbackArray msg)
-{
-	joy_set_feedback_pub.publish(msg);
-}
-
-
-/**
  * tick is triggered 
  *
  * @generated
@@ -109,17 +122,16 @@ void Floribot_wiimote::tick ()
     /* Step the simulink model */
     floribot_wiimote_step();
 	// Start of user code call your own code
-	if (new_msg) {
-		geometry_msgs::Twist cmd_vel_msg;
-		cmd_vel_msg.linear.x = floribot_wiimote_Y.cmd_vel_x;
-		cmd_vel_msg.angular.z = floribot_wiimote_Y.cmd_vel_yaw;
-		publish_cmd_vel(cmd_vel_msg);
-		// log
-		ROS_INFO("z = %f , x = %f", cmd_vel_msg.angular.z, cmd_vel_msg.linear.x);
 
-		publish_joy_set_feedback(prepare_joy_feedback());
-		new_msg = false;
-	}
+	geometry_msgs::Twist cmd_vel_msg;
+	cmd_vel_msg.linear.x = floribot_wiimote_Y.cmd_vel_x;
+	cmd_vel_msg.angular.z = floribot_wiimote_Y.cmd_vel_yaw;
+	publish_cmd_vel(cmd_vel_msg);
+	// log
+	ROS_INFO("z = %f , x = %f", cmd_vel_msg.angular.z, cmd_vel_msg.linear.x);
+
+	publish_joy_set_feedback(prepare_joy_feedback());
+
 	// End of user code don't delete this line
 }
 

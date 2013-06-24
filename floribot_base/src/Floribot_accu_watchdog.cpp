@@ -16,15 +16,18 @@ namespace floribot_base {
 
 Floribot_accu_watchdog::Floribot_accu_watchdog(ros::NodeHandle n) : n_(n)
 {
+	accu_low_pub = n_.advertise<std_msgs::Bool>("accu_low",1);
 	phidgets_interface_kit_sub = n_.subscribe("phidgets/interface_kit", 1,
 			&Floribot_accu_watchdog::phidgets_interface_kit_message, this);
-	accu_low_pub = n_.advertise<std_msgs::Bool>("accu_low",1);
+    voltage_threshold = 1000;
+    n_.getParam("/floribot_accu_watchdog/voltage_threshold", voltage_threshold);
     tick_rate = 100;
     n_.getParam("/floribot_accu_watchdog/tick_rate", tick_rate);
     /* Initialize simulink model */
     floribot_accu_watchdog_initialize();
     // Start of user code constructor
-    // TODO: fill with your code
+    
+    floribot_accu_watchdog_U.voltage_threshold = voltage_threshold;
     // End of user code don't delete this line
 
 } // end of constructor
@@ -39,13 +42,23 @@ Floribot_accu_watchdog::~Floribot_accu_watchdog()
 } // end of destructor
 
 /**
+ * publish messages to topic accu_low
+ *
+ * @generated
+ */
+void Floribot_accu_watchdog::publish_accu_low (std_msgs::Bool msg)
+{
+	accu_low_pub.publish(msg);
+}
+
+/**
  * process messages from topic phidgets/interface_kit
  *
  * @generated
  */
 void Floribot_accu_watchdog::phidgets_interface_kit_message (const phidgets::interface_kit_params::ConstPtr& msg)
 {
-	// Start of user code process message
+	// Start of user code process message from topic phidgets/interface_kit
 	ROS_INFO("phidgets_interface_kit_message: %d", msg->value_type);
     phidgets::interface_kit_params ifk = *msg;
     switch(ifk.value_type)
@@ -67,16 +80,6 @@ void Floribot_accu_watchdog::phidgets_interface_kit_message (const phidgets::int
         }
     }
 	// End of user code don't delete this line
-}
-
-/**
- * publish messages to topic accu_low
- *
- * @generated
- */
-void Floribot_accu_watchdog::publish_accu_low (std_msgs::Bool msg)
-{
-	accu_low_pub.publish(msg);
 }
 
 /**

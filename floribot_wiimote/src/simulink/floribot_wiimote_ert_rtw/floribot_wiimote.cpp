@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_wiimote'.
  *
- * Model version                  : 1.32
+ * Model version                  : 1.34
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Fri Jun 14 00:27:59 2013
+ * C/C++ source code generated on : Thu Jun 20 23:42:27 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -77,9 +77,6 @@ void floribot_wiimote_step(void)
     /* Outport: '<Root>/joy_led3' */
     floribot_wiimote_Y.joy_led3 = FALSE;
 
-    /* Outport: '<Root>/joy_led4' */
-    floribot_wiimote_Y.joy_led4 = FALSE;
-
     /* Entry Internal 'manual': '<S1>:17' */
     /* Transition: '<S1>:23' */
     floribot_wiimote_DW.is_manual = floribot_wiimote_IN_stand_still;
@@ -106,9 +103,6 @@ void floribot_wiimote_step(void)
 
       /* Outport: '<Root>/joy_led3' */
       floribot_wiimote_Y.joy_led3 = FALSE;
-
-      /* Outport: '<Root>/joy_led4' */
-      floribot_wiimote_Y.joy_led4 = FALSE;
 
       /* Entry Internal 'manual': '<S1>:17' */
       /* Transition: '<S1>:23' */
@@ -140,8 +134,10 @@ void floribot_wiimote_step(void)
       /* Outport: '<Root>/joy_led3' */
       floribot_wiimote_Y.joy_led3 = FALSE;
 
-      /* Outport: '<Root>/joy_led4' */
-      floribot_wiimote_Y.joy_led4 = FALSE;
+      /* Outport: '<Root>/joy_led4' incorporates:
+       *  Inport: '<Root>/accu_low'
+       */
+      floribot_wiimote_Y.joy_led4 = floribot_wiimote_U.accu_low;
     }
   } else {
     /* During 'manual': '<S1>:17' */
@@ -151,6 +147,10 @@ void floribot_wiimote_step(void)
       floribot_wiimote_DW.is_manual = floribot_wii_IN_NO_ACTIVE_CHILD;
       floribot_wiimote_DW.is_c1_floribot_wiimote = floribot_wiimote_IN_automatic;
     } else {
+      /* Outport: '<Root>/joy_led4' incorporates:
+       *  Inport: '<Root>/accu_low'
+       */
+      floribot_wiimote_Y.joy_led4 = floribot_wiimote_U.accu_low;
       switch (floribot_wiimote_DW.is_manual) {
        case floribot_wiimote_IN_Down:
         /* During 'Down': '<S1>:36' */

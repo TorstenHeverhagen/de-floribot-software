@@ -19,7 +19,7 @@ public:
 	float get_width();
 	float get_min(int i);
 	float get_max(int i);
-	int get_n(int i);
+	int get_n(float value);
 	float get_mean(float border1, float border2);
 	int get_sum(float border1, float border2);
 	int get_class_num(float value);

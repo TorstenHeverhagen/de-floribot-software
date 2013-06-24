@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_task3'.
  *
- * Model version                  : 1.72
+ * Model version                  : 1.106
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 20 15:37:02 2013
+ * C/C++ source code generated on : Sun Jun 23 23:04:36 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -18,6 +18,7 @@
 #define RTW_HEADER_floribot_task3_h_
 #ifndef floribot_task3_COMMON_INCLUDES_
 # define floribot_task3_COMMON_INCLUDES_
+#include <math.h>
 #include <string.h>
 #include "rtwtypes.h"
 #endif                                 /* floribot_task3_COMMON_INCLUDES_ */
@@ -36,12 +37,14 @@
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
   real_T dir;                          /* '<Root>/Chart' */
+  int32_T count;                       /* '<Root>/Chart' */
+  uint32_T temporalCounter_i1;         /* '<Root>/Chart' */
   uint32_T presentTicks;               /* '<Root>/Chart' */
   uint32_T elapsedTicks;               /* '<Root>/Chart' */
   uint32_T previousTicks;              /* '<Root>/Chart' */
   uint8_T is_active_c1_floribot_task3; /* '<Root>/Chart' */
   uint8_T is_c1_floribot_task3;        /* '<Root>/Chart' */
-  uint8_T temporalCounter_i1;          /* '<Root>/Chart' */
+  uint8_T is_no_danger;                /* '<Root>/Chart' */
 } DW_floribot_task3_T;
 
 /* External inputs (root inport signals with auto storage) */
@@ -55,6 +58,11 @@ typedef struct {
   real_T row_width;                    /* '<Root>/row_width' */
   real_T prob_threshold;               /* '<Root>/prob_threshold' */
   real_T direction;                    /* '<Root>/direction' */
+  real_T leav_vel_x;                   /* '<Root>/leav_vel_x' */
+  real_T turn_vel_x;                   /* '<Root>/turn_vel_x' */
+  real_T turn_vel_yaw;                 /* '<Root>/turn_vel_yaw' */
+  real_T leav_time;                    /* '<Root>/leav_time' */
+  real_T turn_time;                    /* '<Root>/turn_time' */
 } ExtU_floribot_task3_T;
 
 /* External outputs (root outports fed by signals with auto storage) */

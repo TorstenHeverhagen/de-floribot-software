@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_accu_watchdog'.
  *
- * Model version                  : 1.22
+ * Model version                  : 1.24
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Thu Jun 13 11:54:35 2013
+ * C/C++ source code generated on : Fri Jun 21 00:24:15 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Generic->32-bit x86 compatible
@@ -43,6 +43,7 @@ typedef struct {
 /* External inputs (root inport signals with auto storage) */
 typedef struct {
   real_T voltage;                      /* '<Root>/voltage' */
+  real_T voltage_threshold;            /* '<Root>/voltage_threshold' */
 } ExtU_floribot_accu_watchdog_T;
 
 /* External outputs (root outports fed by signals with auto storage) */
