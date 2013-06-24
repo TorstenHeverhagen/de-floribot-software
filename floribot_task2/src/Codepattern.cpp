@@ -7,6 +7,7 @@
 
 #include "Codepattern.h"
 #include "stdio.h"
+#include "iostream"
 
 namespace floribot_task2 {
 
