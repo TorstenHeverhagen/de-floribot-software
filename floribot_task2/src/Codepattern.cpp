@@ -15,7 +15,7 @@ Codepattern::Codepattern(std::string codepattern) {
 
 	this-> code = codepattern;
 	//this -> code = ;
-	this -> gro = get_Amount_Commands();
+	get_Starts_Commands();
 
 
 }

@@ -25,7 +25,6 @@ public:
 
 private:
 	std::string code;
-	static int gro;
 
 };
 } /* namespace floribot_task2 */
