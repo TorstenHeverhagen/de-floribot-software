@@ -69,6 +69,7 @@ private:
 	Histogramm *x_hist;
 	Histogramm *y_hist;
 	Histogramm *x_hist_rowcount;
+	//Codepattern *code;
 
 
 	// End of user code  don't delete this line

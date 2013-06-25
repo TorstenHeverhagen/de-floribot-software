@@ -18,13 +18,13 @@ namespace floribot_task2 {
 
 Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 {
-	printf("test\n");
+
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task2::scan_message, this);
-	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
+	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
 	CodePattern = "";
 	n_.getParam("/floribot_task2/CodePattern", CodePattern);
-	CodePattern = "S-1L-2R-0-2R-F";
+	CodePattern = "S-3L-2R-0-2R-F";
 	tick_rate = 100;
 	n_.getParam("/floribot_task2/tick_rate", tick_rate);
 	// Start of user code constructor
@@ -52,8 +52,10 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
-	x_hist_rowcount = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+	//x_hist_rowcount = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+	x_hist_rowcount = new Histogramm(0,3,0.1);
 
+	//code = new Codepattern(CodePattern);
 	//floribot_task2_U.prob_threshold = 0.2;
 	//floribot_task2_U.direction = 1.0;
 
@@ -94,19 +96,20 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	// Start of user code process message
 	sensor_msgs::LaserScan scan = *msg;
 	Codepattern code(CodePattern);
-	int direction = code.get_Direction(code.command[statechart.getCommandCount()]+1);
+	int turn_direction = code.get_Direction(code.command[statechart.getCommandCount()]+1);
+	//printf(" direction: %i \n", turn_direction);
 	//int rows = code.get_Rows(code.command[statechart.getCommandCount()]);
 
-	code.check();  // sollte hier noch abgefragt werden mit if
+	//code.check();  // sollte hier noch abgefragt werden mit if
 
 	// Histogramme füllen
 
 	x_hist-> clear();
 	y_hist -> clear();
-	x_hist_rowcount = new Histogramm(0,3,0.1);
+
 	x_hist_rowcount->clear();
 
-	if (direction == -1){
+	if (turn_direction == 1){
 		for (uint i = scan.ranges.size()/2; i < scan.ranges.size(); i++) {
 				if(scan.ranges[i] < 2) {
 					float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
@@ -114,7 +117,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 				}
 		}
 	}
-	else if (direction == 1){
+	else if (turn_direction == -1){
 		for (uint i = 0; i < scan.ranges.size()/2; i++) {
 				if(scan.ranges[i] < 2) {
 					float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
@@ -140,12 +143,12 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 			y_hist->put(y);
 			}
 		}
-/*
-	ROS_INFO("x");
-	x_hist->print();
-	ROS_INFO("y");
-	y_hist->print();
-*/
+
+	//ROS_INFO("x");
+	//x_hist->print();
+	//ROS_INFO("y");
+	//y_hist->print();
+
 	// x_hist_rowcount Auswerten bei Reihenpassage
 		//int hauptmax_n = x_hist_rowcount->get_Maxi_n(2,1);  // n des hauptmaximums
 		//int huaptmax_n_alt = hauptmax_n;
@@ -202,13 +205,14 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 		// fill inputs of statechart
 		statechart.setLeftRowY(y_hist->get_mean(0.3,1));
+		//printf("leftrowy: %f \n",y_hist->get_mean(0.3,1) );
+		//printf("rightrowy: %f\n",y_hist->get_mean(-1,-0.3));
 		statechart.setRightRowY(y_hist->get_mean(-1,-0.3));
 		statechart.setMiddRowX(44); //TODO setze midd_row_x aus berechnung
 		//Codepattern
 		statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
 		statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
-
-		statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0.75,1.5));// TODO grenzen angeben
+		statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0,2));// TODO grenzen angeben
 		// End of user code don't delete this line
 	}
 }
@@ -232,10 +236,23 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	void Floribot_task2::tick ()
 	{
 		// Start of user code call your own code
+		// fill inputs of statechart
+		Codepattern code(CodePattern);
+		statechart.setLeftRowY(y_hist->get_mean(0.3,1));
+
+		statechart.setRightRowY(y_hist->get_mean(-1,-0.3));
+		statechart.setMiddRowX(44); //TODO setze midd_row_x aus berechnung
+		//Codepattern
+		statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
+		statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
+		statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0,2));// TODO grenzen angeben
+
 		statechart.switch_State();
 		geometry_msgs::Twist msg;
 		msg.linear.x = statechart.getLinear();
 		msg.angular.z = statechart.getAngular();
+		//statechart.printState();
+		publish_task_cmd_vel(msg);
 		// End of user code don't delete this line
 	}
 

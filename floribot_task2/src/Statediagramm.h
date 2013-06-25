@@ -11,7 +11,7 @@
 #include <string.h>
 //#include "rtwtypes.h"
 #include <geometry_msgs/Twist.h>
-
+#include "stdio.h"
 
 namespace floribot_task2 {
 
@@ -31,6 +31,7 @@ public:
 	Statediagramm();
 	virtual ~Statediagramm();
 	void switch_State();
+	void printState();
 
 	float getAngular() const {
 		return angular;
@@ -80,9 +81,9 @@ private:
 	double left_row_y, right_row_y, row_width,midd_row_x;
 	Task2_States state, next_state, last_state;
 	float angular, linear;
-	int Leaving_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
+	int Leaving_Row_timer,Outside_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
 	int direct, rows, command_count;  // Ein- und Ausgangsvariablen für das Codepattern
-	int Row_Counter, Maxi_n, Maxi_n_erst;
+	int Row_Counter, Maxi_n, Maxi_n_erst,Maxi_n_alt;
 	int tick_rate;
 
 

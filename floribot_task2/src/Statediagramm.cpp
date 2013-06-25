@@ -11,7 +11,7 @@ namespace floribot_task2 {
 
 Statediagramm::Statediagramm() {
 	state = Init;
-	next_state = Init;
+	next_state = Outside_Row;
 	last_state = Init;
 
 	row_width = 0;
@@ -20,11 +20,13 @@ Statediagramm::Statediagramm() {
 	angular = 0;
 	linear = 0;
 	Leaving_Row_timer = 0;
+	Outside_Row_timer  =0;
 	tick_rate= 0;
 
 	Row_Counter = 0;  // Zaehlvariable für Reihen bei Passage außerhalb
 	Maxi_n = 0;
 	Maxi_n_erst = 0;
+	Maxi_n_alt = 0;
 	direct = 0;
 	rows = 0;
 	command_count = 0;
@@ -37,8 +39,9 @@ Statediagramm::~Statediagramm() {
 }
 
 void Statediagramm::switch_State() {
-	geometry_msgs::Twist vel;
+	//geometry_msgs::Twist vel;
 	float leave_time = 2.0;
+
 
 	 switch (state) {
 		case Init:
@@ -63,9 +66,17 @@ void Statediagramm::switch_State() {
 	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
 	    		//compute angular
 	    		angular = (left_row_y + right_row_y)/2*1.5;
-	    	} else if (left_row_y == 0 && right_row_y == 0 ) {
+	    		}
+	    	else if (left_row_y == 0 && right_row_y == 0 ) {
 	    		next_state = Leaving_Row;
-	    	}
+	    		}
+	    	next_state = Outside_Row;
+	    	/*else if (){
+
+	    		}
+	    	else if (){
+
+	    		}*/
 			break;
 
 		case Leaving_Row:
@@ -106,20 +117,28 @@ void Statediagramm::switch_State() {
 			// entry action
 			if(state != last_state) {
 				// do something
+				Outside_Row_timer = 0;
 				Row_Counter = 0;
-				Maxi_n_erst = Maxi_n;
+				Maxi_n_erst = 7;//Maxi_n;  // TODO übergabe von maxi_n an *_erst
 				last_state = state;
+
 			}
 			// during actions
 			linear = 0.2;
-			if (Maxi_n == Maxi_n_erst){ // TODO if bedingung aendern
+
+			if ((Maxi_n == Maxi_n_erst) and (Outside_Row_timer==0)){ // TODO if bedingung aendern
 				// wenn reihe passiert
 				Row_Counter++;
+				printf("reihe: %i | Maxi_n %i | Maxi_n_erst %i \n ", Row_Counter, Maxi_n, Maxi_n_erst);
+				printf("Reihenanzahl: %i | Richtung: %i \n", rows, direct);
+				Outside_Row_timer++;
 			}
+			if (Maxi_n != Maxi_n_erst) Outside_Row_timer = 0;
+
 			// transitions
-			if (Row_Counter == rows && direct == -1 ) {
+			if (Row_Counter == rows+1 && direct == -1 ) {
 				next_state = Turning_LI;
-			} else if (Row_Counter == rows && direct == 1 ) {
+			} else if (Row_Counter == rows+1 && direct == 1 ) {
 				next_state = Turning_RI;
 			}
 
@@ -128,11 +147,14 @@ void Statediagramm::switch_State() {
 			break;
 
 		case Turning_LI:
-
+			linear = 0;
+			angular = 0.2;
 
 
 			break;
 		case Turning_RI:
+			linear = 0;
+			angular = 0.2;
 
 			break;
 
@@ -160,13 +182,18 @@ void Statediagramm::switch_State() {
 			// fehlermeldung
 			break;
 	 	 }
-	 state = next_state;
+
 
 	}
-
+state = next_state;
 
 
 }
+
+void Statediagramm::printState() {
+	printf("State: %d \n", state);
+}
+
 }
 
 /* namespace floribot_task2 */
