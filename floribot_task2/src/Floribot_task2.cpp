@@ -50,12 +50,14 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	x_sec = 1;
 	n_.getParam("/floribot_task2/x_sec", x_sec);
 
-	//x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
-	//y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
+	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+	x_hist_rowcount = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+
 	//floribot_task2_U.prob_threshold = 0.2;
 	//floribot_task2_U.direction = 1.0;
 
-	//Start paremeters fot the direction adjustment (FB)
+	//Start parameters for the direction adjustment (FB)
 	linear = 0.5;
 	angular = 0.5;
 	x_box = 0.5;
@@ -65,6 +67,9 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 
 	// fill statechart constants
 	statechart.setRowWidth(row_width);
+		//seifrieds
+
+
 
 	// End of user code don't delete this line
 
@@ -73,7 +78,9 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 Floribot_task2::~Floribot_task2()
 {
 	// Start of user code destructor
-	// TODO: fill with your code
+	delete x_hist;
+	delete y_hist;
+	delete x_hist_rowcount;
 	// End of user code don't delete this line
 } // end of destructor
 
@@ -85,14 +92,45 @@ Floribot_task2::~Floribot_task2()
 void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
-
+	sensor_msgs::LaserScan scan = *msg;
 	Codepattern code(CodePattern);
+	int direction = code.get_Direction(code.command[statechart.getCommandCount()]+1);
+	//int rows = code.get_Rows(code.command[statechart.getCommandCount()]);
+
+	code.check();  // sollte hier noch abgefragt werden mit if
+
+	// Histogramme füllen
+
+	if (direction == -1) x_hist_rowcount = new Histogramm(0,2,0.1);
+	else if (direction == 1) x_hist_rowcount = new Histogramm(-2,0,0.1);
+	else x_hist_rowcount = new Histogramm(-2,2,0.1);
+
+	for (uint i = 0; i < scan.ranges.size(); i++) {
+		if(scan.ranges[i] < 2) {
+			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+			x_hist->put(x);
+			x_hist_rowcount->put(x);
+			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
+			y_hist->put(y);
+		}
+	}
+/*
+	ROS_INFO("x");
+	x_hist->print();
+	ROS_INFO("y");
+	y_hist->print();
+*/
+	// x_hist_rowcount Auswerten bei Reihenpassage
+		//int hauptmax_n = x_hist_rowcount->get_Maxi_n(2,1);  // n des hauptmaximums
+		//int huaptmax_n_alt = hauptmax_n;
+
+
 
 	// Codepattern auswerten und als eingangsvariablen übergeben
 
 	//Turn right/left (FB)
 	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right
-	sensor_msgs::LaserScan scan = *msg;
+
 	float x_array[scan.ranges.size()];
 	float y_array[scan.ranges.size()];
 
@@ -137,8 +175,14 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	}
 
 		// fill inputs of statechart
-		statechart.setLeftRowY(0);
-		statechart.setRightRowY(0);
+		statechart.setLeftRowY(y_hist->get_mean(0.3,1));
+		statechart.setRightRowY(y_hist->get_mean(-1,-0.3));
+		statechart.setMiddRowX(44); //TODO setze midd_row_x aus berechnung
+		//Codepattern
+		statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
+		statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
+
+		statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0.75,1.5));// TODO grenzen angeben
 		// End of user code don't delete this line
 	}
 
@@ -180,57 +224,8 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	// Start of user code additional members
 
 
-	void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
-
-		// TODO Fill in Bene Bauers Code ;)
-
-		// Durch Reihe navigieren
-		/*
-
-		int numRanges = scan->ranges.size();
-		float angleIncrement = scan->angle_increment;
-
-
-		float speed = 0.2;
-
-		float x = 0;
-		float y = 0, yr = 0, yl = 0;
-
-		x = this->calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
-		y = this->calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
-
-		this->setVelocity(x, y, speed);
-		 */
-	}
-
-	void Floribot_task2::turn(int direction, int rows) {
-
-		switch (direction){
-		case -1: //TODO Fill in right turn
-
-			break;
-
-		case 0: // TODO Return same row
-
-			break;
-
-		case 1: // TODO Fill in left turn
-			break;
-
-		default: ;
-		}
-
-
-	}
-
-	// TODO Implement Method to Count Rows
-
 	// End of user code don't delete this line
 	/*
-float Floribot_task2::calcFieldOfAttentionX(scan, angleIncrement, numRanges,x) {
-}
 
-float Floribot_task2::calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl) {
-}
 	 */
 } // end of namespace

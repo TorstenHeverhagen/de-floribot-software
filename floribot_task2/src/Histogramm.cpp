@@ -8,7 +8,7 @@
 #include "Histogramm.h"
 #include <stdio.h>
 
-namespace floribot_task3 {
+namespace floribot_task2 {
 
 Histogramm::Histogramm(float min, float max, float width) {
 	this->num_classes = (max-min)/width + 1;
@@ -84,6 +84,18 @@ int Histogramm::get_sum(float border1, float border2) {
 
 int Histogramm::get_n(float value) {
 	return histogramm[get_class_num(value)];
+}
+
+int Histogramm::get_Maxi_n(float border1, float border2) {
+	int max_n = 0;
+	int maximum = 0;
+	for (int i = get_class_num(border1); i < get_class_num(border2);i++){
+		if (histogramm[i]> maximum) {
+			maximum = histogramm[i];
+			max_n = i;
+		}
+	}
+	return max_n;
 }
 
 void Histogramm::clear() {

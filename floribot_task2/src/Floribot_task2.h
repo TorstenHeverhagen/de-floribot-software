@@ -38,8 +38,7 @@ public:
 	//float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
 	//float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
 
-	//Histogramm x_hist;
-	//Histogramm y_hist;
+
 private:
 	ros::NodeHandle n_;
 	std::string CodePattern;
@@ -67,6 +66,9 @@ private:
 	double y_box;
 	bool stop_turn;
 	Statediagramm statechart;
+	Histogramm *x_hist;
+	Histogramm *y_hist;
+	Histogramm *x_hist_rowcount;
 
 
 	// End of user code  don't delete this line

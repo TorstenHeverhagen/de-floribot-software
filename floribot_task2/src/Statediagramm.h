@@ -56,11 +56,33 @@ public:
 		tick_rate = tickRate;
 	}
 
+	int getCommandCount() const {
+		return command_count;
+	}
+
+	void setDirect(int direct) {
+		this->direct = direct;
+	}
+
+	void setRows(int rows) {
+		this->rows = rows;
+	}
+
+	void setMiddRowX(double middRowX) {
+		midd_row_x = middRowX;
+	}
+
+	void setMaxiN(int maxiN) {
+		Maxi_n = maxiN;
+	}
+
 private:
-	double left_row_y, right_row_y, row_width;
+	double left_row_y, right_row_y, row_width,midd_row_x;
 	Task2_States state, next_state, last_state;
 	float angular, linear;
 	int Leaving_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
+	int direct, rows, command_count;  // Ein- und Ausgangsvariablen für das Codepattern
+	int Row_Counter, Maxi_n, Maxi_n_erst;
 	int tick_rate;
 
 
