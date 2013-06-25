@@ -32,6 +32,11 @@ Statediagramm::Statediagramm() {
 	command_count = 0;
 	midd_row_x = 0;
 
+	left_row_prob = 0;
+	right_row_prob=0;
+	left_row_trashold = 0.2;
+	right_row_trashold = left_row_trashold;
+
 }
 
 Statediagramm::~Statediagramm() {

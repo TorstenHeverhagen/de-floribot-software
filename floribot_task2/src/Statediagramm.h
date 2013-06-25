@@ -77,8 +77,16 @@ public:
 		Maxi_n = maxiN;
 	}
 
+	void setLeftRowProb(double leftRowProb) {
+		left_row_prob = leftRowProb;
+	}
+
+	void setRightRowProb(double rightRowProb) {
+		right_row_prob = rightRowProb;
+	}
+
 private:
-	double left_row_y, right_row_y, row_width,midd_row_x;
+	double left_row_y, right_row_y, row_width,midd_row_x,left_row_prob,right_row_prob, left_row_trashold,right_row_trashold;
 	Task2_States state, next_state, last_state;
 	float angular, linear;
 	int Leaving_Row_timer,Outside_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen

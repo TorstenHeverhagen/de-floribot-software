@@ -148,11 +148,27 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	//x_hist->print();
 	//ROS_INFO("y");
 	//y_hist->print();
+	float left_row_y=0,left_row_prob,right_row_prob, plant_width ,plant_distance, right_row_y  ;
+	int left_n_max , right_n_max;
 
 	// x_hist_rowcount Auswerten bei Reihenpassage
-		//int hauptmax_n = x_hist_rowcount->get_Maxi_n(2,1);  // n des hauptmaximums
-		//int huaptmax_n_alt = hauptmax_n;
+	statechart.setLeftRowY(y_hist->get_mean(y_hist->get_width(), row_width + y_hist->get_width()));
+			left_row_y=y_hist->get_mean(y_hist->get_width(), row_width + y_hist->get_width()));
+	if (left_row_y == 0) left_row_prob = 0;
+		else {
+			left_n_max = atan(x_sec/(left_row_y+y_hist_width))/scan.angle_increment;
+			left_n_max = trunc(1 + left_n_max * plant_width/plant_distance*x_sec/plant_distance);
+			left_row_y - y_hist_width, left_row_y)/left_n_max;
+		}
 
+		right_row_y = y_hist->get_mean(-row_width - y_hist->get_width(), -y_hist->get_width());
+		if (right_row_y == 0) right_row_prob = 0;
+		else {
+			right_n_max = atan(x_sec/(-right_row_y+y_hist_width))/scan.angle_increment;
+			right_n_max = trunc(1 + right_n_max*plant_width/plant_distance*x_sec/plant_distance);
+			statechart.setRightRowProb(y_hist->get_sum(right_row_y, right_row_y + y_hist_width)/right_n_max);
+		}
+		statechart.setRowWidth(row_width);
 
 
 	// Codepattern auswerten und als eingangsvariablen übergeben
