@@ -18,7 +18,6 @@ namespace floribot_task2 {
 
 Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 {
-	printf("test\n");
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task2::scan_message, this);
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
@@ -49,11 +48,23 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	n_.getParam("/floribot_task2/x_hist_width", x_hist_width);
 	x_sec = 1;
 	n_.getParam("/floribot_task2/x_sec", x_sec);
+	plant_width = 0.05;
+	n_.getParam("/floribot_task2/plant_width", plant_width);
+	plant_distance = 0.45;
+	n_.getParam("/floribot_task2/plant_distance", plant_distance);
 
-	//x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
-	//y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
-	//floribot_task2_U.prob_threshold = 0.2;
-	//floribot_task2_U.direction = 1.0;
+	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
+	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
+
+	//TODO test if y_hist is the right one to use here
+	left_row_y = y_hist->get_mean(-1, -0.3);
+	right_row_y = y_hist->get_mean(0.3, 1);
+	front_row_x = 0;
+	prob_threshold = 0.2;
+	front_row_y = y_hist->get_mean(-0.3, 1);
+	left_row_prob = 0;
+	right_row_prob = 0;
+	front_row_prob = 0;
 
 	//Start paremeters fot the direction adjustment (FB)
 	linear = 0.5;
@@ -62,6 +73,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	y_box = 0.3;
 	turn_direction = false;	//true = left, false = right
 	stop_turn = false;
+
 
 	// fill statechart constants
 	statechart.setRowWidth(row_width);
@@ -73,7 +85,8 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 Floribot_task2::~Floribot_task2()
 {
 	// Start of user code destructor
-	// TODO: fill with your code
+	delete x_hist;
+	delete y_hist;
 	// End of user code don't delete this line
 } // end of destructor
 
@@ -85,7 +98,8 @@ Floribot_task2::~Floribot_task2()
 void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
-
+	x_hist->clear();
+	y_hist->clear();
 	Codepattern code(CodePattern);
 
 	//Turn right/left (FB)
@@ -94,13 +108,45 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	float x_array[scan.ranges.size()];
 	float y_array[scan.ranges.size()];
 
-
+	//Init histogram variables
 	for (uint i = 0; i < scan.ranges.size(); i++) {
+		if(scan.ranges[i] < max_scan_distance) {
+			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
+			x_hist->put(x);
+			y_hist->put(y);
+		}
 		if(scan.ranges[i] < 3) {
 			x_array[i] = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
 			y_array[i] = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
 		}
 	}
+
+	left_row_y = y_hist->get_mean(y_hist->get_width(), row_width + y_hist->get_width());
+	front_row_x = x_hist->get_mean(x_hist_width, x_sec);
+	right_row_y = y_hist->get_mean(-row_width - y_hist->get_width(), -y_hist->get_width());
+
+	double left_n_max, right_n_max, front_n_max;
+
+	//Front_row parameters
+	front_n_max = 2 * atan(robot_width/2/x_sec)/scan.angle_increment;
+	front_n_max = trunc(1 + front_n_max*plant_width/plant_distance*robot_width/plant_distance);
+	front_row_prob = x_hist->get_n(front_row_x)/front_n_max;
+
+	//Left_row parameters
+	left_n_max = atan(x_sec/(left_row_y+y_hist_width))/scan.angle_increment;
+	left_n_max = trunc(1 + left_n_max * plant_width/plant_distance*x_sec/plant_distance);
+	left_row_prob = y_hist->get_sum(left_row_y - y_hist_width, left_row_y)/left_n_max;
+
+	//Right_row parameters
+	right_n_max = atan(x_sec/(-right_row_y+y_hist_width))/scan.angle_increment;
+	right_n_max = trunc(1 + right_n_max*plant_width/plant_distance*x_sec/plant_distance);
+	right_row_prob = y_hist->get_sum(right_row_y, right_row_y + y_hist_width)/right_n_max;
+
+	printf("left(%f; %f) right(%f; %f) front(%f; %f)\n",
+			left_row_y, left_row_prob,
+			right_row_y, right_row_prob,
+			front_row_x, front_row_prob);
 
 	//turn right
 	if (turn_direction == false){
@@ -135,6 +181,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	}
 
 	// fill inputs of statechart
+
 	statechart.setLeftRowY(0);
 	statechart.setRightRowY(0);
 	// End of user code don't delete this line
