@@ -70,6 +70,13 @@ private:
 	Histogramm *y_hist;
 	Histogramm *x_hist_rowcount;
 	//Codepattern *code;
+	float left_row_y ;
+	float left_row_prob ;
+	float right_row_prob; ;
+	float plant_width;
+	float plant_distance;
+	float right_row_y;
+	int left_n_max , right_n_max;
 
 
 	// End of user code  don't delete this line

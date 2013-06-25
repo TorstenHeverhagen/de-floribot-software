@@ -11,7 +11,7 @@ namespace floribot_task2 {
 
 Statediagramm::Statediagramm() {
 	state = Init;
-	next_state = Outside_Row;
+	next_state = Init;
 	last_state = Init;
 
 	row_width = 0;
@@ -25,7 +25,7 @@ Statediagramm::Statediagramm() {
 
 	Row_Counter = 0;  // Zaehlvariable für Reihen bei Passage außerhalb
 	Maxi_n = 0;
-	Maxi_n_erst = 0;
+	Maxi_n_erst = 5;
 	Maxi_n_alt = 0;
 	direct = 0;
 	rows = 0;
@@ -37,6 +37,12 @@ Statediagramm::Statediagramm() {
 	left_row_trashold = 0.2;
 	right_row_trashold = left_row_trashold;
 
+// benes_adds
+	row_x = 0;
+	row_x_prob = 0;
+	prob_trashhold = 0.1;
+	leave_time = 0.5;
+
 }
 
 Statediagramm::~Statediagramm() {
@@ -45,11 +51,13 @@ Statediagramm::~Statediagramm() {
 
 void Statediagramm::switch_State() {
 	//geometry_msgs::Twist vel;
-	float leave_time = 2.0;
 
 
 	 switch (state) {
 		case Init:
+			if (state == Init){
+				last_state = Init;
+			}
 			// during actions
 			angular = 0;
 			linear = 0;
@@ -61,27 +69,34 @@ void Statediagramm::switch_State() {
 	    	// entry action
 	    	if(state != last_state) {
 	    		// do something
-
 	    		last_state = state;
 	    	}
 	    	// during actions
 	    	linear = 0.5;
 
+//TODO Transitions endlich mal machen!!! Eingangsvariablen berechnen
+	    	printf("links: %f | rechts: %f | abweich: %f \n",left_row_y, right_row_y, left_row_y+right_row_y);
 	    	// transitions
 	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
 	    		//compute angular
 	    		angular = (left_row_y + right_row_y)/2*1.5;
 	    		}
-	    	else if (left_row_y == 0 && right_row_y == 0 ) {
+	    	else if (left_row_y == 0 and right_row_y == 0 ) {
 	    		next_state = Leaving_Row;
-	    		}
-	    	next_state = Outside_Row;
-	    	/*else if (){
 
 	    		}
-	    	else if (){
+	    	else if(left_row_y + right_row_y < -0.1 ) {
+	    		//compute angular
+	    		angular = -0.2;//(left_row_y + right_row_y)/2*1.5;
 
-	    		}*/
+	    		}
+	    	else if(left_row_y + right_row_y > 0.1 ) {
+	    		//compute angular
+	    		angular = 0.2;//(left_row_y + right_row_y)/2*1.5;
+
+	    		    		}
+
+	    	printState();
 			break;
 
 		case Leaving_Row:
@@ -94,8 +109,9 @@ void Statediagramm::switch_State() {
 	    	angular = 0;
 	    	linear = 0.5;
 	    	Leaving_Row_timer++;
+	    	printf("Lauf: %i | Time: %f | direct: %i \n", Leaving_Row_timer,Leaving_Row_timer/(double)tick_rate, direct );
 	    	// transitions
-	    	if (Leaving_Row_timer/(double)tick_rate > leave_time and direct == 1) {
+	    	if ((Leaving_Row_timer/(double)tick_rate > leave_time) && (direct == 1)) {
 				//compute angular
 				next_state = Turning_RO;
 	    		}
@@ -109,12 +125,14 @@ void Statediagramm::switch_State() {
 			break;
 
 		case Turning_LO:
-
+			linear = 0;
+			angular = 0.3;
 
 
 			break;
 		case Turning_RO:
-
+			linear = 0;
+			angular = 0.3;
 
 
 			break;
@@ -122,14 +140,15 @@ void Statediagramm::switch_State() {
 			// entry action
 			if(state != last_state) {
 				// do something
+				last_state = state;
 				Outside_Row_timer = 0;
 				Row_Counter = 0;
-				Maxi_n_erst = 7;//Maxi_n;  // TODO übergabe von maxi_n an *_erst
-				last_state = state;
+				//Maxi_n_erst = 7;//Maxi_n;  // TODO übergabe von maxi_n an *_erst
+
 
 			}
 			// during actions
-			linear = 0.2;
+			linear = 0.3;
 
 			if ((Maxi_n == Maxi_n_erst) and (Outside_Row_timer==0)){ // TODO if bedingung aendern
 				// wenn reihe passiert
@@ -141,6 +160,7 @@ void Statediagramm::switch_State() {
 			if (Maxi_n != Maxi_n_erst) Outside_Row_timer = 0;
 
 			// transitions
+			printf("Outside \n");
 			if (Row_Counter == rows+1 && direct == -1 ) {
 				next_state = Turning_LI;
 			} else if (Row_Counter == rows+1 && direct == 1 ) {
@@ -171,14 +191,18 @@ void Statediagramm::switch_State() {
 				last_state = state;
 			}
 			// during actions
-			linear = 0.5;
+			linear = 0;
 			// transitions
-			if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
+			if (left_row_y == or right_row_y == 0 ) {
 				//compute angular
-				angular = (left_row_y + right_row_y)/2*1.5;
-			} else if (left_row_y == 0 && right_row_y == 0 ) {
-				next_state = Leaving_Row;
-			}
+				angular = 0.4;
+				}
+			else if (left_row_y > 0 && right_row_y == 0 ) {
+				angular = 0.2;
+				}
+			else if (left_row_y > 0 && right_row_y > 0 ) {
+				next_state = Inside_Row;
+				}
 
 			break;
 
@@ -196,7 +220,7 @@ state = next_state;
 }
 
 void Statediagramm::printState() {
-	printf("State: %d \n", state);
+	printf("State: %d | last_state: %d | next_state: %d \n", state, last_state, next_state);
 }
 
 }

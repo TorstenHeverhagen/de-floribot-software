@@ -94,6 +94,8 @@ private:
 	int Row_Counter, Maxi_n, Maxi_n_erst,Maxi_n_alt;
 	int tick_rate;
 
+	double row_x, row_x_prob, prob_trashhold;
+	float leave_time;
 
 };
 
