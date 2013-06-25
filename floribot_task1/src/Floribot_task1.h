@@ -45,6 +45,8 @@ private:
 	double robot_width;
 	double row_width;
 
+	double max_speed_angular, max_speed_linear;
+
 	double x_hist_min;
 	double x_hist_max;
 	double x_hist_width;

@@ -9,6 +9,7 @@
 #define STATEDIAGRAMM_H_
 
 #include <string.h>
+#include <stdio.h>
 //#include "rtwtypes.h"
 #include <geometry_msgs/Twist.h>
 
@@ -70,14 +71,47 @@ public:
 		row_x_prob = rowXProb;
 	}
 
+	Task2_States getLastState() const {
+		return last_state;
+	}
+
+	void setLastState(Task2_States lastState) {
+		last_state = lastState;
+	}
+
+	Task2_States getNextState() const {
+		return next_state;
+	}
+
+	void setNextState(Task2_States nextState) {
+		next_state = nextState;
+	}
+
+	void printState();
+
+	void setRobotWidth(double robotWidth) {
+		robot_width = robotWidth;
+	}
+
+	void setMaxSpeedAngular(double maxSpeedAngular) {
+		max_speed_angular = maxSpeedAngular;
+	}
+
+	void setMaxSpeedLinear(double maxSpeedLinear) {
+		max_speed_linear = maxSpeedLinear;
+	}
+
 private:
-	double left_row_y, right_row_y, row_width;
-	double left_row_y_prob, right_row_y_prob, prob_trashhold;
-	double row_x, row_x_prob;
-	Task2_States state, next_state, last_state;
 	float angular, linear;
 	int Leaving_Row_timer;
 	int tick_rate;
+	double row_width, robot_width;
+	double max_speed_angular, max_speed_linear;
+	double left_row_y, right_row_y;
+	double left_row_y_prob, right_row_y_prob, prob_trashhold;
+	double row_x, row_x_prob;
+	Task2_States state, next_state, last_state;
+
 
 
 };

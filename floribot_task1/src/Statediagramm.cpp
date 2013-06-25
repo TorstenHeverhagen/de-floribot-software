@@ -15,6 +15,14 @@ Statediagramm::Statediagramm() {
 	last_state = Init;
 
 	row_width = 0;
+	robot_width = 0;
+
+	max_speed_angular = 0;
+	max_speed_linear = 0;
+
+	angular = 0;
+	linear = 0;
+
 	left_row_y = 0;
 	left_row_y_prob = 0;
 	right_row_y = 0;
@@ -25,10 +33,7 @@ Statediagramm::Statediagramm() {
 
 	tick_rate = 0;
 
-	angular = 0;
-	linear = 0;
 	Leaving_Row_timer = 0;
-
 
 }
 
@@ -49,20 +54,23 @@ void Statediagramm::switch_State() {
 	    case Inside_Row:
 	    	// entry action
 	    	if(state != last_state) {
-	    		// do something
-
 	    		last_state = state;
 	    	}
 	    	// during actions
 
 	    	// transitions
-	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 && left_row_y_prob > prob_trashhold && right_row_y_prob > prob_trashhold) {
-	    		//compute angular
-	    		angular = (left_row_y + right_row_y);
-	    	} else if (left_row_y == 0 && right_row_y == 0 ) {
+	    	if ((left_row_y > ((row_width - robot_width)/2) && right_row_y < -((row_width - robot_width)/2)) && (left_row_y_prob > prob_trashhold && right_row_y_prob > prob_trashhold)) {
+	    		if (fabs(right_row_y + left_row_y) >= (row_width - robot_width)) {
+	    			linear = max_speed_linear * 0.1;
+	    		}
+	    		else {
+	    			linear = (1 - (fabs(right_row_y + left_row_y) / (row_width - robot_width))) * max_speed_linear;
+	    		}
+
+	    		angular = ((right_row_y + left_row_y) / (row_width - robot_width)) * max_speed_angular;
+	    	} else if (left_row_y_prob < prob_trashhold && right_row_y_prob < prob_trashhold) {
 	    		next_state = Leaving_Row;
 	    	}
-
 
 			break;
 		case Leaving_Row:
@@ -86,7 +94,9 @@ void Statediagramm::switch_State() {
 	 state = next_state;
 }
 
-
+void Statediagramm::printState() {
+	printf("State = %i\n", state);
+}
 
 }
 
