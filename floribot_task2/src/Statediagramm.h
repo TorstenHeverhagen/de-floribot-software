@@ -57,12 +57,34 @@ public:
 		tick_rate = tickRate;
 	}
 
+	void setFrontRowX(double frontRowX) {
+		front_row_x = frontRowX;
+	}
+
+	void setLeftRowProb(double leftRowProb) {
+		left_row_prob = leftRowProb;
+	}
+
+	void setRightRowProb(double rightRowProb) {
+		right_row_prob = rightRowProb;
+	}
+
+	void setFrontRowProb(double frontRowProb) {
+		front_row_prob = frontRowProb;
+	}
+
+	void setStopTurn(bool stopTurn){
+		stop_turn = stopTurn;
+	}
+
 private:
-	double left_row_y, right_row_y, row_width;
+	double left_row_y, right_row_y, row_width, front_row_x;
 	Task2_States state, next_state, last_state;
+	double left_row_prob, right_row_prob, front_row_prob;
 	float angular, linear;
 	int Leaving_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
 	int tick_rate;
+	bool stop_turn;
 
 
 };

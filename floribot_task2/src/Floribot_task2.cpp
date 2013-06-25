@@ -27,7 +27,6 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	tick_rate = 100;
 	n_.getParam("/floribot_task2/tick_rate", tick_rate);
 	// Start of user code constructor
-	// TODO: constructor fill with your code
 	y_hist_min = -2;
 	n_.getParam("/floribot_task2/y_hist_min", y_hist_min);
 	y_hist_max = 2;
@@ -56,7 +55,6 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
 
-	//TODO test if y_hist is the right one to use here
 	left_row_y = y_hist->get_mean(-1, -0.3);
 	right_row_y = y_hist->get_mean(0.3, 1);
 	front_row_x = 0;
@@ -158,7 +156,6 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 				if (counta > 5){			//Turn stops if atleast 5 points are found
 					stop_turn = true;
-					printf("%d",stop_turn);
 				}
 			}
 		}
@@ -174,7 +171,6 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 				counta++;
 				if (counta > 5){			//Turn stops if atleast 5 points are found
 					stop_turn = true;
-					printf("%d",stop_turn);
 				}
 			}
 		}
@@ -182,8 +178,13 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	// fill inputs of statechart
 
-	statechart.setLeftRowY(0);
-	statechart.setRightRowY(0);
+	statechart.setLeftRowY(left_row_y);
+	statechart.setRightRowY(right_row_y);
+	statechart.setFrontRowX(front_row_x);
+	statechart.setFrontRowProb(front_row_prob);
+	statechart.setLeftRowProb(left_row_prob);
+	statechart.setRightRowProb(right_row_prob);
+	statechart.setStopTurn(stop_turn);
 	// End of user code don't delete this line
 }
 

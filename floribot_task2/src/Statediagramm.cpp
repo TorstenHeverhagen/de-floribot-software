@@ -21,6 +21,11 @@ Statediagramm::Statediagramm() {
 	linear = 0;
 	Leaving_Row_timer = 0;
 	tick_rate = 0;
+	front_row_x = 0;
+	right_row_prob = 0;
+	front_row_prob = 0;
+	left_row_prob = 0;
+	stop_turn = false;
 }
 
 Statediagramm::~Statediagramm() {
@@ -104,9 +109,6 @@ void Statediagramm::switch_State() {
 	}
 	state = next_state;
 }
-
-
-
 }
 
 /* namespace floribot_task2 */
