@@ -62,7 +62,7 @@ private:
 	double plant_width;
 	double plant_distance;
 	//Box parameters for direction adjustment at turning left or right (FB)
-	bool turn_direction;	//true = left, false = right
+	int turn_direction;	//-1= rechts, 1 = links, 0 = 180 turn
 	double x_box;
 	double y_box;
 	bool stop_turn;

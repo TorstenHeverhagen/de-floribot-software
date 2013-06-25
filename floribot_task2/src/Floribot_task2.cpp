@@ -20,7 +20,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 {
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task2::scan_message, this);
-	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
+	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
 	CodePattern = "";
 	n_.getParam("/floribot_task2/CodePattern", CodePattern);
 	CodePattern = "S-1L-2R-0-2R-F";
@@ -55,11 +55,11 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
 
-	left_row_y = y_hist->get_mean(-1, -0.3);
-	right_row_y = y_hist->get_mean(0.3, 1);
+	left_row_y = 0;
+	right_row_y = 0;
 	front_row_x = 0;
 	prob_threshold = 0.2;
-	front_row_y = y_hist->get_mean(-0.3, 1);
+	front_row_y = 0;
 	left_row_prob = 0;
 	right_row_prob = 0;
 	front_row_prob = 0;
@@ -69,7 +69,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	angular = 0.5;
 	x_box = 0.5;
 	y_box = 0.3;
-	turn_direction = false;	//true = left, false = right
+	turn_direction = -1;	//-1= rechts, 1 = links, 0 = 180 turn
 	stop_turn = false;
 
 
@@ -106,6 +106,15 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	float x_array[scan.ranges.size()];
 	float y_array[scan.ranges.size()];
 
+	printf("Size(%i)\n",sizeof(x_array));
+
+//	for(uint i = 0; i< sizeof(x_array); i++){
+//		x_array[i] = 0;
+//	}
+//	for(uint i = 0; i< sizeof(y_array); i++){
+//		y_array[i] = 0;
+//	}
+
 	//Init histogram variables
 	for (uint i = 0; i < scan.ranges.size(); i++) {
 		if(scan.ranges[i] < max_scan_distance) {
@@ -141,13 +150,13 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	right_n_max = trunc(1 + right_n_max*plant_width/plant_distance*x_sec/plant_distance);
 	right_row_prob = y_hist->get_sum(right_row_y, right_row_y + y_hist_width)/right_n_max;
 
-	printf("left(%f; %f) right(%f; %f) front(%f; %f)\n",
-			left_row_y, left_row_prob,
-			right_row_y, right_row_prob,
-			front_row_x, front_row_prob);
+//	printf("left(%f; %f) right(%f; %f) front(%f; %f)\n",
+//			left_row_y, left_row_prob,
+//			right_row_y, right_row_prob,
+//			front_row_x, front_row_prob);
 
 	//turn right
-	if (turn_direction == false){
+	if (turn_direction == -1){
 		uint counta = 0;
 
 		for(uint i = 0; i < sizeof(y_array)/2; i++){	//Use only the right half of the scan
@@ -156,13 +165,19 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 				if (counta > 5){			//Turn stops if atleast 5 points are found
 					stop_turn = true;
+					//printf("Stop_turn right\n");
+
+				}
+				else{
+					stop_turn = false;
 				}
 			}
+			//printf("y_array(%f)\n",y_array[i]);
 		}
 	}
 
 	//turn left
-	if (turn_direction == true){
+	if (turn_direction == 1){
 		uint counta = 0;
 
 		for(uint i = sizeof(y_array)/2; i < sizeof(y_array); i++){	//Use only the left half of the scan
@@ -171,10 +186,16 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 				counta++;
 				if (counta > 5){			//Turn stops if atleast 5 points are found
 					stop_turn = true;
+					//printf("Stop_turn left\n");
+				}
+				else{
+					stop_turn = false;
 				}
 			}
 		}
 	}
+
+	//printf("Stop_turn(%i)\n",stop_turn);
 
 	// fill inputs of statechart
 
