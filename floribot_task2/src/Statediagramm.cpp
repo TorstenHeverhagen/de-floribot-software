@@ -38,6 +38,7 @@ Statediagramm::~Statediagramm() {
 
 void Statediagramm::switch_State() {
 	geometry_msgs::Twist vel;
+	float leave_time = 2.0;
 
 	 switch (state) {
 		case Init:
@@ -65,8 +66,6 @@ void Statediagramm::switch_State() {
 	    	} else if (left_row_y == 0 && right_row_y == 0 ) {
 	    		next_state = Leaving_Row;
 	    	}
-
-
 			break;
 
 		case Leaving_Row:
@@ -76,12 +75,21 @@ void Statediagramm::switch_State() {
 	    		last_state = state;
 	    	}
 	    	// during actions
+	    	angular = 0;
+	    	linear = 0.5;
 	    	Leaving_Row_timer++;
 	    	// transitions
-	    	if (Leaving_Row_timer/(double)tick_rate > 1.0) {
+	    	if (Leaving_Row_timer/(double)tick_rate > leave_time and direct == 1) {
 				//compute angular
-				next_state = Inside_Row;
-			}
+				next_state = Turning_RO;
+	    		}
+			else if (Leaving_Row_timer/(double)tick_rate > leave_time and direct == -1) {
+					//compute angular
+					next_state = Turning_LO;
+				}
+			else if (Leaving_Row_timer/(double)tick_rate > leave_time and direct == 0) {
+				//compute angular
+				next_state = U_Turn;
 			break;
 
 		case Turning_LO:
@@ -158,6 +166,7 @@ void Statediagramm::switch_State() {
 
 
 
+}
 }
 
 /* namespace floribot_task2 */

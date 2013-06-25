@@ -101,9 +101,35 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	// Histogramme füllen
 
-	if (direction == -1) x_hist_rowcount = new Histogramm(0,2,0.1);
-	else if (direction == 1) x_hist_rowcount = new Histogramm(-2,0,0.1);
-	else x_hist_rowcount = new Histogramm(-2,2,0.1);
+	x_hist-> clear();
+	y_hist -> clear();
+	x_hist_rowcount = new Histogramm(0,3,0.1);
+	x_hist_rowcount->clear();
+
+	if (direction == -1){
+		for (uint i = scan.ranges.size()/2; i < scan.ranges.size(); i++) {
+				if(scan.ranges[i] < 2) {
+					float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+					x_hist_rowcount->put(x);
+				}
+		}
+	}
+	else if (direction == 1){
+		for (uint i = 0; i < scan.ranges.size()/2; i++) {
+				if(scan.ranges[i] < 2) {
+					float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+					x_hist_rowcount->put(x);
+				}
+		}
+	}
+	else {
+		for (uint i = 0; i < scan.ranges.size(); i++) {
+			if(scan.ranges[i] < 2) {
+				float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
+				x_hist_rowcount->put(x);
+			}
+		}
+
 
 	for (uint i = 0; i < scan.ranges.size(); i++) {
 		if(scan.ranges[i] < 2) {
@@ -112,8 +138,8 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 			x_hist_rowcount->put(x);
 			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
 			y_hist->put(y);
+			}
 		}
-	}
 /*
 	ROS_INFO("x");
 	x_hist->print();
@@ -185,12 +211,14 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0.75,1.5));// TODO grenzen angeben
 		// End of user code don't delete this line
 	}
+}
 
 	/**
 	 * publish messages to topic task_cmd_vel
 	 *
 	 * @generated
 	 */
+
 	void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
 	{
 		task_cmd_vel_pub.publish(msg);
