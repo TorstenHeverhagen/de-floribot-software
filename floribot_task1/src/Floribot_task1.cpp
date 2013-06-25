@@ -13,7 +13,7 @@
 
 namespace floribot_task1 {
 
-Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n)
+Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
 {
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
 	scan_sub = n_.subscribe("scan", 1, &Floribot_task1::scan_message, this);
@@ -45,6 +45,17 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n)
     n_.getParam("/floribot_task1/y_hist_max", y_hist_max);
 	y_hist_width = 0.1;
     n_.getParam("/floribot_task1/y_hist_width", y_hist_width);
+
+	left_row_y = 0;
+	right_row_y = 0;
+	left_row_y_prob = 0;
+	right_row_y_prob = 0;
+	row_x = 0;
+	row_x_prob = 0;
+
+    prob_trashhold = 0.2;
+    n_.getParam("/floribot_task1/mean_trashhold", prob_trashhold);
+
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
 
@@ -94,10 +105,22 @@ void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 	}
 
-	// x_hist->print();
-	// y_hist->print();
+	//TODO probability
+	left_row_y = y_hist->get_class_middle(y_hist->get_mean(1,0));
+	left_row_y_prob = 0;
+	right_row_y = y_hist->get_class_middle(y_hist->get_mean(0,-1));
+	right_row_y_prob = 0;
 
+	row_x = x_hist->get_class_middle(x_hist->get_mean(1,0));
+	row_x_prob = 0;
 
+	statechart.setTickRate(tick_rate);
+	statechart.setProbTrashhold(prob_trashhold);
+
+	statechart.setLeftRowY(left_row_y);
+	statechart.setLeftRowYProb(left_row_y_prob);
+	statechart.setRightRowY(right_row_y);
+	statechart.setRightRowYProb(right_row_y_prob);
 
 	// End of user code don't delete this line
 }
@@ -110,7 +133,16 @@ void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 void Floribot_task1::tick ()
 {
 	// Start of user code call your own code
-	// TODO: fill with your code
+
+	geometry_msgs::Twist vel;
+
+	statechart.switch_State();
+
+	vel.linear.x  = statechart.getLinear();
+	vel.angular.z = statechart.getAngular();
+
+	this->publish_task_cmd_vel(vel);
+
 	// End of user code don't delete this line
 }
 

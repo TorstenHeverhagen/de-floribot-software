@@ -54,6 +54,12 @@ private:
 	Histogramm *x_hist;
 	Histogramm *y_hist;
 
+	Statediagramm statechart;
+	double prob_trashhold;
+	double left_row_y, right_row_y, row_x;
+	double left_row_y_prob, right_row_y_prob, row_x_prob;
+
+
 	// End of user code  don't delete this line
 };
 

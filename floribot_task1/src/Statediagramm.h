@@ -50,11 +50,33 @@ public:
 		tick_rate = tickRate;
 	}
 
+	void setLeftRowYProb(double leftRowYMean) {
+		left_row_y_prob = leftRowYMean;
+	}
+
+	void setRightRowYProb(double rightRowYMean) {
+		right_row_y_prob = rightRowYMean;
+	}
+
+	void setProbTrashhold(double meanTrashhold) {
+		prob_trashhold = meanTrashhold;
+	}
+
+	void setRowX(double rowX) {
+		row_x = rowX;
+	}
+
+	void setRowXProb(double rowXProb) {
+		row_x_prob = rowXProb;
+	}
+
 private:
 	double left_row_y, right_row_y, row_width;
+	double left_row_y_prob, right_row_y_prob, prob_trashhold;
+	double row_x, row_x_prob;
 	Task2_States state, next_state, last_state;
 	float angular, linear;
-	int Leaving_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
+	int Leaving_Row_timer;
 	int tick_rate;
 
 

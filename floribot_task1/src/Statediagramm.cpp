@@ -16,10 +16,20 @@ Statediagramm::Statediagramm() {
 
 	row_width = 0;
 	left_row_y = 0;
+	left_row_y_prob = 0;
 	right_row_y = 0;
+	right_row_y_prob = 0;
+	row_x = 0;
+	row_x_prob = 0;
+	prob_trashhold = 0;
+
+	tick_rate = 0;
+
 	angular = 0;
 	linear = 0;
 	Leaving_Row_timer = 0;
+
+
 }
 
 Statediagramm::~Statediagramm() {
@@ -27,12 +37,11 @@ Statediagramm::~Statediagramm() {
 }
 
 void Statediagramm::switch_State() {
-	geometry_msgs::Twist vel;
 
 	 switch (state) {
 		case Init:
-			vel.angular.z = 0;
-			vel.linear.x = 0;
+			linear = 0;
+			angular = 0;
 
 			next_state = Inside_Row;
 			break;
@@ -47,9 +56,9 @@ void Statediagramm::switch_State() {
 	    	// during actions
 
 	    	// transitions
-	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
+	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 && left_row_y_prob > prob_trashhold && right_row_y_prob > prob_trashhold) {
 	    		//compute angular
-	    		angular = (left_row_y + right_row_y)/2*1.5;
+	    		angular = (left_row_y + right_row_y);
 	    	} else if (left_row_y == 0 && right_row_y == 0 ) {
 	    		next_state = Leaving_Row;
 	    	}
@@ -70,30 +79,6 @@ void Statediagramm::switch_State() {
 				next_state = Inside_Row;
 			}
 			break;
-		case 3:
-
-
-
-			break;
-		case 4:
-
-
-
-			break;
-		case 5:
-
-
-
-			break;
-		case 6:
-
-
-
-			break;
-		case 7:
-
-			break;
-
 
 		default:
 			break;
