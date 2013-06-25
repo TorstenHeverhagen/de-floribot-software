@@ -57,7 +57,11 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
 	row_x = 0;
 	row_x_prob = 0;
 
-    prob_trashhold = 0.2;
+	max_scanns_x = 0;
+	max_scanns_right_y = 0;
+	max_scanns_left_y = 0;
+
+    prob_trashhold = 0.0;
     n_.getParam("/floribot_task1/mean_trashhold", prob_trashhold);
 
 	statechart.setTickRate(tick_rate);
@@ -116,21 +120,18 @@ void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 	}
 
-	//TODO probability
-	/*
-	left_row_y = y_hist->get_class_middle(y_hist->get_class_num((y_hist->get_mean(y_hist->get_width(), row_width + y_hist->get_width()))));
-	left_row_y_prob = 1;
-	right_row_y = y_hist->get_class_middle(y_hist->get_class_num(y_hist->get_mean(-row_width - y_hist->get_width(), -y_hist->get_width())));
-	right_row_y_prob = 1;
-	*/
 
 	left_row_y = y_hist->get_class_middle(y_hist->get_class_num((y_hist->get_mean(0,1))));
-	left_row_y_prob = 1;
+	max_scanns_left_y = (((acos(left_row_y/max_scan_distance)) - (3.14159/2 - scan.angle_max)) / scan.angle_increment);
+	left_row_y_prob = y_hist->get_n(left_row_y) / max_scanns_left_y;
+
 	right_row_y = y_hist->get_class_middle(y_hist->get_class_num(y_hist->get_mean(-1,0)));
-	right_row_y_prob = 1;
+	max_scanns_right_y = (((acos(-right_row_y/max_scan_distance)) - (3.14159/2 - scan.angle_max)) / scan.angle_increment);
+	right_row_y_prob = y_hist->get_n(right_row_y) / max_scanns_right_y;
 
 	row_x = x_hist->get_class_middle(x_hist->get_mean(0,1));
-	row_x_prob = 1;
+	max_scanns_x = (asin(row_x/max_scan_distance)/ scan.angle_increment);
+	row_x_prob = x_hist->get_n(row_x) / max_scanns_x;
 
 	statechart.setLeftRowY(left_row_y);
 	statechart.setLeftRowYProb(left_row_y_prob);
@@ -153,8 +154,8 @@ void Floribot_task1::tick ()
 
 	statechart.switch_State();
 
-	vel.linear.x  = 0;// statechart.getLinear();
-	vel.angular.z = 0;// statechart.getAngular();
+	vel.linear.x  = statechart.getLinear();
+	vel.angular.z = statechart.getAngular();
 
 	printf("#################################################################################################################\n");
 	printf("x-Histogramm\n");
@@ -162,7 +163,7 @@ void Floribot_task1::tick ()
 	printf("y-Histogramm\n");
 	y_hist->print();
 	printf("#################################################################################################################\n");
-	printf("left_row_y = %f, left_row_y_prob = %f, \nright_row_y = %f, right_row_y_prob = %f\n",left_row_y, left_row_y_prob, right_row_y, right_row_y_prob);
+	printf("row_x = %f, row_x_prob = %f, \nleft_row_y = %f, left_row_y_prob = %f, \nright_row_y = %f, right_row_y_prob = %f\n",row_x, row_x_prob, left_row_y, left_row_y_prob, right_row_y, right_row_y_prob);
 	statechart.printState();
 	printf("#################################################################################################################\n");
 	printf("vel_x = %f , vel_z = %f\n",vel.linear.x,vel.angular.z);

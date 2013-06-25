@@ -57,6 +57,7 @@ private:
 	Histogramm *y_hist;
 
 	Statediagramm statechart;
+	double max_scanns_x, max_scanns_right_y, max_scanns_left_y;
 	double prob_trashhold;
 	double left_row_y, right_row_y, row_x;
 	double left_row_y_prob, right_row_y_prob, row_x_prob;
