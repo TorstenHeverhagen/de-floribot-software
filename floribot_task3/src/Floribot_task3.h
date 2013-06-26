@@ -10,10 +10,11 @@
 
 #include <ros/ros.h>
 #include <string>
-#include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/LaserScan.h>
 // Start of user code specific includes
 #include "Histogramm.h"
+#include "SectorHistogram.h"
 // End of user code don't delete this line
 
 namespace floribot_task3 {
@@ -23,42 +24,44 @@ class Floribot_task3
 public:
 	Floribot_task3(ros::NodeHandle n);
 	virtual ~Floribot_task3();
-	void tick();
+	void tick(const ros::TimerEvent& event);
 	int get_tick_rate();
 
-	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
+	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
-	double robot_width;
-	double max_scan_distance;
-	double y_hist_max;
-	double x_hist_min;
-	int direction;
-	double leav_vel_x;
-	double turn_time;
-	double plant_distance;
-	double turn_vel_yaw;
-	double prob_threshold;
-	double x_hist_width;
-	double leav_time;
+	ros::Timer timer;
 	double row_width;
+	double turn_vel_yaw;
+	double x_sec;
+	double plant_distance;
+	double x_hist_min;
+	double max_scan_distance;
+	double x_hist_max;
+	double leav_vel_x;
+	double prob_threshold;
 	double plant_width;
 	double turn_vel_x;
-	double y_hist_min;
-	double x_hist_max;
-	double y_hist_width;
-	double x_sec;
+	int direction;
+	double robot_width;
+	double x_hist_width;
+	double y_hist_max;
 	int tick_rate;
-	ros::Subscriber scan_sub;
+	double y_hist_width;
+	double leav_time;
+	double turn_time;
+	double y_hist_min;
 	ros::Publisher task_cmd_vel_pub;
+	ros::Subscriber scan_sub;
 	// Start of user code additional members
 	Histogramm *x_hist;
 	Histogramm *y_hist;
+	SectorHistogram::P_SectorHistogram x_SH;
 	// End of user code  don't delete this line
 };
 

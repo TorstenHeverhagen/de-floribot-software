@@ -28,7 +28,7 @@ target_link_libraries(floribot_task3_node simulink_floribot_task3)
 
 #Start of user code user defined libraries
 
-rosbuild_add_library(task3_histogramm src/Histogramm.cpp)
+rosbuild_add_library(task3_histogramm src/Histogramm.cpp src/SHMap.cpp src/SectorHistogram.cpp src/Sector.cpp)
 target_link_libraries(floribot_task3_node task3_histogramm)
 
 #End of user code

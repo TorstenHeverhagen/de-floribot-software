@@ -376,6 +376,51 @@ src/Histogramm.s:
 .PHONY : src/Histogramm.s
 
 # target to build an object file
+src/SHMap.o:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/SHMap.o
+.PHONY : src/SHMap.o
+
+# target to preprocess a source file
+src/SHMap.i:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/SHMap.i
+.PHONY : src/SHMap.i
+
+# target to generate assembly for a file
+src/SHMap.s:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/SHMap.s
+.PHONY : src/SHMap.s
+
+# target to build an object file
+src/Sector.o:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/Sector.o
+.PHONY : src/Sector.o
+
+# target to preprocess a source file
+src/Sector.i:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/Sector.i
+.PHONY : src/Sector.i
+
+# target to generate assembly for a file
+src/Sector.s:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/Sector.s
+.PHONY : src/Sector.s
+
+# target to build an object file
+src/SectorHistogram.o:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/SectorHistogram.o
+.PHONY : src/SectorHistogram.o
+
+# target to preprocess a source file
+src/SectorHistogram.i:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/SectorHistogram.i
+.PHONY : src/SectorHistogram.i
+
+# target to generate assembly for a file
+src/SectorHistogram.s:
+	$(MAKE) -f CMakeFiles/task3_histogramm.dir/build.make CMakeFiles/task3_histogramm.dir/src/SectorHistogram.s
+.PHONY : src/SectorHistogram.s
+
+# target to build an object file
 src/floribot_task3_node.o:
 	$(MAKE) -f CMakeFiles/floribot_task3_node.dir/build.make CMakeFiles/floribot_task3_node.dir/src/floribot_task3_node.o
 .PHONY : src/floribot_task3_node.o
@@ -438,6 +483,15 @@ help:
 	@echo "... src/Histogramm.o"
 	@echo "... src/Histogramm.i"
 	@echo "... src/Histogramm.s"
+	@echo "... src/SHMap.o"
+	@echo "... src/SHMap.i"
+	@echo "... src/SHMap.s"
+	@echo "... src/Sector.o"
+	@echo "... src/Sector.i"
+	@echo "... src/Sector.s"
+	@echo "... src/SectorHistogram.o"
+	@echo "... src/SectorHistogram.i"
+	@echo "... src/SectorHistogram.s"
 	@echo "... src/floribot_task3_node.o"
 	@echo "... src/floribot_task3_node.i"
 	@echo "... src/floribot_task3_node.s"
