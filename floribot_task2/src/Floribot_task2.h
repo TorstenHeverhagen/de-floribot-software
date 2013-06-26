@@ -28,6 +28,8 @@ public:
 	virtual ~Floribot_task2();
 	void tick();
 	int get_tick_rate();
+	void putXarray(double value, int index);
+	void putYarray(double value, int index);
 
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& scan);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
@@ -77,6 +79,8 @@ private:
 	double front_row_prob;
 	double prob_threshold;
 	double front_row_x;
+	double *x_array;
+	double *y_array;
 
 
 	// End of user code  don't delete this line

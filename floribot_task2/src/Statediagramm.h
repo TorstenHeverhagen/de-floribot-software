@@ -81,6 +81,7 @@ private:
 	double left_row_y, right_row_y, row_width, front_row_x;
 	Task2_States state, next_state, last_state;
 	double left_row_prob, right_row_prob, front_row_prob;
+	double threshold;
 	float angular, linear;
 	int Leaving_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
 	int tick_rate;

@@ -25,6 +25,7 @@ Statediagramm::Statediagramm() {
 	right_row_prob = 0;
 	front_row_prob = 0;
 	left_row_prob = 0;
+	threshold = 0.2;
 	stop_turn = false;
 }
 
@@ -41,6 +42,7 @@ void Statediagramm::switch_State() {
 		vel.linear.x = 0;
 
 		next_state = Inside_Row;
+
 		break;
 
 	case Inside_Row:
@@ -60,8 +62,8 @@ void Statediagramm::switch_State() {
 			next_state = Leaving_Row;
 		}
 
-
 		break;
+
 	case Leaving_Row:
 		// entry action
 		if(state != last_state) {
@@ -76,27 +78,64 @@ void Statediagramm::switch_State() {
 			next_state = Inside_Row;
 		}
 		break;
+
 	case Turning_LO:
 
+		//during action
+		angular = 0.3;
 
+		//transitions
+		if(stop_turn == true){
+			next_state = Outside_Row;
+		}
 
 		break;
+
 	case Turning_RO:
 
+		//during action
+		angular = -0.3;
 
+		//transitions
+		if(stop_turn == true){
+			next_state = Outside_Row;
+		}
 
 		break;
+
 	case Outside_Row:
 
-
-
 		break;
+
 	case Turning_LI:
 
+		//during action
+		angular = 0.3;
 
+		//transitions
+		if(left_row_prob >= threshold &&
+				right_row_prob >= threshold &&
+				front_row_prob <= threshold){
+
+			next_state = Inside_Row;
+			//command_count++;
+		}
 
 		break;
+
 	case Turning_RI:
+
+		//during action
+		angular = -0.3;
+
+		//transitions
+		if(left_row_prob >= threshold &&
+				right_row_prob >= threshold &&
+				front_row_prob <= threshold){
+
+			next_state = Inside_Row;
+			//command_count++;
+		}
 
 		break;
 
