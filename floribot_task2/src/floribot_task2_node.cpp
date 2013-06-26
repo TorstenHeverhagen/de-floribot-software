@@ -11,7 +11,6 @@ using namespace floribot_task2;
 
 int main(int argc, char **argv) 
 {
-	printf("testees\n");
 	ros::init(argc, argv, "floribot_task2_node");
 	ros::NodeHandle nh;
 	Floribot_task2 node(nh);
