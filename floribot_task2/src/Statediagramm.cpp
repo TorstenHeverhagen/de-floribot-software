@@ -64,7 +64,7 @@ void Statediagramm::switch_State() {
 			linear = 0;
 			//transition
 
-			next_state = Turning_RI;
+			next_state = Inside_Row;
 			break;
 
 	    case Inside_Row:
@@ -87,11 +87,11 @@ void Statediagramm::switch_State() {
 	    		}
 	    	else if((left_row_y + right_row_y > 0.1) and(left_row_y + right_row_y <= 0.15)  ) {
 	    		linear = 0.4;
-	    		angular = 0.6;//(left_row_y + right_row_y)/2*1.5;
+	    		angular = 0.4;//(left_row_y + right_row_y)/2*1.5;
 	    		}
 	    	else if((left_row_y + right_row_y < -0.1) and (left_row_y + right_row_y >= -0.15) ) {
 	    		linear = 0.4;
-	    		angular = -0.6;//(left_row_y + right_row_y)/2*1.5;
+	    		angular = -0.4;//(left_row_y + right_row_y)/2*1.5;
 	    		}
 
 	    	else if((left_row_y + right_row_y > 0.15) and(left_row_y + right_row_y <= 0.4)  ) {
@@ -104,11 +104,11 @@ void Statediagramm::switch_State() {
 	    		}
 	    	else if((left_row_y + right_row_y > 0.15) and(left_row_y + right_row_y <= 0.4) and (front_row_x > 1)  ) {
 	    		linear = 0.2;
-	    		angular = 0.4;//(left_row_y + right_row_y)/2*1.5;
+	    		angular = 0.6;//(left_row_y + right_row_y)/2*1.5;
 	    		}
 	    	else if((left_row_y + right_row_y < -0.15) and(left_row_y + right_row_y >= -0.4) and( front_row_x > 1)  ) {
 	    		linear = 0.2;
-	    		angular = -0.4;//(left_row_y + right_row_y)/2*1.5;
+	    		angular = -0.6;//(left_row_y + right_row_y)/2*1.5;
 	    		}
 
 	    	//printState();
@@ -143,7 +143,11 @@ void Statediagramm::switch_State() {
 			angular = 0.3;
 
 			//transitions
-			if(stop_turn == true){
+			/*if(stop_turn == true)*/
+			if(left_row_y >= prob_trashhold &&
+							right_row_y >= -prob_trashhold &&
+							front_row_y == 0)
+			{
 				next_state = Outside_Row;
 			}
 
@@ -153,7 +157,11 @@ void Statediagramm::switch_State() {
 			angular = -0.3;
 
 			//transitions
-			if(stop_turn == true){
+			/*if(stop_turn == true)*/
+			if(left_row_y >= prob_trashhold &&
+									right_row_y >= -prob_trashhold &&
+									front_row_y == 0)
+			{
 				next_state = Outside_Row;
 			}
 
@@ -185,9 +193,6 @@ void Statediagramm::switch_State() {
 			} else if (Row_Counter == rows+1 && direct == -1 ) {
 				next_state = Turning_RI;
 			}
-
-
-
 			break;
 
 		case Turning_LI:
@@ -206,9 +211,10 @@ void Statediagramm::switch_State() {
 
 				next_state = Inside_Row;
 				command_count++;
+				printf(" direct: %i | rows: %i \n",direct, rows);
 			}
-
 			break;
+
 		case Turning_RI:
 			linear = 0;
 			angular = -0.3;
@@ -220,8 +226,8 @@ void Statediagramm::switch_State() {
 
 				next_state = Inside_Row;
 				command_count++;
+				printf(" direct: %i | rows: %i \n",direct, rows);
 			}
-
 			break;
 
 		case U_Turn:
@@ -247,7 +253,6 @@ void Statediagramm::switch_State() {
 			else if (left_row_y > 0 && right_row_y > 0 ) {
 				next_state = Inside_Row;
 				}
-
 			break;
 
 
