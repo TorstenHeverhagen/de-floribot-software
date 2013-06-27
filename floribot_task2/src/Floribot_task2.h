@@ -16,6 +16,8 @@
 #include "Histogramm.h"
 #include "Codepattern.h"
 #include "Statediagramm.h"
+#include "vector"
+
 // End of user code don't delete this line
 
 namespace floribot_task2 {
@@ -79,8 +81,12 @@ private:
 	double front_row_prob;
 	double prob_threshold;
 	double front_row_x;
-	double *x_array;
-	double *y_array;
+//	std::vector<double> x_array;
+//	std::vector<double> y_array;
+//	std::vector<int>::iterator it;
+	double x_array[800];
+	double y_array[800];
+
 
 
 	// End of user code  don't delete this line
