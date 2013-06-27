@@ -53,7 +53,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	alpha_hist_min = 0;
 	alpha_hist_max = 180;
 	alpha_hist_width = 5 ;
-	line_extraction_k = 40;
+	line_extraction_k = 20;
 	alpha_main = 0;
 	n_.getParam("/floribot_task1/alpha_hist_min", alpha_hist_min);
 	n_.getParam("/floribot_task1/alpha_hist_max", alpha_hist_max);
@@ -77,7 +77,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	angular = 0.5;
 	x_box = 0.5;
 	y_box = 0.3;
-	turn_direction = false;	//true = left, false = right
+	turn_direction = 0;	//true = left, false = right
 	stop_turn = false;
 
 	left_row_y=0 ;
@@ -121,7 +121,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	sensor_msgs::LaserScan scan = *msg;
 	Codepattern code(CodePattern);
-	turn_direction = code.get_Direction(code.command[statechart.getCommandCount()]+1);
+	turn_direction = code.get_Direction(code.command[statechart.getCommandCount()]);
 	//Histogramme und Arrays nullen
 	x_hist->clear();
 	y_hist->clear();
@@ -163,11 +163,12 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 		for (uint i = 0; i < (scan.ranges.size()/2) - line_extraction_k; i++) {
 					if(scan.ranges[i] < max_scan_distance) {
-						float alpha = atan2(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
-								- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
-								, ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
-										- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment))))* 180.0/3.141592653;
-						alpha_hist->put(alpha);
+						float x = ((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
+								- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)));
+						float y = ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
+								- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)));
+						float alpha = atan(x/y)* 180.0/3.141592653;
+						alpha_hist->put((alpha));
 					}
 				}
 
@@ -189,11 +190,12 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		for (uint i = scan.ranges.size()/2; i < scan.ranges.size() - line_extraction_k; i++) {
 					if(scan.ranges[i] < max_scan_distance)
 					{
-						float alpha = atan2(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
-								- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
-								, ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
-										- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment))))* 180.0/3.141592653;
-						alpha_hist->put(alpha);
+						float x = ((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
+								- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)));
+						float y = ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
+								- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)));
+						float alpha = atan(x/y)* 180.0/3.141592653;
+						alpha_hist->put((alpha));
 					}
 				}
 	}
@@ -205,11 +207,11 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	for (unsigned int i = 0; i<(alpha_hist_min+alpha_hist_max)/alpha_hist_width;i++)
 	{
-		zahler += (alpha_hist->get_class_middle(i)) *(alpha_hist->histogramm[i])*alpha_hist_width;
+		zahler += (alpha_hist->get_class_middle(i)) *(alpha_hist->histogramm[i]);
 	}
 
 	alpha_main = zahler/nenner;
-	printf("alpha_main %f \n",alpha_main);
+
 	//code.check();  // TODO code.check() sollte hier noch abgefragt werden mit if
 
 	// Histogramme füllen
@@ -278,49 +280,6 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 									/ right_n_max;
 
 	//Turn right/left (FB)
-	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right
-
-	//turn right
-/*	if (turn_direction == -1) {
-		uint counta = 0;
-
-		for (uint i = 0; i < (sizeof(y_array)/sizeof(double) - 1); i++) {//Use only the right half of the scan
-			if ((y_array[i] >= -y_box) && (x_array[i] >= x_box)&& y_array[i] != 0) {
-				counta++;
-
-				if (counta > 5) {	//Turn stops if atleast 5 points are found
-					stop_turn = true;
-					//printf("Stop_turn right -> true\n");
-
-				} else {
-					stop_turn = false;
-					//printf("Stop_turn right -> false\n");
-				}
-			}
-			//printf("y_array(%f)\tx_array(%f) for i <%d> from *soa <%d>\n", y_array[i], x_array[i], i, sizeof(y_array[1]));
-		}
-	}
-
-	//turn left
-	if (turn_direction == 1) {
-		uint counta = 0;
-
-		for (uint i = 0 ; i < sizeof(y_array)/sizeof(double); i++) {//Use only the left half of the scan
-			if ((y_array[i] <= y_box) && (x_array[i] >= x_box) && y_array[i] != 0) {
-
-				counta++;
-				if (counta > 5) {	//Turn stops if atleast 5 points are found
-					stop_turn = true;
-					//printf("Stop_turn left\n");
-				} else {
-					stop_turn = false;
-				}
-			}
-		}
-	}*/
-
-	//printf("Stop_turn(%i)\n",stop_turn);
-	//printf(" left: %f | right: %f | front %f ##############\n", left_row_prob, right_row_prob, front_row_prob);
 
 	// TODO fill inputs of statechart
 	// Histogrammvalues
@@ -338,7 +297,6 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 
 	//Codepattern
 	statechart.setDirect(turn_direction);
-	//statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
 	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
 	statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0,2));
 
@@ -367,12 +325,8 @@ void Floribot_task2::tick ()
 {
 	// Start of user code call your own code
 	// fill inputs of statechart
-/*
-	Codepattern code(CodePattern);
-	statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
-	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));*/
 	statechart.switch_State();
-	//statechart.printState();
+	statechart.printState();
 	geometry_msgs::Twist msg;
 	msg.linear.x = statechart.getLinear();
 	msg.angular.z = statechart.getAngular();

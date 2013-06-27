@@ -61,7 +61,7 @@ private:
 	double x_hist_width;
 	double x_sec;
 	//Box parameters for direction adjustment at turning left or right (FB)
-	bool turn_direction;	//true = left, false = right
+	int turn_direction;	//true = left, false = right
 
 	Statediagramm statechart;
 	Histogramm *x_hist;

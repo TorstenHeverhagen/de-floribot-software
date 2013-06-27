@@ -25,7 +25,8 @@ class Statediagramm {
 		Outside_Row = 50,
 		Turning_LI = 60,
 		Turning_RI = 70,
-		U_Turn = 80
+		U_Turn = 80,
+		Finish = 90
 	} Task2_States;
 public:
 	Statediagramm();
