@@ -86,6 +86,10 @@ int Histogramm::get_n(float value) {
 	return histogramm[get_class_num(value)];
 }
 
+int Histogramm::get_class_sice() {
+	return (getMax() - getMin()) / get_width();
+}
+
 void Histogramm::clear() {
 	for (int i = 0; i < num_classes; ++i) {
 		histogramm[i] = 0;

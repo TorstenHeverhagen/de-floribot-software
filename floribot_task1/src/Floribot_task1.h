@@ -45,6 +45,8 @@ private:
 	double robot_width;
 	double row_width;
 
+	int line_extraction_k;
+
 	double max_speed_angular, max_speed_linear;
 
 	double x_hist_min;
@@ -53,12 +55,17 @@ private:
 	double y_hist_min;
 	double y_hist_max;
 	double y_hist_width;
+	double alpha_hist_min;
+	double alpha_hist_max;
+	double alpha_hist_width;
 	Histogramm *x_hist;
 	Histogramm *y_hist;
+	Histogramm *alpha_hist;
 
 	Statediagramm statechart;
 	double max_scanns_x, max_scanns_right_y, max_scanns_left_y;
 	double prob_trashhold;
+	double alpha_mean;
 	double left_row_y, right_row_y, row_x;
 	double left_row_y_prob, right_row_y_prob, row_x_prob;
 

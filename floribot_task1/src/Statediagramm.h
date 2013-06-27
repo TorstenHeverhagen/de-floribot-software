@@ -20,7 +20,10 @@ class Statediagramm {
 	typedef enum {
 		Init = 0,
 		Inside_Row = 10,
-		Leaving_Row = 20
+		Leaving_Row = 20,
+		Turn_Along_Row = 30,
+		Turn_Too_Row = 40
+
 	} Task2_States;
 public:
 	Statediagramm();
@@ -59,8 +62,8 @@ public:
 		right_row_y_prob = rightRowYMean;
 	}
 
-	void setProbTrashhold(double meanTrashhold) {
-		prob_trashhold = meanTrashhold;
+	void setProbTrashhold(double probTrashhold) {
+		prob_trashhold = probTrashhold;
 	}
 
 	void setRowX(double rowX) {
@@ -103,7 +106,7 @@ public:
 
 private:
 	float angular, linear;
-	int Leaving_Row_timer;
+	int Leaving_Row_timer, Turn_Along_Row_timer, Turn_Too_Row_timer;
 	int tick_rate;
 	double row_width, robot_width;
 	double max_speed_angular, max_speed_linear;

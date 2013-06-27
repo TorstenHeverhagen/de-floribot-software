@@ -23,6 +23,7 @@ public:
 	float get_mean(float border1, float border2);
 	int get_sum(float border1, float border2);
 	int get_class_num(float value);
+	int get_class_sice();
 	float get_class_middle(int index);
 	void clear();
 
@@ -38,10 +39,10 @@ public:
 		return num_classes;
 	}
 
+	int *histogramm;
 private:
 	int num_classes;
 	float min, max, width;
-	int *histogramm;
 
 };
 
