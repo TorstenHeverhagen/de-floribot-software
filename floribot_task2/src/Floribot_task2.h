@@ -74,16 +74,13 @@ private:
 
 	int left_n_max , right_n_max,front_n_max;
 
-	// Felix
-	double x_array[400];
-	double y_array[400];
-	bool stop_turn;
-	double x_box;
-	double y_box;
-
+	// B. Bauer
 	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width;
 	int line_extraction_k ;
 	double alpha_main;
+
+	double leaving_time,stop_angle;
+
 	// End of user code  don't delete this line
 };
 

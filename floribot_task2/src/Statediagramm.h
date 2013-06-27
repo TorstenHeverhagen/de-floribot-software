@@ -94,35 +94,30 @@ public:
 		front_row_x = frontRowX;
 	}
 
-	void setRowTrashold(double rowTrashold) {
-		row_trashold = rowTrashold;
-	}
-
-	void setStopTurn(bool stopTurn) {
-		stop_turn = stopTurn;
-	}
-
-	void setFrontRowY(double frontRowY) {
-		front_row_y = frontRowY;
-	}
-
 	void setAlpha(double alpha) {
 		this->alpha = alpha;
 	}
 
+	void setLeaveTime(float leaveTime) {
+		leave_time = leaveTime;
+	}
+
+	void setStopAngle(double stopAngle) {
+		stop_angle = stopAngle;
+	}
+
 private:
-	double left_row_y, right_row_y, front_row_y, front_row_x, row_width, midd_row_x,
-			left_row_prob, right_row_prob, front_row_prob, row_trashold;
+	double left_row_y, right_row_y, front_row_x, row_width, midd_row_x,
+			left_row_prob, right_row_prob, front_row_prob;
 	Task2_States state, next_state, last_state;
 	float angular, linear;
 	int Leaving_Row_timer, Outside_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
 	int direct, rows, command_count; // Ein- und Ausgangsvariablen für das Codepattern
-	int Row_Counter, Maxi_n, Maxi_n_erst, Maxi_n_alt;
+	int Row_Counter, Maxi_n, Maxi_n_erst;
 	int tick_rate;
 
-	double row_x, row_x_prob, prob_trashhold;
+	double row_x, row_x_prob, prob_trashhold,stop_angle;
 	float leave_time;
-	bool stop_turn;
 	double alpha;
 };
 

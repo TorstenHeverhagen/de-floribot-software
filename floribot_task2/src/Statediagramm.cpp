@@ -17,7 +17,6 @@ Statediagramm::Statediagramm() {
 	row_width = 0;
 	left_row_y = 0;
 	front_row_x = 0;
-	front_row_y = 0;
 	right_row_y = 0;
 	angular = 0;
 	linear = 0;
@@ -28,7 +27,7 @@ Statediagramm::Statediagramm() {
 	Row_Counter = 0;  // Zaehlvariable für Reihen bei Passage außerhalb
 	Maxi_n = 0;
 	Maxi_n_erst = 7;
-	Maxi_n_alt = 0;
+
 	direct = 0;
 	rows = 0;
 	command_count = 0;
@@ -37,8 +36,6 @@ Statediagramm::Statediagramm() {
 	left_row_prob = 0;
 	front_row_prob = 0;
 	right_row_prob=0;
-	row_trashold = 0.2;
-	stop_turn = false;
 
 	// benes_adds
 	row_x = 0;
@@ -46,6 +43,7 @@ Statediagramm::Statediagramm() {
 	prob_trashhold = 0.2;
 	leave_time = 0.7;
 	alpha = 0;
+	stop_angle = 3.0;
 
 }
 
@@ -76,27 +74,11 @@ void Statediagramm::switch_State() {
 		}
 		// during actions
 		if (front_row_x == 0) linear = 0.5;
-		if (front_row_x > 0 and front_row_x < 0.2) linear = 0.2;
-		//TODO Transitions endlich mal machen!!! Eingangsvariablen berechnen
-		// transitions
+		else if (front_row_x > 0 and front_row_x < 0.2) linear = 0.2;
+
 		if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
 			angular = (left_row_y + right_row_y)/2*1.5;
 		}
-		else if (direct == 0 and rows == 0 ) {
-			next_state = Finish;
-		}
-		else if (left_row_y == 0 and right_row_y == 0  and front_row_x == 0) {
-			next_state = Leaving_Row;
-		}
-		else if((left_row_y + right_row_y > 0.1) and(left_row_y + right_row_y <= 0.15)  ) {
-			linear = 0.4;
-			angular = 0.4;//(left_row_y + right_row_y)/2*1.5;
-		}
-		else if((left_row_y + right_row_y < -0.1) and (left_row_y + right_row_y >= -0.15) ) {
-			linear = 0.4;
-			angular = -0.4;//(left_row_y + right_row_y)/2*1.5;
-		}
-
 		else if((left_row_y + right_row_y > 0.15) and(left_row_y + right_row_y <= 0.4)  ) {
 			linear = 0.2;
 			angular = 0.4;//(left_row_y + right_row_y)/2*1.5;
@@ -113,6 +95,29 @@ void Statediagramm::switch_State() {
 			linear = 0.2;
 			angular = -0.6;//(left_row_y + right_row_y)/2*1.5;
 		}
+
+
+		//TODO Transitions endlich mal machen!!! Eingangsvariablen berechnen
+		// transitions
+
+		if (direct == 0 and rows == 0 ) {
+			next_state = Finish;
+		}
+		else if (left_row_y == 0 and right_row_y == 0  and front_row_x == 0) {
+			next_state = Leaving_Row;
+		}
+		/*
+		else if((left_row_y + right_row_y > 0.1) and(left_row_y + right_row_y <= 0.15)  ) {
+			linear = 0.4;
+			angular = 0.4;//(left_row_y + right_row_y)/2*1.5;
+		}
+		else if((left_row_y + right_row_y < -0.1) and (left_row_y + right_row_y >= -0.15) ) {
+			linear = 0.4;
+			angular = -0.4;//(left_row_y + right_row_y)/2*1.5;
+		}
+
+
+		 */
 
 		//printState();
 		break;
@@ -155,12 +160,12 @@ void Statediagramm::switch_State() {
 		linear = 0;
 		angular = 0.3;
 
-		if (alpha < 3 and alpha > -3)
+		if (alpha < stop_angle and alpha > -stop_angle)
 		{
 			next_state = Outside_Row;
 		}
-
 		break;
+
 	case Turning_RO:
 		// entry action
 		if(state != last_state) {
@@ -170,13 +175,12 @@ void Statediagramm::switch_State() {
 		linear = 0.0;
 		angular = -0.3;
 
-		if (alpha < 3 and alpha > -3)
+		if (alpha < stop_angle and alpha > -stop_angle)
 		{
 			next_state = Outside_Row;
 		}
-
-
 		break;
+
 	case Outside_Row:
 		// entry action
 		if(state != last_state) {
@@ -214,7 +218,7 @@ void Statediagramm::switch_State() {
 		//transitions
 		if(left_row_prob >= prob_trashhold &&
 				right_row_prob >= prob_trashhold &&
-				front_row_prob <= prob_trashhold)
+				front_row_prob <= prob_trashhold/5)
 		{
 			next_state = Inside_Row;
 			command_count++;
@@ -227,7 +231,7 @@ void Statediagramm::switch_State() {
 		//transitions
 		if(left_row_prob > prob_trashhold &&
 				right_row_prob > prob_trashhold &&
-				front_row_prob < prob_trashhold)
+				front_row_prob < prob_trashhold/5)
 		{
 			next_state = Inside_Row;
 			command_count++;
@@ -245,12 +249,13 @@ void Statediagramm::switch_State() {
 		// transitions
 		if(left_row_prob > prob_trashhold &&
 				right_row_prob > prob_trashhold &&
-				front_row_prob < prob_trashhold)
+				front_row_prob < prob_trashhold/5)
 		{
 			next_state = Inside_Row;
 			command_count++;
 		}
 		break;
+
 	case Finish:
 		linear = 0.0;
 		angular = 0.0;
@@ -266,10 +271,8 @@ void Statediagramm::switch_State() {
 }
 
 
-
-
 void Statediagramm::printState() {
-	printf("State: %d | last_state: %d | next_state: %d | direct: %i | rows: %i \n", state, last_state, next_state, direct, rows);
+	printf("State: %d | last_state: %d | next_state: %d | direct: %i | rows: %i \n ", state, last_state, next_state, direct, rows );
 }
 
 }
