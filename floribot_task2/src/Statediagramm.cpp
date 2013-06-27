@@ -10,13 +10,14 @@
 namespace floribot_task2 {
 
 Statediagramm::Statediagramm() {
-	state = Outside_Row;
+	state = Init;
 	next_state = Init;
 	last_state = Init;
 
 	row_width = 0;
 	left_row_y = 0;
 	front_row_x = 0;
+	front_row_y = 0;
 	right_row_y = 0;
 	angular = 0;
 	linear = 0;
@@ -37,12 +38,13 @@ Statediagramm::Statediagramm() {
 	front_row_prob = 0;
 	right_row_prob=0;
 	row_trashold = 0.2;
+	stop_turn = false;
 
 // benes_adds
 	row_x = 0;
 	row_x_prob = 0;
-	prob_trashhold = 0.1;
-	leave_time = 1.0;
+	prob_trashhold = 0.2;
+	leave_time = 0.7;
 
 }
 
@@ -62,7 +64,7 @@ void Statediagramm::switch_State() {
 			linear = 0;
 			//transition
 
-			next_state = Inside_Row;
+			next_state = Turning_RI;
 			break;
 
 	    case Inside_Row:
@@ -76,7 +78,7 @@ void Statediagramm::switch_State() {
 			if (front_row_x > 0 and front_row_x < 0.2) linear = 0.2;
 //TODO Transitions endlich mal machen!!! Eingangsvariablen berechnen
 	    	// transitions
-
+			printf(" left_row_y : %f | right_row_y: %f \n",left_row_y, right_row_y);
 	    	if (left_row_y>row_width/3 && right_row_y<-row_width/3 ) {
 	    		angular = (left_row_y + right_row_y)/2*1.5;
 	    		}
@@ -125,10 +127,10 @@ void Statediagramm::switch_State() {
 	    	printf("Lauf: %i | Time: %f | direct: %i \n", Leaving_Row_timer,Leaving_Row_timer/(double)tick_rate, direct );
 	    	// transitions
 	    	if ((Leaving_Row_timer/(double)tick_rate > leave_time) && (direct == 1)) {
-				next_state = Turning_RO;
+				next_state = Turning_LO;
 	    		}
 			else if (Leaving_Row_timer/(double)tick_rate > leave_time and direct == -1) {
-				next_state = Turning_LO;
+				next_state = Turning_RO;
 				}
 			else if (Leaving_Row_timer/(double)tick_rate > leave_time and direct == 0) {
 				next_state = U_Turn;
@@ -136,14 +138,24 @@ void Statediagramm::switch_State() {
 			break;
 
 		case Turning_LO:
+			//during action
 			linear = 0;
 			angular = 0.3;
 
+			//transitions
+			if(stop_turn == true){
+				next_state = Outside_Row;
+			}
 
 			break;
 		case Turning_RO:
 			linear = 0;
-			angular = 0.3;
+			angular = -0.3;
+
+			//transitions
+			if(stop_turn == true){
+				next_state = Outside_Row;
+			}
 
 
 			break;
@@ -155,6 +167,7 @@ void Statediagramm::switch_State() {
 				Row_Counter = 0;
 				}
 			// during actions
+			angular = 0;
 			linear = 0.3;
 
 			if ((Maxi_n == Maxi_n_erst) and (Outside_Row_timer==0)){ // TODO if bedingung aendern
@@ -167,7 +180,7 @@ void Statediagramm::switch_State() {
 			if (Maxi_n != Maxi_n_erst) Outside_Row_timer = 0;
 
 			// transitions
-			if (Row_Counter == rows+1 && direct == 11 ) {
+			if (Row_Counter == rows+1 && direct == 1 ) {
 				next_state = Turning_LI;
 			} else if (Row_Counter == rows+1 && direct == -1 ) {
 				next_state = Turning_RI;
@@ -179,16 +192,36 @@ void Statediagramm::switch_State() {
 
 		case Turning_LI:
 			linear = 0;
-			angular = 0.4;
+			angular = 0.3;
+			//transitions
+			printf(" left: %f | right: %f | front %f \n", left_row_y, right_row_y, front_row_y);
+			if(left_row_prob >= prob_trashhold &&
+					right_row_prob >= prob_trashhold &&
+					front_row_prob <= prob_trashhold)
 
-			command_count ++;
+			/*if(left_row_y >= prob_trashhold &&
+				right_row_y >= -prob_trashhold &&
+				front_row_y == 0)*/
+			{
+
+				next_state = Inside_Row;
+				command_count++;
+			}
 
 			break;
 		case Turning_RI:
 			linear = 0;
-			angular = -0.4;
+			angular = -0.3;
+			//transitions
+			printf(" leftp: %f | rightp: %f | frontp: %f \n", left_row_prob, right_row_prob, front_row_prob);
+			if(left_row_prob > prob_trashhold &&
+					right_row_prob > prob_trashhold &&
+					front_row_prob < prob_trashhold){
 
-			command_count ++;
+				next_state = Inside_Row;
+				command_count++;
+			}
+
 			break;
 
 		case U_Turn:

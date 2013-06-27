@@ -62,9 +62,7 @@ private:
 	double x_sec;
 	//Box parameters for direction adjustment at turning left or right (FB)
 	bool turn_direction;	//true = left, false = right
-	double x_box;
-	double y_box;
-	bool stop_turn;
+
 	Statediagramm statechart;
 	Histogramm *x_hist;
 	Histogramm *y_hist;
@@ -74,9 +72,13 @@ private:
 			plant_distance, right_row_y,front_row_y, front_row_x, front_row_prob;
 
 	int left_n_max , right_n_max,front_n_max;
-	//const unsigned short SCAN_SIZE;
 
-
+	// Felix
+	double x_array[400];
+	double y_array[400];
+	bool stop_turn;
+	double x_box;
+	double y_box;
 	// End of user code  don't delete this line
 };
 

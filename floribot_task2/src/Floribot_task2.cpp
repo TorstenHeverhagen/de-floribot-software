@@ -50,6 +50,11 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	x_sec = 1;
 	n_.getParam("/floribot_task2/x_sec", x_sec);
 
+	plant_width = 0.05;
+	//n_.getParam("/floribot_task2/plant_width", plant_width);
+	plant_distance = 0.45;
+	//n_.getParam("/floribot_task2/plant_distance", plant_distance);
+
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
 	x_hist_rowcount = new Histogramm(0,2,0.1);
@@ -67,14 +72,15 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	stop_turn = false;
 
 	left_row_y=0 ;
+	front_row_y = 0;
 	front_row_x = 0;
 	right_row_y=0;
 	left_row_prob = 0;
 	front_row_prob = 0;
 	right_row_prob = 0;
 
-	plant_width=0;
-	plant_distance=0;
+
+
 
 	left_n_max = 0;
 	front_n_max = 0;
@@ -111,27 +117,70 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
 	// Start of user code process message
 
+
 	sensor_msgs::LaserScan scan = *msg;
+	Codepattern code(CodePattern);
+
+	//Histogramme und Arrays nullen
 	x_hist->clear();
 	y_hist->clear();
 	x_hist_rowcount->clear();
+
+	for (uint i = 0; i < sizeof(x_array)/sizeof(double); i++) {
+			x_array[i] = 0;
+		}
+
+	for (uint i = 0; i < sizeof(y_array)/sizeof(double); i++) {
+			y_array[i] = 0;
+		}
+
 
 
 	for (uint i = 0; i < scan.ranges.size(); i++) {
 		if(scan.ranges[i] < max_scan_distance) {
 			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
 			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
+
+	//TODO eventuell anpassen, ?Filter löschen?
 			if(y > -robot_width/2 && y < robot_width/2) x_hist->put(x);
 			if(x < x_sec) y_hist->put(y);
 		}
 	}
 
-	Codepattern code(CodePattern);
-	int turn_direction = code.get_Direction(code.command[statechart.getCommandCount()]+1);
+	//left scan datas are saved (size 400)
+		if (turn_direction == 1) {
+			int k = 0;
+			for (uint i = scan.ranges.size()/2; i < scan.ranges.size(); i++){
+				if (scan.ranges[i] < max_scan_distance) {
+					double x_var = scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment);
+					double y_var = scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment);
+					x_array[k] = x_var;
+					y_array[k] = y_var;
+					k++;
+				}
+			}
+		}
 
-	//code.check();  // sollte hier noch abgefragt werden mit if
+		//right scan datas are saved (size 400)
+		if (turn_direction == -1) {
+			int k = 0;
+			for (uint i = 0; i < scan.ranges.size()/2; i++){
+				if (scan.ranges[i] < max_scan_distance) {
+					double x_var = scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment);
+					double y_var = scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment);
+					x_array[k] = x_var;
+					y_array[k] = y_var;
+					k++;
+				}
+			}
+		}
+
+
+	//code.check();  // TODO code.check() sollte hier noch abgefragt werden mit if
 
 	// Histogramme füllen
+
+	int turn_direction = code.get_Direction(code.command[statechart.getCommandCount()]+1);
 
 	if (turn_direction == 1){
 		for (uint i = scan.ranges.size()/2; i < scan.ranges.size(); i++) {
@@ -158,20 +207,11 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 	}
 
-/*
-	for (uint i = 0; i < scan.ranges.size(); i++) {
-		if(scan.ranges[i] < 2) {
-			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
-			x_hist->put(x);
-			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
-			y_hist->put(y);
-			}
-		}
-*/
+
 	//ROS_INFO("x");
 	//################################################
 	// TODO Histogramme auswerten für Reihenfahrt
-
+/*
 	left_row_y = y_hist->get_mean(0.2,2);
 	front_row_y = y_hist->get_sum(-0.2,0.2);
 	right_row_y = y_hist->get_mean(-2,-0.2);
@@ -179,70 +219,114 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	front_row_x = x_hist->get_mean(0,x_sec);
 
 	left_n_max = 1; // TODO berechnung einfügen
-	front_n_max =2* atan(y_hist->getMax()/y_hist->getMin())/scan.angle_increment;
+	front_n_max = 2 * atan(y_hist_width / y_hist_max) / scan.angle_increment;
+	front_n_max = trunc(1 + front_n_max * plant_width / plant_distance * robot_width
+							/ plant_distance);
 	printf("%i", front_n_max);
 	right_n_max = 1;
 
 	left_row_prob = y_hist-> get_sum(left_row_y- y_hist->get_width(),left_row_y)/ left_n_max;
 	front_row_prob = x_hist -> get_n(front_row_y)/front_n_max;
 	right_row_prob = y_hist-> get_sum(right_row_y- y_hist->get_width(),right_row_y)/ right_n_max;
+*/
 
+	left_row_y = y_hist->get_mean(y_hist->get_width(),
+			row_width + y_hist->get_width());
+	front_row_x = x_hist->get_mean(x_hist_width, x_sec);
+	front_row_y = y_hist->get_mean(-y_hist_width,y_hist_width);
+
+	right_row_y = y_hist->get_mean(-row_width - y_hist->get_width(),
+			-y_hist->get_width());
+
+	//double left_n_max, right_n_max, front_n_max;
+
+	//Front_row parameters
+	front_n_max = 2 * atan(y_hist_width / y_hist_max) / scan.angle_increment;
+
+	front_n_max = trunc(
+			1
+			+ front_n_max * plant_width / plant_distance * robot_width
+			/ plant_distance);
+
+	front_row_prob = y_hist->get_sum(front_row_y - y_hist_width, front_row_y)
+									/ front_n_max;
+	//Left_row parameters
+	left_n_max = atan(x_sec / (left_row_y + y_hist_width))
+							/ scan.angle_increment;
+	left_n_max = trunc(
+			1
+			+ left_n_max * plant_width / plant_distance * x_sec
+			/ plant_distance);
+	left_row_prob = y_hist->get_sum(left_row_y - y_hist_width, left_row_y)
+							/ left_n_max;
+
+	//Right_row parameters
+	right_n_max = atan(x_sec / (-right_row_y + y_hist_width))
+							/ scan.angle_increment;
+	right_n_max = trunc(
+			1
+			+ right_n_max * plant_width / plant_distance * x_sec
+			/ plant_distance);
+	right_row_prob = y_hist->get_sum(right_row_y, right_row_y + y_hist_width)
+							/ right_n_max;
 
 	//Turn right/left (FB)
 	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right
-/*
-	float x_array[scan.ranges.size()];
-	float y_array[scan.ranges.size()];
-
-	for (uint i = 0; i < scan.ranges.size(); i++) {
-		if(scan.ranges[i] < 3) {
-			x_array[i] = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
-			y_array[i] = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
-		}
-	}
-
 
 	//turn right
-	if (turn_direction == false){
+	if (turn_direction == -1) {
 		uint counta = 0;
 
-		for(uint i = 0; i < sizeof(y_array)/2; i++){	//Use only the right half of the scan
-			if (y_array[i]>= -y_box && x_array[i] <= x_box){
+		for (uint i = 0; i < (sizeof(y_array)/sizeof(double) - 1); i++) {//Use only the right half of the scan
+			if ((y_array[i] >= -y_box) && (x_array[i] >= x_box)&& y_array[i] != 0) {
 				counta++;
 
-				if (counta > 5){			//Turn stops if atleast 5 points are found
+				if (counta > 5) {	//Turn stops if atleast 5 points are found
 					stop_turn = true;
-					printf("%d",stop_turn);
+					//printf("Stop_turn right -> true\n");
+
+				} else {
+					stop_turn = false;
+					//printf("Stop_turn right -> false\n");
 				}
 			}
+			//printf("y_array(%f)\tx_array(%f) for i <%d> from *soa <%d>\n", y_array[i], x_array[i], i, sizeof(y_array[1]));
 		}
 	}
 
 	//turn left
-	if (turn_direction == true){
+	if (turn_direction == 1) {
 		uint counta = 0;
 
-		for(uint i = sizeof(y_array)/2; i < sizeof(y_array); i++){	//Use only the left half of the scan
-			if (y_array[i]<= y_box && x_array[i] <= x_box){
+		for (uint i = 0 ; i < sizeof(y_array)/sizeof(double); i++) {//Use only the left half of the scan
+			if ((y_array[i] <= y_box) && (x_array[i] >= x_box) && y_array[i] != 0) {
 
 				counta++;
-				if (counta > 5){			//Turn stops if atleast 5 points are found
+				if (counta > 5) {	//Turn stops if atleast 5 points are found
 					stop_turn = true;
-					printf("%d",stop_turn);
+					//printf("Stop_turn left\n");
+				} else {
+					stop_turn = false;
 				}
 			}
 		}
-	}*/
+	}
+
+	//printf("Stop_turn(%i)\n",stop_turn);
+	printf(" left: %f | right: %f | front %f ##############\n", left_row_prob, right_row_prob, front_row_prob);
 
 		// TODO fill inputs of statechart
 		// Histogrammvalues
 		statechart.setLeftRowY(left_row_y);
+		statechart.setFrontRowx(front_row_x);
 		statechart.setFrontRowx(front_row_x);
 		statechart.setRightRowY(right_row_y);
 
 		statechart.setLeftRowProb(left_row_prob);
 		statechart.setFrontRowProb(front_row_prob);
 		statechart.setRightRowProb(right_row_prob);
+
+		statechart.setStopTurn(stop_turn);
 
 		//Codepattern
 		statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));

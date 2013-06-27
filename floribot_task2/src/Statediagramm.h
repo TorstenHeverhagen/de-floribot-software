@@ -97,8 +97,16 @@ public:
 		row_trashold = rowTrashold;
 	}
 
+	void setStopTurn(bool stopTurn) {
+		stop_turn = stopTurn;
+	}
+
+	void setFrontRowY(double frontRowY) {
+		front_row_y = frontRowY;
+	}
+
 private:
-	double left_row_y, right_row_y, front_row_x, row_width, midd_row_x,
+	double left_row_y, right_row_y, front_row_y, front_row_x, row_width, midd_row_x,
 			left_row_prob, right_row_prob, front_row_prob, row_trashold;
 	Task2_States state, next_state, last_state;
 	float angular, linear;
@@ -109,6 +117,7 @@ private:
 
 	double row_x, row_x_prob, prob_trashhold;
 	float leave_time;
+	bool stop_turn;
 
 };
 
