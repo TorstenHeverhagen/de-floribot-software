@@ -68,9 +68,9 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	n_.getParam("/floribot_task2/line_extraction_k", line_extraction_k);
 
 	plant_width = 0.05;
-	//n_.getParam("/floribot_task2/plant_width", plant_width);
+	n_.getParam("/floribot_task2/plant_width", plant_width);
 	plant_distance = 0.45;
-	//n_.getParam("/floribot_task2/plant_distance", plant_distance);
+	n_.getParam("/floribot_task2/plant_distance", plant_distance);
 
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);

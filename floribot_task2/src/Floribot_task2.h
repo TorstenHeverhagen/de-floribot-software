@@ -69,13 +69,12 @@ private:
 	Histogramm *x_hist_rowcount;
 	Histogramm *alpha_hist;
 	//Codepattern *code;
-	float left_row_y, left_row_prob, right_row_prob, plant_width,
-			plant_distance, right_row_y,front_row_y, front_row_x, front_row_prob;
+	float left_row_y, left_row_prob, right_row_prob, right_row_y,front_row_y, front_row_x, front_row_prob;
 
 	int left_n_max , right_n_max,front_n_max;
 
 	// B. Bauer
-	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width;
+	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width, plant_width, plant_distance;
 	int line_extraction_k ;
 	double alpha_main;
 
