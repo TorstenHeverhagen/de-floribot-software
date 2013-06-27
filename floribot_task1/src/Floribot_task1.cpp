@@ -50,7 +50,7 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
     n_.getParam("/floribot_task1/y_hist_min", y_hist_min);
 	y_hist_max = 2.0;
     n_.getParam("/floribot_task1/y_hist_max", y_hist_max);
-	y_hist_width = 0.1;
+	y_hist_width = 0.05;
     n_.getParam("/floribot_task1/y_hist_width", y_hist_width);
     alpha_hist_min = 0;
     n_.getParam("/floribot_task1/alpha_hist_min", alpha_hist_min);
@@ -193,14 +193,14 @@ void Floribot_task1::tick ()
 	x_hist->print();
 	printf("y-Histogramm\n");
 	y_hist->print();
-	printf("alpha-Histogramm\n");
-	alpha_hist->print();
+	//printf("alpha-Histogramm\n");
+	//alpha_hist->print();
 	printf("#################################################################################################################\n");
-	printf("row_x = %f, row_x_prob = %f, \n",row_x, row_x_prob);
+	//printf("row_x = %f, row_x_prob = %f, \n",row_x, row_x_prob);
 	printf("left_row_y = %f, left_row_y_prob = %f, \n", left_row_y, left_row_y_prob);
 	printf("right_row_y = %f, right_row_y_prob = %f\n", right_row_y, right_row_y_prob);
 	printf("left_row_y + right_row_y = %f\n", (left_row_y + right_row_y));
-	printf("histMin = %f histMax = %f histWidth = %f\n", alpha_hist->getMin(), alpha_hist->getMax(), alpha_hist->get_width());
+	//printf("histMin = %f histMax = %f histWidth = %f\n", alpha_hist->getMin(), alpha_hist->getMax(), alpha_hist->get_width());
 	statechart.printState();
 	printf("#################################################################################################################\n");
 	printf("vel_x = %f , vel_z = %f\n",vel.linear.x,vel.angular.z);

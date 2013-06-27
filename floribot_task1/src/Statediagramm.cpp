@@ -47,6 +47,11 @@ void Statediagramm::switch_State() {
 
 	bool isSideRowBoth = left_row_y_prob >= prob_trashhold
 					&& right_row_y_prob >= prob_trashhold;
+	bool isSideRowLeft = left_row_y_prob >= prob_trashhold
+					&& !(right_row_y_prob >= prob_trashhold);
+	bool isSideRowRight = !(left_row_y_prob >= prob_trashhold)
+					&& right_row_y_prob >= prob_trashhold;
+
 	switch (state) {
 	case Init:
 		linear = 0;
@@ -68,6 +73,18 @@ void Statediagramm::switch_State() {
 			linear = (1 - (fabs(left_row_y + right_row_y) / row_width))
 					* max_speed_linear;
 			angular = (left_row_y + right_row_y) / row_width
+					* max_speed_angular;
+
+		} else if (isSideRowRight) {
+			linear = (1 - (fabs((row_width + right_row_y) + right_row_y) / row_width))
+					* max_speed_linear;
+			angular = (left_row_y - (row_width + right_row_y)) / row_width
+					* max_speed_angular;
+
+		} else if (isSideRowLeft) {
+			linear = (1 - (fabs(left_row_y - (row_width + right_row_y)) / row_width))
+					* max_speed_linear;
+			angular = (left_row_y - (row_width + right_row_y)) / row_width
 					* max_speed_angular;
 
 		} else if (left_row_y_prob < prob_trashhold
@@ -93,10 +110,10 @@ void Statediagramm::switch_State() {
 
 		} else if (Leaving_Row_timer / (double) tick_rate < 2.5 && !isSideRowBoth) {
 			//compute angular
+			linear = 0;
 			angular = max_speed_angular;
-			next_state = Turn_Along_Row;
 		} else if (isSideRowBoth) {
-			next_state = Turn_Along_Row;
+			next_state = Inside_Row;
 		}
 		break;
 /*
