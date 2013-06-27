@@ -149,24 +149,25 @@ void Floribot_task2::scan_message(const sensor_msgs::LaserScan::ConstPtr& msg) {
 
 
 	left_row_y = y_hist->get_mean(y_hist->get_width(), row_width + y_hist->get_width());
-	front_row_x = x_hist->get_mean(x_hist_width, x_sec);
+	//front_row_x = x_hist->get_mean(x_hist_width, x_sec);
+	front_row_y = y_hist->get_mean(-y_hist->get_width(), y_hist->get_width());
 	right_row_y = y_hist->get_mean(-row_width - y_hist->get_width(), -y_hist->get_width());
 
 	double left_n_max, right_n_max, front_n_max;
 
 	//Front_row parameters
 	front_n_max = 2 * atan(robot_width / 2 / x_sec) / scan.angle_increment;
-	front_n_max = trunc(1 + front_n_max * plant_width / plant_distance * robot_width / plant_distance);
-	front_row_prob = x_hist->get_n(front_row_x) / front_n_max;
+	//front_n_max = trunc(1 + front_n_max * plant_width / plant_distance * robot_width / plant_distance);
+	front_row_prob = y_hist->get_sum(front_row_y - y_hist_width, front_row_y) / front_n_max;
 
 	//Left_row parameters
 	left_n_max = atan(x_sec / (left_row_y + y_hist_width)) / scan.angle_increment;
-	left_n_max = trunc(1 + left_n_max * plant_width / plant_distance * x_sec / plant_distance);
+	//left_n_max = trunc(1 + left_n_max * plant_width / plant_distance * x_sec / plant_distance);
 	left_row_prob = y_hist->get_sum(left_row_y - y_hist_width, left_row_y) / left_n_max;
 
 	//Right_row parameters
 	right_n_max = atan(x_sec / (-right_row_y + y_hist_width)) / scan.angle_increment;
-	right_n_max = trunc(1 + right_n_max * plant_width / plant_distance * x_sec / plant_distance);
+	//right_n_max = trunc(1 + right_n_max * plant_width / plant_distance * x_sec / plant_distance);
 	right_row_prob = y_hist->get_sum(right_row_y, right_row_y + y_hist_width) / right_n_max;
 
 	//	printf("left(%f; %f) right(%f; %f) front(%f; %f)\n",
