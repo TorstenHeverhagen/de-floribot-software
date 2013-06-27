@@ -2,3 +2,5 @@
 
 /phidgets/bin
 /phidgets/build
+
+.idea/
