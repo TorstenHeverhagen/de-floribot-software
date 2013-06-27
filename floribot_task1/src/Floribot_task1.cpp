@@ -184,8 +184,8 @@ void Floribot_task1::tick ()
 
 	statechart.switch_State();
 
-	vel.linear.x  =  0;//statechart.getLinear();
-	vel.angular.z =  0;//statechart.getAngular();
+	vel.linear.x  =  statechart.getLinear();
+	vel.angular.z =  statechart.getAngular();
 
 
 	printf("#################################################################################################################\n");

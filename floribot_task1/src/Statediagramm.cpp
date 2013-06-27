@@ -91,8 +91,11 @@ void Statediagramm::switch_State() {
 			linear = max_speed_linear;
 			angular = 0.0;
 
-		} else  {
+		} else if (Leaving_Row_timer / (double) tick_rate < 2.5 && !isSideRowBoth) {
 			//compute angular
+			angular = max_speed_angular;
+			next_state = Turn_Along_Row;
+		} else if (isSideRowBoth) {
 			next_state = Turn_Along_Row;
 		}
 		break;
