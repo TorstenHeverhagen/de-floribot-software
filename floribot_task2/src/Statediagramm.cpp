@@ -45,6 +45,7 @@ Statediagramm::Statediagramm() {
 	row_x_prob = 0;
 	prob_trashhold = 0.2;
 	leave_time = 0.7;
+	alpha = 0;
 
 }
 
@@ -124,7 +125,7 @@ void Statediagramm::switch_State() {
 	    	angular = 0;
 	    	linear = 0.5;
 	    	Leaving_Row_timer++;
-	    	printf("Lauf: %i | Time: %f | direct: %i \n", Leaving_Row_timer,Leaving_Row_timer/(double)tick_rate, direct );
+	    	//printf("Lauf: %i | Time: %f | direct: %i \n", Leaving_Row_timer,Leaving_Row_timer/(double)tick_rate, direct );
 	    	// transitions
 	    	if ((Leaving_Row_timer/(double)tick_rate > leave_time) && (direct == 1)) {
 				next_state = Turning_LO;
@@ -141,12 +142,13 @@ void Statediagramm::switch_State() {
 			//during action
 			linear = 0;
 			angular = 0.3;
-
+			printf("alpha: %f \n", alpha);
 			//transitions
 			/*if(stop_turn == true)*/
-			if(left_row_y >= prob_trashhold &&
-							right_row_y >= -prob_trashhold &&
-							front_row_y == 0)
+			/*if(left_row_y >= prob_trashhold &&
+									right_row_y >= -prob_trashhold &&
+									front_row_y > prob_trashhold)*/
+			if (alpha >= 90)
 			{
 				next_state = Outside_Row;
 			}
@@ -155,12 +157,14 @@ void Statediagramm::switch_State() {
 		case Turning_RO:
 			linear = 0;
 			angular = -0.3;
+			printf("alpha: %f \n", alpha);
 
 			//transitions
 			/*if(stop_turn == true)*/
-			if(left_row_y >= prob_trashhold &&
+			/*if(left_row_y >= prob_trashhold &&
 									right_row_y >= -prob_trashhold &&
-									front_row_y == 0)
+									front_row_y > prob_trashhold)*/
+			if (alpha >= 90)
 			{
 				next_state = Outside_Row;
 			}
@@ -181,8 +185,8 @@ void Statediagramm::switch_State() {
 			if ((Maxi_n == Maxi_n_erst) and (Outside_Row_timer==0)){ // TODO if bedingung aendern
 				// wenn reihe passiert
 				Row_Counter++;
-				printf("reihe: %i | Maxi_n %i | Maxi_n_erst %i \n ", Row_Counter, Maxi_n, Maxi_n_erst);
-				printf("Reihenanzahl: %i | Richtung: %i \n", rows, direct);
+				//printf("reihe: %i | Maxi_n %i | Maxi_n_erst %i \n ", Row_Counter, Maxi_n, Maxi_n_erst);
+				//printf("Reihenanzahl: %i | Richtung: %i \n", rows, direct);
 				Outside_Row_timer++;
 			}
 			if (Maxi_n != Maxi_n_erst) Outside_Row_timer = 0;
@@ -199,7 +203,7 @@ void Statediagramm::switch_State() {
 			linear = 0;
 			angular = 0.3;
 			//transitions
-			printf(" left: %f | right: %f | front %f \n", left_row_y, right_row_y, front_row_y);
+			//printf(" left: %f | right: %f | front %f \n", left_row_y, right_row_y, front_row_y);
 			if(left_row_prob >= prob_trashhold &&
 					right_row_prob >= prob_trashhold &&
 					front_row_prob <= prob_trashhold)
@@ -219,7 +223,7 @@ void Statediagramm::switch_State() {
 			linear = 0;
 			angular = -0.3;
 			//transitions
-			printf(" leftp: %f | rightp: %f | frontp: %f \n", left_row_prob, right_row_prob, front_row_prob);
+			//printf(" leftp: %f | rightp: %f | frontp: %f \n", left_row_prob, right_row_prob, front_row_prob);
 			if(left_row_prob > prob_trashhold &&
 					right_row_prob > prob_trashhold &&
 					front_row_prob < prob_trashhold){

@@ -17,7 +17,7 @@ Histogramm::Histogramm(float min, float max, float width) {
 	this->width = width;
 	histogramm = new int[num_classes];
 	clear();
-	printf("Histogram %d, %f, %f, %f\n", num_classes, min, max, width);
+	//printf("Histogram %d, %f, %f, %f\n", num_classes, min, max, width);
 }
 
 Histogramm::~Histogramm() {

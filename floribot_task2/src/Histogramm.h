@@ -38,11 +38,11 @@ public:
 	int getNumClasses() const {
 		return num_classes;
 	}
-
+	int *histogramm;
 private:
 	int num_classes;
 	float min, max, width;
-	int *histogramm;
+
 
 };
 

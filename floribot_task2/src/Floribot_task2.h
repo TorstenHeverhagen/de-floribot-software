@@ -67,6 +67,7 @@ private:
 	Histogramm *x_hist;
 	Histogramm *y_hist;
 	Histogramm *x_hist_rowcount;
+	Histogramm *alpha_hist;
 	//Codepattern *code;
 	float left_row_y, left_row_prob, right_row_prob, plant_width,
 			plant_distance, right_row_y,front_row_y, front_row_x, front_row_prob;
@@ -79,6 +80,10 @@ private:
 	bool stop_turn;
 	double x_box;
 	double y_box;
+
+	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width;
+	int line_extraction_k ;
+	double alpha_main;
 	// End of user code  don't delete this line
 };
 
