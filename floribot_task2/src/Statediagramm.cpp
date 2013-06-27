@@ -164,7 +164,7 @@ void Statediagramm::switch_State() {
 			/*if(left_row_y >= prob_trashhold &&
 									right_row_y >= -prob_trashhold &&
 									front_row_y > prob_trashhold)*/
-			if (alpha >= 90)
+			if (alpha <= 5 or alpha)
 			{
 				next_state = Outside_Row;
 			}

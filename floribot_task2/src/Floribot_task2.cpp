@@ -41,7 +41,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	n_.getParam("/floribot_task2/x_hist_min", x_hist_min);
 	row_width = 0.75;
 	n_.getParam("/floribot_task2/row_width", row_width);
-	max_scan_distance = 1.2;
+	max_scan_distance =2.0;
 	n_.getParam("/floribot_task2/max_scan_distance", max_scan_distance);
 	robot_width = 0.5;
 	n_.getParam("/floribot_task2/robot_width", robot_width);
@@ -53,7 +53,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	alpha_hist_min = 0;
 	alpha_hist_max = 180;
 	alpha_hist_width = 5 ;
-	line_extraction_k = 15;
+	line_extraction_k = 40;
 	alpha_main = 0;
 	n_.getParam("/floribot_task1/alpha_hist_min", alpha_hist_min);
 	n_.getParam("/floribot_task1/alpha_hist_max", alpha_hist_max);
@@ -161,16 +161,17 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 				k++;
 			}
 		}
-		for (uint i = scan.ranges.size()/2; i < scan.ranges.size() - line_extraction_k; i++) {
-			if(scan.ranges[i] < max_scan_distance)
-			{
-				float alpha = (atan2(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
-						- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
-						, ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
-								- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))))* 180.0/3.141592653;
-				alpha_hist->put(alpha);
-			}
-		}
+		for (uint i = 0; i < (scan.ranges.size()/2) - line_extraction_k; i++) {
+					if(scan.ranges[i] < max_scan_distance) {
+						float alpha = atan2(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
+								- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
+								, ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
+										- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment))))* 180.0/3.141592653;
+						alpha_hist->put(alpha);
+					}
+				}
+
+
 	}
 
 	//right scan datas are saved (size 400)
@@ -185,15 +186,16 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 				k++;
 			}
 		}
-		for (uint i = 0; i < (scan.ranges.size()/2) - line_extraction_k; i++) {
-			if(scan.ranges[i] < max_scan_distance) {
-				float alpha = atan2(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
-						- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
-						, ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
-								- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment))));
-				alpha_hist->put(alpha);
-			}
-		}
+		for (uint i = scan.ranges.size()/2; i < scan.ranges.size() - line_extraction_k; i++) {
+					if(scan.ranges[i] < max_scan_distance)
+					{
+						float alpha = atan2(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
+								- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
+								, ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
+										- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment))))* 180.0/3.141592653;
+						alpha_hist->put(alpha);
+					}
+				}
 	}
 
 	// TODO ALPHA berechnen!!!
@@ -335,7 +337,8 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	statechart.setAlpha(alpha_main);
 
 	//Codepattern
-	statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
+	statechart.setDirect(turn_direction);
+	//statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]+1));
 	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
 	statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0,2));
 
