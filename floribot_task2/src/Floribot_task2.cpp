@@ -199,8 +199,8 @@ void Floribot_task2::scan_message(const sensor_msgs::LaserScan::ConstPtr& msg) {
 	if (turn_direction == -1) {
 		uint counta = 0;
 
-		for (uint i = 0; i < (sizeof(y_array)/sizeof(double) - 1); i++) {//Use only the right half of the scan
-			if ((y_array[i] >= -y_box) && (x_array[i] >= x_box && y_array[i] != 0)) {
+		for (uint i = 0; i < (sizeof(y_array)/sizeof(double)); i++) {//Use only the right half of the scan
+			if ((y_array[i] >= -y_box) && (x_array[i] >= x_box) && (y_array[i] != 0)) {
 				counta++;
 
 				if (counta > 5) {	//Turn stops if atleast 5 points are found
@@ -220,7 +220,7 @@ void Floribot_task2::scan_message(const sensor_msgs::LaserScan::ConstPtr& msg) {
 	if (turn_direction == 1) {
 		uint counta = 0;
 
-		for (uint i = 0; i < sizeof(y_array)/sizeof(double) - 1; i++) {//Use only the left half of the scan
+		for (uint i = 0; i < sizeof(y_array)/sizeof(double); i++) {//Use only the left half of the scan
 			if (y_array[i] <= y_box && x_array[i] >= x_box && y_array[i] != 0) {
 
 				counta++;
