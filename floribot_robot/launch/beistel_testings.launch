@@ -1,0 +1,20 @@
+<!--
+  Launcher for differential drive wheel odometry.
+  Change the encoder serial numbers as needed.  The serial numbers can be viewed by running:
+      rosrun phidgets manager
+  This requires:
+      2 x Phidgets high speed encoder
+      A known number of encoder counts per millimetre of travel for each wheel
+  -->
+<launch>
+    <!-- phidgets high speed encoders -->
+    <node pkg="phidgets" type="high_speed_encoder" name="encoder_left" respawn="true">
+        <!-- phidget device serial number for the left encoder -->
+        <param name="serial" value="102191" />
+    </node>
+    <node pkg="phidgets" type="high_speed_encoder" name="encoder_right" respawn="true">
+        <!-- phidget device serial number for the right encoder -->
+        <param name="serial" value="101902" />
+    </node>
+</launch>
+
