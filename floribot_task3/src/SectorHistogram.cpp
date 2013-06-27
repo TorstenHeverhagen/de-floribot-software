@@ -38,7 +38,7 @@ SectorHistogram::SectorHistogram(Point p1, Point p2, double sector_height) {
 		hist[i] = new Sector(p1.x + i*sector_height + sector_height/2, p1.y - width/2, width, sector_height);
 	}
 
-	ROS_INFO("x1=%f, y1=%f, x2=%f, y2=%f, phi1=%f, phi2=%f", p1.x, p1.y, p2.x, p2.y, phi_1, phi_2);
+	ROS_INFO("SH: x1=%f, y1=%f, x2=%f, y2=%f, phi1=%f, phi2=%f", p1.x, p1.y, p2.x, p2.y, phi_1, phi_2);
 }
 
 SectorHistogram::~SectorHistogram() {
@@ -103,7 +103,7 @@ double SectorHistogram::getXMean() {
 
 double SectorHistogram::getXProb(double x) {
 	if (p1.x <= x && p2.x >= x) {
-		int i = (x - p1.x)/sector_height;
+		int i = getSectorNumber(x);
 
 		return hist[i]->get_prob();
 	}
@@ -116,6 +116,10 @@ void SectorHistogram::clear() {
 	}
 	sum = 0;
 	max = 0;
+}
+
+int SectorHistogram::getSectorNumber(double x) {
+	return (x - p1.x)/sector_height;
 }
 
 void SectorHistogram::print() {

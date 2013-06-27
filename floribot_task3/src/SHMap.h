@@ -19,6 +19,8 @@ public:
 	void add(Point p, double phi);
 	double getYMean();
 	double getYProb(double y);
+	SectorHistogram::P_SectorHistogram getSH(double y);
+	int getSHNumber(double y);
 	void clear();
 
 private:

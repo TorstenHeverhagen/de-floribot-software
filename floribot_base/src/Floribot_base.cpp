@@ -21,6 +21,9 @@ Floribot_base::Floribot_base(ros::NodeHandle n) : n_(n)
     n_.getParam("/floribot_base/tick_rate", tick_rate);
     tty_ssc_32 = "/dev/ttyS1";
     n_.getParam("/floribot_base/tty_ssc_32", tty_ssc_32);
+	
+	timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_base::tick, this);
+
     // Start of user code constructor
     vel_x = 0;
     vel_yaw = 0;
@@ -73,7 +76,7 @@ void Floribot_base::cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg)
  *
  * @generated
  */
-void Floribot_base::tick ()
+void Floribot_base::tick (const ros::TimerEvent& event)
 {
 	// Start of user code call your own code
 

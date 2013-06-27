@@ -27,6 +27,7 @@ public:
 	double getYMiddle() const;
 	double getXMean();
 	double getXProb(double x);
+	int getSectorNumber(double x);
 	void clear();
 	void print();
 

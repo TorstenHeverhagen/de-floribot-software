@@ -22,17 +22,15 @@ namespace floribot_task2 {
 
 class Floribot_task2 
 {
-	typedef Task2_States_T enum Task2_States {
-		Init 0;
-	};
 public:
 	Floribot_task2(ros::NodeHandle n);
 	virtual ~Floribot_task2();
-	void tick();
+	void tick(const ros::TimerEvent& event);
 	int get_tick_rate();
 
-	void scan_message (const sensor_msgs::LaserScan::ConstPtr& scan);
+	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
+
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
 	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
@@ -71,6 +69,16 @@ private:
 	Statediagramm statechart;
 
 
+	// End of user code  don't delete this line
+private:
+	ros::NodeHandle n_;
+	ros::Timer timer;
+	int tick_rate;
+	std::string CodePattern;
+	ros::Subscriber scan_sub;
+	ros::Publisher task_cmd_vel_pub;
+	// Start of user code additional members
+	// TODO: declare your private variables and methods
 	// End of user code  don't delete this line
 };
 

@@ -16,18 +16,19 @@
 
 namespace floribot_task2 {
 
-Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
+Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n)
 {
-	printf("test\n");
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task2::scan_message, this);
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
-	CodePattern = "";
-	n_.getParam("/floribot_task2/CodePattern", CodePattern);
-	CodePattern = "S-1L-2R-0-2R-F";
-	tick_rate = 100;
-	n_.getParam("/floribot_task2/tick_rate", tick_rate);
-	// Start of user code constructor
+    tick_rate = 100;
+    n_.getParam("/floribot_task2/tick_rate", tick_rate);
+    CodePattern = "";
+    n_.getParam("/floribot_task2/CodePattern", CodePattern);
+	
+	timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_task2::tick, this);
+
+    // Start of user code constructor
 	// TODO: constructor fill with your code
 	y_hist_min = -2;
 	n_.getParam("/floribot_task2/y_hist_min", y_hist_min);
@@ -72,7 +73,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 
 Floribot_task2::~Floribot_task2()
 {
-	// Start of user code destructor
+    // Start of user code destructor
 	// TODO: fill with your code
 	// End of user code don't delete this line
 } // end of destructor
@@ -84,121 +85,47 @@ Floribot_task2::~Floribot_task2()
  */
 void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 {
-	// Start of user code process message
+	// Start of user code process message from topic scan
+	// TODO: fill scan_message with your code
+	// End of user code don't delete this line
+}
 
-	Codepattern code(CodePattern);
+/**
+ * publish messages to topic task_cmd_vel
+ *
+ * @generated
+ */
+void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
+{
+	task_cmd_vel_pub.publish(msg);
+}
 
-	if (code.check())  // Wenn CodePattern richtig übergeben wurde, dann startet die Fahrt
-	{
-		int direction;
-		int rows;
-		code.get_Starts_Commands();
-		//throughRow(msg); // Reihenfahrt inkl. wenden bei hinderniss
-		int i = 0;
-		while(i<=code.get_Amount_Commands())
-		{
-			rows = code.get_Rows(code.command[i]);
-			if (rows!=0) {
-				direction = code.get_Direction(code.command[i]+1);
-			}
-			else direction = 0;
-			printf("Commando-Nr.: %i  Richtung: %i  Reihenanzahl %i",i, direction, rows);
-			/*
-		turn(direction,rows); // beachte "0" kommando -> wenden und gleiche reihe zurück fahren
-		throughRow(msg); // Wenn fahrbefehl
-			 */
-			i++;
-		}
-	}
-
-	//Turn right/left (FB)
-	//Read in the scan x-> front, y-> left, Turn direction: true = left, false = right
-	sensor_msgs::LaserScan scan = *msg;
-	float x_array[scan.ranges.size()];
-	float y_array[scan.ranges.size()];
-
-
-	for (uint i = 0; i < scan.ranges.size(); i++) {
-		if(scan.ranges[i] < 3) {
-			x_array[i] = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
-			y_array[i] = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
-		}
-	}
-
-	//turn right
-	if (turn_direction == false){
-		uint counta = 0;
-
-		for(uint i = 0; i < sizeof(y_array)/2; i++){	//Use only the right half of the scan
-			if (y_array[i]>= -y_box && x_array[i] <= x_box){
-				counta++;
-
-				if (counta > 5){			//Turn stops if atleast 5 points are found
-					stop_turn = true;
-					printf("%d",stop_turn);
-				}
-			}
-		}
-	}
-
-	//turn left
-	if (turn_direction == true){
-		uint counta = 0;
-
-		for(uint i = sizeof(y_array)/2; i < sizeof(y_array); i++){	//Use only the left half of the scan
-			if (y_array[i]<= y_box && x_array[i] <= x_box){
-
-				counta++;
-				if (counta > 5){			//Turn stops if atleast 5 points are found
-					stop_turn = true;
-					printf("%d",stop_turn);
-				}
-			}
-		}
-	}
-
-		// fill inputs of statechart
-		statechart.setLeftRowY(0);
-		statechart.setRightRowY(0);
-		// End of user code don't delete this line
-	}
-
-	/**
-	 * publish messages to topic task_cmd_vel
-	 *
-	 * @generated
-	 */
-	void Floribot_task2::publish_task_cmd_vel (geometry_msgs::Twist msg)
-	{
-		task_cmd_vel_pub.publish(msg);
-	}
-
-	/**
-	 * tick is triggered
-	 *
-	 * @generated
-	 */
-	void Floribot_task2::tick ()
-	{
-		// Start of user code call your own code
+/**
+ * tick is triggered 
+ *
+ * @generated
+ */
+void Floribot_task2::tick (const ros::TimerEvent& event)
+{
+	// Start of user code call your own code
 		statechart.switch_State();
 		geometry_msgs::Twist msg;
 		msg.linear.x = statechart.getLinear();
 		msg.angular.z = statechart.getAngular();
 		// End of user code don't delete this line
-	}
+}
 
-	/**
-	 * returns the tick rate
-	 *
-	 * @generated
-	 */
-	int Floribot_task2::get_tick_rate ()
-	{
-		return tick_rate;
-	}
+/**
+ * returns the tick rate
+ *
+ * @generated
+ */
+int Floribot_task2::get_tick_rate ()
+{
+	return tick_rate;
+}
 
-	// Start of user code additional members
+// Start of user code additional members
 
 
 	void Floribot_task2::throughRow(const sensor_msgs::LaserScan::ConstPtr& scan) {
@@ -247,11 +174,5 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	// TODO Implement Method to Count Rows
 
 	// End of user code don't delete this line
-	/*
-float Floribot_task2::calcFieldOfAttentionX(scan, angleIncrement, numRanges,x) {
-}
 
-float Floribot_task2::calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl) {
-}
-	 */
 } // end of namespace

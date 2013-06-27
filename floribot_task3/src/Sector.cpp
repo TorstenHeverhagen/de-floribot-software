@@ -21,7 +21,7 @@ Sector::Sector(double x, double y, double width, double height) {
 	max = 0;
 	if (y >= 0) {
 		phi_1 = atan2(middle.y + width/2, middle.x - height/2);
-		phi_2 = atan2(middle.y - width/2, middle.x + height/2);
+		phi_2 = atan2(middle.y - width/2, middle.x - height/2);
 	} else {
 		phi_1 = atan2(middle.y + width/2, middle.x + height/2);
 		phi_2 = atan2(middle.y - width/2, middle.x - height/2);

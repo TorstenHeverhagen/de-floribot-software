@@ -71,9 +71,24 @@ Floribot_task3::Floribot_task3(ros::NodeHandle n) : n_(n)
     geometry_msgs::Point x_p1, x_p2;
     x_p1.x = 0.1;
     x_p1.y = robot_width/2;
-    x_p2.x = 1;
+    x_p2.x = x_sec;
     x_p2.y = -robot_width/2;
     x_SH = new SectorHistogram(x_p1, x_p2, x_hist_width);
+
+    geometry_msgs::Point left_p1, left_p2;
+    left_p1.x = 0.1;
+    left_p1.y = row_width;
+    left_p2.x = x_sec;
+    left_p2.y = 0.1;
+    left_Y_map = new SH_Map(left_p1, left_p2, x_hist_width, y_hist_width);
+
+    geometry_msgs::Point right_p1, right_p2;
+    right_p1.x = 0.1;
+    right_p1.y = -0.1;
+    right_p2.x = x_sec;
+    right_p2.y = -row_width;
+    right_Y_map = new SH_Map(right_p1, right_p2, x_hist_width, y_hist_width);
+
 	floribot_task3_U.prob_threshold = prob_threshold;
 	floribot_task3_U.direction = direction;
 	floribot_task3_U.turn_vel_x = turn_vel_x;
@@ -94,6 +109,8 @@ Floribot_task3::~Floribot_task3()
     delete x_hist;
     delete y_hist;
     delete x_SH;
+    delete left_Y_map;
+    delete right_Y_map;
     // End of user code don't delete this line
 } // end of destructor
 
@@ -118,6 +135,8 @@ void Floribot_task3::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	x_hist->clear();
 	y_hist->clear();
 	x_SH->clear();
+	left_Y_map->clear();
+	right_Y_map->clear();
 	sensor_msgs::LaserScan scan = *msg;
 
 	for (uint i = 0; i < scan.ranges.size(); i++) {
@@ -127,6 +146,8 @@ void Floribot_task3::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		p.y = scan.ranges[i] * sin(angle);
 
 		x_SH->add(p, angle);
+		left_Y_map->add(p, angle);
+		right_Y_map->add(p, angle);
 		if(scan.ranges[i] < max_scan_distance) {
 			if(p.y > -robot_width/2 && p.y < robot_width/2) x_hist->put(p.x);
 			if(p.x < x_sec) y_hist->put(p.y);
@@ -161,12 +182,16 @@ void Floribot_task3::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	floribot_task3_U.row_width = row_width;
 
 	double x_mean = x_SH->getXMean(), x_prob = x_SH->getXProb(x_mean);
+	double left_mean = left_Y_map->getYMean(), left_prob = left_Y_map->getYProb(left_mean);
+	double right_mean = right_Y_map->getYMean(), right_prob = right_Y_map->getYProb(right_mean);
 	ROS_DEBUG("left(%f; %f) right(%f; %f) front(%f; %f)",
 			floribot_task3_U.left_row_y, floribot_task3_U.left_row_prob,
 			floribot_task3_U.right_row_y, floribot_task3_U.right_row_prob,
 			floribot_task3_U.front_row_x, floribot_task3_U.front_row_prob);
-	ROS_DEBUG("sum_SH(%d) max_SH(%d) x_SH(%f; %f)",	x_SH->getSum(), x_SH->getMax(),	x_mean, x_prob);
-	x_SH->print();
+	ROS_DEBUG("lef2(%f; %f) righ2(%f; %f) fron2(%f; %f)",
+			left_mean, left_prob,
+			right_mean, right_prob,
+			x_mean, x_prob);
 
 	// End of user code don't delete this line
 }

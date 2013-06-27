@@ -1,0 +1,3 @@
+rosmake floribot_base
+rosmake floribot_wiimote
+rosmake floribot_task3

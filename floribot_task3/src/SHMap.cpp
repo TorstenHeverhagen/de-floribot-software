@@ -6,6 +6,7 @@
  */
 
 #include "SHMap.h"
+#include <ros/ros.h>
 
 namespace floribot_task3 {
 
@@ -17,19 +18,18 @@ SH_Map::SH_Map(Point p1, Point p2, double x_hist_width, double y_hist_width) {
 	this->x_hist_width = x_hist_width;
 	this->y_hist_width = y_hist_width;
 
-	if (p1.y >= 0 && p2.y >= 0) n_hists = (p1.y - p1.y)/y_hist_width + 1;
-	else if (p1.y >= 0 && p2.y < 0) n_hists = (p1.y - p1.y)/y_hist_width + 1;
-	else n_hists = (p1.y - p1.y)/y_hist_width + 1;
+	n_hists = (p1.y - p2.y)/y_hist_width + 1;
 
 	y_hists = new SectorHistogram::P_SectorHistogram[n_hists];
 	for(int i = 0; i < n_hists; i++) {
 		Point p_left, p_right;
 		p_left.x = p1.x;
 		p_right.x = p2.x;
-		p_left.y = p1.y + i*y_hist_width;
+		p_left.y = p1.y - i*y_hist_width;
 		p_right.y = p_left.y - y_hist_width;
 		y_hists[i] = new SectorHistogram(p_left, p_right, x_hist_width);
 	}
+	ROS_INFO("SHMap: x1=%f, y1=%f, x2=%f, y2=%f, n=%d", p1.x, p1.y, p2.x, p2.y, n_hists);
 }
 
 SH_Map::~SH_Map() {
@@ -61,13 +61,21 @@ double SH_Map::getYMean() {
 }
 
 double SH_Map::getYProb(double y) {
-	int i_SH = (y_hists[0]->getP2().y + y)/y_hist_width;
+	int i_SH = getSHNumber(y);
 	int max = y_hists[i_SH]->getMax();
 	double prob = 0;
 	if (y != 0 && max > 0) {
 		prob = y_hists[i_SH]->getSum()/max;
 	}
 	return prob;
+}
+
+SectorHistogram::P_SectorHistogram SH_Map::getSH(double y) {
+	return y_hists[getSHNumber(y)];
+}
+
+int SH_Map::getSHNumber(double y) {
+	return (y - p2.y)/y_hist_width;
 }
 
 void SH_Map::clear() {

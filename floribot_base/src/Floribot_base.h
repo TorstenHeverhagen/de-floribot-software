@@ -22,7 +22,7 @@ class Floribot_base
 public:
 	Floribot_base(ros::NodeHandle n);
 	virtual ~Floribot_base();
-	void tick();
+	void tick(const ros::TimerEvent& event);
 	int get_tick_rate();
 
 	void cmd_vel_message (const geometry_msgs::Twist::ConstPtr& msg);
@@ -35,8 +35,9 @@ public:
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
-	std::string tty_ssc_32;
+	ros::Timer timer;
 	int tick_rate;
+	std::string tty_ssc_32;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
 

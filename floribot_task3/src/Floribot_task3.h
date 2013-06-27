@@ -15,6 +15,7 @@
 // Start of user code specific includes
 #include "Histogramm.h"
 #include "SectorHistogram.h"
+#include "SHMap.h"
 // End of user code don't delete this line
 
 namespace floribot_task3 {
@@ -62,6 +63,8 @@ private:
 	Histogramm *x_hist;
 	Histogramm *y_hist;
 	SectorHistogram::P_SectorHistogram x_SH;
+	SH_Map *left_Y_map;
+	SH_Map *right_Y_map;
 	// End of user code  don't delete this line
 };
 
