@@ -84,8 +84,8 @@ private:
 //	std::vector<double> x_array;
 //	std::vector<double> y_array;
 //	std::vector<int>::iterator it;
-	double x_array[800];
-	double y_array[800];
+	double x_array[400];
+	double y_array[400];
 
 
 
