@@ -11,7 +11,7 @@
 #include <string.h>
 //#include "rtwtypes.h"
 #include <geometry_msgs/Twist.h>
-
+#include "stdio.h"
 
 namespace floribot_task2 {
 
@@ -25,13 +25,13 @@ class Statediagramm {
 		Outside_Row = 50,
 		Turning_LI = 60,
 		Turning_RI = 70,
-		U_Turn = 80,
-
+		U_Turn = 80
 	} Task2_States;
 public:
 	Statediagramm();
 	virtual ~Statediagramm();
 	void switch_State();
+	void printState();
 
 	float getAngular() const {
 		return angular;
@@ -57,8 +57,24 @@ public:
 		tick_rate = tickRate;
 	}
 
-	void setFrontRowX(double frontRowX) {
-		front_row_x = frontRowX;
+	int getCommandCount() const {
+		return command_count;
+	}
+
+	void setDirect(int direct) {
+		this->direct = direct;
+	}
+
+	void setRows(int rows) {
+		this->rows = rows;
+	}
+
+	void setMiddRowX(double middRowX) {
+		midd_row_x = middRowX;
+	}
+
+	void setMaxiN(int maxiN) {
+		Maxi_n = maxiN;
 	}
 
 	void setLeftRowProb(double leftRowProb) {
@@ -73,20 +89,35 @@ public:
 		front_row_prob = frontRowProb;
 	}
 
-	void setStopTurn(bool stopTurn){
+	void setFrontRowx(double frontRowX) {
+		front_row_x = frontRowX;
+	}
+
+	void setRowTrashold(double rowTrashold) {
+		row_trashold = rowTrashold;
+	}
+
+	void setStopTurn(bool stopTurn) {
 		stop_turn = stopTurn;
 	}
 
-private:
-	double left_row_y, right_row_y, row_width, front_row_x;
-	Task2_States state, next_state, last_state;
-	double left_row_prob, right_row_prob, front_row_prob;
-	double threshold;
-	float angular, linear;
-	int Leaving_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
-	int tick_rate;
-	bool stop_turn;
+	void setFrontRowY(double frontRowY) {
+		front_row_y = frontRowY;
+	}
 
+private:
+	double left_row_y, right_row_y, front_row_y, front_row_x, row_width, midd_row_x,
+			left_row_prob, right_row_prob, front_row_prob, row_trashold;
+	Task2_States state, next_state, last_state;
+	float angular, linear;
+	int Leaving_Row_timer, Outside_Row_timer; // im constr. nullen, im Zustand inkr., in entry nullen
+	int direct, rows, command_count; // Ein- und Ausgangsvariablen für das Codepattern
+	int Row_Counter, Maxi_n, Maxi_n_erst, Maxi_n_alt;
+	int tick_rate;
+
+	double row_x, row_x_prob, prob_trashhold;
+	float leave_time;
+	bool stop_turn;
 
 };
 

@@ -16,8 +16,6 @@
 #include "Histogramm.h"
 #include "Codepattern.h"
 #include "Statediagramm.h"
-#include "vector"
-
 // End of user code don't delete this line
 
 namespace floribot_task2 {
@@ -30,8 +28,6 @@ public:
 	virtual ~Floribot_task2();
 	void tick();
 	int get_tick_rate();
-	void putXarray(double value, int index);
-	void putYarray(double value, int index);
 
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& scan);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
@@ -41,6 +37,7 @@ public:
 	void turn(int direction, int rows);
 	//float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
 	//float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+
 
 private:
 	ros::NodeHandle n_;
@@ -63,32 +60,25 @@ private:
 	double robot_width;
 	double x_hist_width;
 	double x_sec;
-	double plant_width;
-	double plant_distance;
 	//Box parameters for direction adjustment at turning left or right (FB)
-	int turn_direction;	//-1= rechts, 1 = links, 0 = 180 turn
-	double x_box;
-	double y_box;
-	bool stop_turn;
+	bool turn_direction;	//true = left, false = right
+
 	Statediagramm statechart;
 	Histogramm *x_hist;
 	Histogramm *y_hist;
-	double left_row_y;
-	double right_row_y;
-	double front_row_y;
-	double left_row_prob;
-	double right_row_prob;
-	double front_row_prob;
-	double prob_threshold;
-	double front_row_x;
-//	std::vector<double> x_array;
-//	std::vector<double> y_array;
-//	std::vector<int>::iterator it;
+	Histogramm *x_hist_rowcount;
+	//Codepattern *code;
+	float left_row_y, left_row_prob, right_row_prob, plant_width,
+			plant_distance, right_row_y,front_row_y, front_row_x, front_row_prob;
+
+	int left_n_max , right_n_max,front_n_max;
+
+	// Felix
 	double x_array[400];
 	double y_array[400];
-
-
-
+	bool stop_turn;
+	double x_box;
+	double y_box;
 	// End of user code  don't delete this line
 };
 

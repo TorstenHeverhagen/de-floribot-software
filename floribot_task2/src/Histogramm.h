@@ -24,6 +24,7 @@ public:
 	int get_sum(float border1, float border2);
 	int get_class_num(float value);
 	float get_class_middle(int index);
+	int get_Maxi_n(float border1, float border2);
 	void clear();
 
 	float getMax() const {

@@ -3,18 +3,19 @@
 
 <cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage2">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="cdt.managedbuild.toolchain.gnu.base.2029307329">
-			<storageModule externalCElementFile="cdt.managedbuild.toolchain.gnu.base.2029307329_org.eclipse.cdt.core.settings" id="cdt.managedbuild.toolchain.gnu.base.2029307329" name="Default"/>
-			<storageModule externalCElementFile="cdt.managedbuild.toolchain.gnu.base.2029307329_cdtBuildSystem" version="4.0.0"/>
-			<storageModule externalCElementFile="cdt.managedbuild.toolchain.gnu.base.2029307329_org.eclipse.cdt.core.externalSettings"/>
+		<cconfiguration id="cdt.managedbuild.toolchain.gnu.base.1230926623">
+			<storageModule externalCElementFile="cdt.managedbuild.toolchain.gnu.base.1230926623_org.eclipse.cdt.core.settings" id="cdt.managedbuild.toolchain.gnu.base.1230926623" name="Default"/>
+			<storageModule externalCElementFile="cdt.managedbuild.toolchain.gnu.base.1230926623_cdtBuildSystem" version="4.0.0"/>
+			<storageModule externalCElementFile="cdt.managedbuild.toolchain.gnu.base.1230926623_org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
-	</storageModule>
-	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="floribot_task2.null.1405259198" name="floribot_task2"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="floribot_task2.null.1274347843" name="floribot_task2"/>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
