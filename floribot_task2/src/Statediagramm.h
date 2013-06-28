@@ -110,6 +110,10 @@ public:
 		prob_threshold = probThreshold;
 	}
 
+	void setMaxiNErst(int maxiNErst) {
+		Maxi_n_erst = maxiNErst;
+	}
+
 private:
 	double left_row_y, right_row_y, front_row_x, row_width, midd_row_x,
 			left_row_prob, right_row_prob, front_row_prob;

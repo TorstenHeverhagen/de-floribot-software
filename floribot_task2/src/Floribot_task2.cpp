@@ -97,8 +97,8 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	front_n_max = 0;
 	right_n_max = 0;
 
-
-
+	maxi_n_erst = 7;
+	n_.getParam("/floribot_task2/maxi_n_erst", maxi_n_erst);
 	// fill statechart constants
 	statechart.setRowWidth(row_width);
 	statechart.setTickRate(tick_rate);
@@ -261,6 +261,8 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
 	statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0,2));
 	statechart.setStopAngle(stop_angle);
+
+	statechart.setMaxiNErst(maxi_n_erst);
 	// End of user code don't delete this line
 }
 

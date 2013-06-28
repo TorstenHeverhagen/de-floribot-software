@@ -73,7 +73,7 @@ private:
 
 	// B. Bauer
 	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width;
-	int line_extraction_k ;
+	int line_extraction_k, maxi_n_erst ;
 	double alpha_main;
 
 	double leaving_time,stop_angle, prob_threshold,plant_distance ,plant_width;

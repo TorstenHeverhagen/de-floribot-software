@@ -30,7 +30,7 @@
       <param name="leaving_time" value="0.7" type="double"/>
       <param name="stop_angle" value="3.0" type="double"/>
       <param name="line_extraction_k" value="20" type="int"/>
-
+	  <param name="maxi_n_erst" value="7" type="int"/>
       #Code Pattern
       <param name="CodePattern" value="S-3L-2R-0-2R-F"/>
 
