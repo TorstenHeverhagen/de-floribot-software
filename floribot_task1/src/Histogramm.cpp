@@ -90,6 +90,18 @@ int Histogramm::get_class_sice() {
 	return (getMax() - getMin()) / get_width();
 }
 
+int Histogramm::get_Maxi_n(float border1, float border2) {
+	int max_n = 0;
+	int maximum = 0;
+	for (int i = get_class_num(border1); i < get_class_num(border2);i++){
+		if (histogramm[i]> maximum) {
+			maximum = histogramm[i];
+			max_n = i;
+		}
+	}
+	return max_n;
+}
+
 void Histogramm::clear() {
 	for (int i = 0; i < num_classes; ++i) {
 		histogramm[i] = 0;

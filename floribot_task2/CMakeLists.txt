@@ -32,4 +32,7 @@ target_link_libraries(floribot_task2_node Codepattern)
 rosbuild_add_library(Statediagramm src/Statediagramm.cpp)
 target_link_libraries(floribot_task2_node Statediagramm)
 
+rosbuild_add_library(Histogramm src/Histogramm.cpp)
+target_link_libraries(floribot_task2_node Histogramm)
+
 #End of user code

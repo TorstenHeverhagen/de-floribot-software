@@ -22,7 +22,8 @@ class Statediagramm {
 		Inside_Row = 10,
 		Leaving_Row = 20,
 		Turn_Along_Row = 30,
-		Turn_Too_Row = 40
+		Move_To_Next_Row = 40,
+		Turn_Into_Row = 50
 
 	} Task2_States;
 public:
@@ -104,18 +105,49 @@ public:
 		max_speed_linear = maxSpeedLinear;
 	}
 
+	void setRowXMin(double rowXMin) {
+		row_x_min = rowXMin;
+	}
+
+	void setLeavingTime(double leavingTime) {
+		leaving_time = leavingTime;
+	}
+
+	void setAlphaMean(double alphaMean) {
+		alpha_mean = alphaMean;
+	}
+
+	void setAlphaTrashhold(double alphaTrashhold) {
+		alpha_trashhold = alphaTrashhold;
+	}
+
+	void setXMaxTurn(int maxTurn) {
+		x_max_turn = maxTurn;
+	}
+
+	void setXMaxTurnErst(int maxTurnErst) {
+		x_max_turn_erst = maxTurnErst;
+	}
+
+	void setDirection(int direction) {
+		this->direction = direction;
+	}
+
 private:
 	float angular, linear;
-	int Leaving_Row_timer, Turn_Along_Row_timer, Turn_Too_Row_timer;
+	int Leaving_Row_timer, Turn_To_Next_Row_timer, Row_Counter;
 	int tick_rate;
 	double row_width, robot_width;
 	double max_speed_angular, max_speed_linear;
 	double left_row_y, right_row_y;
 	double left_row_y_prob, right_row_y_prob, prob_trashhold;
-	double row_x, row_x_prob;
+	double row_x, row_x_prob, row_x_min;
+	double leaving_time;
+	double alpha_mean, alpha_trashhold;
+	int x_max_turn, x_max_turn_erst;
 	Task2_States state, next_state, last_state;
 
-
+	bool direction;
 
 };
 

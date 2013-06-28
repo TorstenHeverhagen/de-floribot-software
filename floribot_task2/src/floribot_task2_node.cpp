@@ -15,8 +15,13 @@ int main(int argc, char **argv)
 	ros::NodeHandle nh;
 	Floribot_task2 node(nh);
 
-	ros::spin();
-
+	ros::Rate r(node.get_tick_rate());
+	while (ros::ok())
+	{
+		ros::spinOnce();
+		node.tick();
+		r.sleep();
+	}
 	return 0;
 }
 

@@ -17,49 +17,49 @@ namespace floribot_task3 {
 
 Floribot_task3::Floribot_task3(ros::NodeHandle n) : n_(n)
 {
+	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task3::scan_message, this);
-	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
-    leav_vel_x = 0.5;
-    n_.getParam("/floribot_task3/leav_vel_x", leav_vel_x);
-    direction = 1;
-    n_.getParam("/floribot_task3/direction", direction);
-    x_sec = 1;
-    n_.getParam("/floribot_task3/x_sec", x_sec);
-    x_hist_min = 0;
-    n_.getParam("/floribot_task3/x_hist_min", x_hist_min);
-    tick_rate = 100;
-    n_.getParam("/floribot_task3/tick_rate", tick_rate);
-    y_hist_min = -2;
-    n_.getParam("/floribot_task3/y_hist_min", y_hist_min);
-    x_hist_width = 0.1;
-    n_.getParam("/floribot_task3/x_hist_width", x_hist_width);
-    y_hist_width = 0.1;
-    n_.getParam("/floribot_task3/y_hist_width", y_hist_width);
-    leav_time = 0.2;
-    n_.getParam("/floribot_task3/leav_time", leav_time);
-    turn_vel_yaw = 0.5;
-    n_.getParam("/floribot_task3/turn_vel_yaw", turn_vel_yaw);
     row_width = 0.75;
     n_.getParam("/floribot_task3/row_width", row_width);
+    turn_vel_yaw = 0.5;
+    n_.getParam("/floribot_task3/turn_vel_yaw", turn_vel_yaw);
+    x_sec = 1;
+    n_.getParam("/floribot_task3/x_sec", x_sec);
     plant_distance = 0.45;
     n_.getParam("/floribot_task3/plant_distance", plant_distance);
-    prob_threshold = 0.2;
-    n_.getParam("/floribot_task3/prob_threshold", prob_threshold);
-    y_hist_max = 2;
-    n_.getParam("/floribot_task3/y_hist_max", y_hist_max);
+    x_hist_min = 0;
+    n_.getParam("/floribot_task3/x_hist_min", x_hist_min);
     max_scan_distance = 1.0;
     n_.getParam("/floribot_task3/max_scan_distance", max_scan_distance);
-    robot_width = 0.5;
-    n_.getParam("/floribot_task3/robot_width", robot_width);
+    x_hist_max = 2;
+    n_.getParam("/floribot_task3/x_hist_max", x_hist_max);
+    leav_vel_x = 0.5;
+    n_.getParam("/floribot_task3/leav_vel_x", leav_vel_x);
+    prob_threshold = 0.2;
+    n_.getParam("/floribot_task3/prob_threshold", prob_threshold);
     plant_width = 0.05;
     n_.getParam("/floribot_task3/plant_width", plant_width);
     turn_vel_x = 0.1;
     n_.getParam("/floribot_task3/turn_vel_x", turn_vel_x);
-    x_hist_max = 2;
-    n_.getParam("/floribot_task3/x_hist_max", x_hist_max);
+    direction = 1;
+    n_.getParam("/floribot_task3/direction", direction);
+    robot_width = 0.5;
+    n_.getParam("/floribot_task3/robot_width", robot_width);
+    x_hist_width = 0.1;
+    n_.getParam("/floribot_task3/x_hist_width", x_hist_width);
+    y_hist_max = 2;
+    n_.getParam("/floribot_task3/y_hist_max", y_hist_max);
+    tick_rate = 100;
+    n_.getParam("/floribot_task3/tick_rate", tick_rate);
+    y_hist_width = 0.1;
+    n_.getParam("/floribot_task3/y_hist_width", y_hist_width);
+    leav_time = 0.2;
+    n_.getParam("/floribot_task3/leav_time", leav_time);
     turn_time = 0.3;
     n_.getParam("/floribot_task3/turn_time", turn_time);
+    y_hist_min = -2;
+    n_.getParam("/floribot_task3/y_hist_min", y_hist_min);
     /* Initialize simulink model */
     floribot_task3_initialize();
 	
@@ -115,6 +115,21 @@ Floribot_task3::~Floribot_task3()
     delete right_Y_map;
     // End of user code don't delete this line
 } // end of destructor
+
+/**
+ * publish messages to topic task_cmd_vel
+ *
+ * @generated
+ */
+void Floribot_task3::publish_task_cmd_vel (geometry_msgs::Twist msg)
+{
+	task_cmd_vel_pub.publish(msg);
+}
+
+void Floribot_task3::publish_ptu_cmd (sensor_msgs::JointState msg)
+{
+	ptu_cmd_pub.publish(msg);
+}
 
 /**
  * process messages from topic scan
@@ -187,16 +202,6 @@ void Floribot_task3::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 			x_mean, x_prob);
 
 	// End of user code don't delete this line
-}
-
-/**
- * publish messages to topic task_cmd_vel
- *
- * @generated
- */
-void Floribot_task3::publish_task_cmd_vel (geometry_msgs::Twist msg)
-{
-	task_cmd_vel_pub.publish(msg);
 }
 
 /**
