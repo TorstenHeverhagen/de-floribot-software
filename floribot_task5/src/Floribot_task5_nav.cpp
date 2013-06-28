@@ -16,17 +16,17 @@ namespace floribot_task5 {
 Floribot_task5_nav::Floribot_task5_nav(ros::NodeHandle n) : n_(n)
 {
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
-	ptu_action_pub = n_.advertise<std_msgs::Integer>("ptu_action",1);
+	ptu_action_pub = n_.advertise<std_msgs::Int8>("ptu_action",1);
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task5_nav::scan_message, this);
-    distance_to_helios = 2;
-    n_.getParam("/floribot_task5_nav/distance_to_helios", distance_to_helios);
-    helios_width = 0.4;
-    n_.getParam("/floribot_task5_nav/helios_width", helios_width);
-    helios_digger_depth = 0.3;
-    n_.getParam("/floribot_task5_nav/helios_digger_depth", helios_digger_depth);
     helios_max_vel = 0.5;
     n_.getParam("/floribot_task5_nav/helios_max_vel", helios_max_vel);
+    helios_width = 0.4;
+    n_.getParam("/floribot_task5_nav/helios_width", helios_width);
+    distance_to_helios = 2;
+    n_.getParam("/floribot_task5_nav/distance_to_helios", distance_to_helios);
+    helios_digger_depth = 0.3;
+    n_.getParam("/floribot_task5_nav/helios_digger_depth", helios_digger_depth);
 	
 	timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_task5_nav::tick, this);
 
@@ -58,7 +58,7 @@ void Floribot_task5_nav::publish_task_cmd_vel (geometry_msgs::Twist msg)
  *
  * @generated
  */
-void Floribot_task5_nav::publish_ptu_action (std_msgs::Integer msg)
+void Floribot_task5_nav::publish_ptu_action (std_msgs::Int8 msg)
 {
 	ptu_action_pub.publish(msg);
 }

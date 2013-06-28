@@ -20,12 +20,12 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-rosbuild_add_library(Floribot_task5_nav src/Floribot_task5_nav.cpp)
-rosbuild_add_executable(floribot_task5_nav_node src/floribot_task5_nav_node.cpp)
-target_link_libraries(floribot_task5_nav_node Floribot_task5_nav)
 rosbuild_add_library(Florbot_task5_ptu src/Florbot_task5_ptu.cpp)
 rosbuild_add_executable(florbot_task5_ptu_node src/florbot_task5_ptu_node.cpp)
 target_link_libraries(florbot_task5_ptu_node Florbot_task5_ptu)
+rosbuild_add_library(Floribot_task5_nav src/Floribot_task5_nav.cpp)
+rosbuild_add_executable(floribot_task5_nav_node src/floribot_task5_nav_node.cpp)
+target_link_libraries(floribot_task5_nav_node Floribot_task5_nav)
 
 #Start of user code user defined libraries
 

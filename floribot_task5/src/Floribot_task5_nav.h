@@ -11,7 +11,7 @@
 #include <ros/ros.h>
 #include <string>
 #include <geometry_msgs/Twist.h>
-#include <std_msgs/Integer.h>
+#include <std_msgs/Int8.h>
 #include <sensor_msgs/LaserScan.h>
 // Start of user code specific includes
 // TODO: include your own headers
@@ -28,7 +28,7 @@ public:
 	int get_tick_rate();
 
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
-	void publish_ptu_action (std_msgs::Integer msg);
+	void publish_ptu_action (std_msgs::Int8 msg);
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 
 	// Start of user code additional public members
@@ -37,12 +37,11 @@ public:
 private:
 	ros::NodeHandle n_;
 	ros::Timer timer;
-	double distance_to_helios;
-	double helios_width;
-	int ptu_action;
-	double helios_digger_depth;
-	int tick_rate;
 	double helios_max_vel;
+	double helios_width;
+	double distance_to_helios;
+	int tick_rate;
+	double helios_digger_depth;
 	ros::Publisher task_cmd_vel_pub;
 	ros::Publisher ptu_action_pub;
 	ros::Subscriber scan_sub;

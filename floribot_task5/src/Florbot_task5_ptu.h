@@ -10,7 +10,7 @@
 
 #include <ros/ros.h>
 #include <string>
-#include <std_msgs/Integer.h>
+#include <std_msgs/Int8.h>
 #include <phidgets/interface_kit_params.h>
 #include <sensor_msgs/JointState.h>
 // Start of user code specific includes
@@ -27,7 +27,7 @@ public:
 	void tick(const ros::TimerEvent& event);
 	int get_tick_rate();
 
-	void ptu_action_message (const std_msgs::Integer::ConstPtr& msg);
+	void ptu_action_message (const std_msgs::Int8::ConstPtr& msg);
 	void publish_phidgets_interface_kit (phidgets::interface_kit_params msg);
 	void publish_ptu46_cmd (sensor_msgs::JointState msg);
 
@@ -37,14 +37,13 @@ public:
 private:
 	ros::NodeHandle n_;
 	ros::Timer timer;
-	double tilt2;
-	double pan1;
-	double pan_vel;
-	double tilt1;
-	int tick_rate;
-	int ptu_action;
-	double pan2;
 	double tilt_vel;
+	double tilt1;
+	double pan2;
+	double pan1;
+	int tick_rate;
+	double pan_vel;
+	double tilt2;
 	ros::Subscriber ptu_action_sub;
 	ros::Publisher phidgets_interface_kit_pub;
 	ros::Publisher ptu46_cmd_pub;
