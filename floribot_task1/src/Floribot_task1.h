@@ -35,7 +35,6 @@ public:
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
-	bool direction;
 	int tick_rate;
 	ros::Publisher task_cmd_vel_pub;
 	ros::Subscriber scan_sub;
@@ -64,10 +63,14 @@ private:
 
 	Statediagramm statechart;
 	double max_scanns_x, max_scanns_right_y, max_scanns_left_y;
-	double prob_trashhold;
-	double alpha_mean;
-	double left_row_y, right_row_y, row_x;
+	double prob_trashhold, leaving_time;
+	double alpha_mean, alpha_trashhold;
+	double left_row_y, right_row_y, row_x, row_x_min;
 	double left_row_y_prob, right_row_y_prob, row_x_prob;
+
+	int x_max_turn, x_max_turn_erste;
+
+	int direction;
 
 
 	// End of user code  don't delete this line
