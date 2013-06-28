@@ -49,9 +49,10 @@ void SH_Map::add(Point p, double phi) {
 double SH_Map::getYMean() {
 	double weighted_sum = 0;
 	int sum = 0;
-	for(int i = 0; i <= n_hists; i++) {
-		weighted_sum += y_hists[i]->getSum() * y_hists[i]->getYMiddle();
-		sum += y_hists[i]->getSum();
+	for(int i = 0; i < n_hists; i++) {
+		int i_sum = y_hists[i]->getSum();
+		weighted_sum += i_sum * y_hists[i]->getYMiddle();
+		sum += i_sum;
 	}
 	float mean = 0;
 	if(sum > 0) {
@@ -61,17 +62,23 @@ double SH_Map::getYMean() {
 }
 
 double SH_Map::getYProb(double y) {
-	int i_SH = getSHNumber(y);
-	int max = y_hists[i_SH]->getMax();
 	double prob = 0;
-	if (y != 0 && max > 0) {
-		prob = y_hists[i_SH]->getSum()/max;
+	if (y <= p1.y && y >= p2.y) {
+		int i_SH = getSHNumber(y);
+		int max = y_hists[i_SH]->getMax();
+		if (y != 0 && max > 0) {
+			prob = y_hists[i_SH]->getSum()/(double)max;
+		}
 	}
 	return prob;
 }
 
 SectorHistogram::P_SectorHistogram SH_Map::getSH(double y) {
-	return y_hists[getSHNumber(y)];
+	SectorHistogram::P_SectorHistogram sh = 0;
+	if (y <= p1.y && y >= p2.y) {
+		sh = y_hists[getSHNumber(y)];
+	}
+	return sh;
 }
 
 int SH_Map::getSHNumber(double y) {

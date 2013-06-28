@@ -52,7 +52,7 @@ class CmdVelController(object):
         """
        
         print v,theta
- 
+        #theta*=1.7
         dx = 0.2005
         dy = 0.19
         dxy = m.sqrt(dx*dx+dy*dy)

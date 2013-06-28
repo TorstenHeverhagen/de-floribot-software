@@ -63,10 +63,12 @@ Floribot_task3::Floribot_task3(ros::NodeHandle n) : n_(n)
     /* Initialize simulink model */
     floribot_task3_initialize();
 	
-	//timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_task3::tick, this);
+	timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_task3::tick, this);
 
     // Start of user code constructor
-    x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
+	ptu_cmd_pub = n_.advertise<sensor_msgs::JointState>("ptu/cmd",1);
+
+	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
     y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
     geometry_msgs::Point x_p1, x_p2;
     x_p1.x = 0.1;
@@ -122,6 +124,11 @@ Floribot_task3::~Floribot_task3()
 void Floribot_task3::publish_task_cmd_vel (geometry_msgs::Twist msg)
 {
 	task_cmd_vel_pub.publish(msg);
+}
+
+void Floribot_task3::publish_ptu_cmd (sensor_msgs::JointState msg)
+{
+	ptu_cmd_pub.publish(msg);
 }
 
 /**
@@ -184,10 +191,11 @@ void Floribot_task3::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	double x_mean = x_SH->getXMean(), x_prob = x_SH->getXProb(x_mean);
 	double left_mean = left_Y_map->getYMean(), left_prob = left_Y_map->getYProb(left_mean);
 	double right_mean = right_Y_map->getYMean(), right_prob = right_Y_map->getYProb(right_mean);
-	ROS_DEBUG("left(%f; %f) right(%f; %f) front(%f; %f)",
+	ROS_DEBUG("left(%f; %f) right(%f; %f) front(%f; %f) danger(%d)",
 			floribot_task3_U.left_row_y, floribot_task3_U.left_row_prob,
 			floribot_task3_U.right_row_y, floribot_task3_U.right_row_prob,
-			floribot_task3_U.front_row_x, floribot_task3_U.front_row_prob);
+			floribot_task3_U.front_row_x, floribot_task3_U.front_row_prob,
+			floribot_task3_DW.is_no_danger);
 	ROS_DEBUG("lef2(%f; %f) righ2(%f; %f) fron2(%f; %f)",
 			left_mean, left_prob,
 			right_mean, right_prob,
@@ -206,7 +214,7 @@ void Floribot_task3::tick (const ros::TimerEvent& event)
     /* Step the simulink model */
     floribot_task3_step();
 	// Start of user code call your own code
-    ROS_DEBUG("state: %d", floribot_task3_DW.is_c1_floribot_task3);
+    // ROS_DEBUG("no danger: %d", floribot_task3_DW.is_no_danger);
     geometry_msgs::Twist cmd_vel;
 	cmd_vel.angular.z = floribot_task3_Y.cmd_vel_yaw;
 	cmd_vel.linear.x = floribot_task3_Y.cmd_vel_x;

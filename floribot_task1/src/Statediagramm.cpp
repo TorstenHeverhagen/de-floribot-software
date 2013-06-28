@@ -163,7 +163,7 @@ void Statediagramm::switch_State() {
 		angular = direction * max_speed_angular;
 
 		// transitions
-		if (isAlpha) {
+		if (isAlpha || isSideRowBoth || isSideRowLeft || isSideRowRight) {
 			next_state = Move_To_Next_Row;
 		}
 		break;

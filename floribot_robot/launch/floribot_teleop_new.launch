@@ -9,6 +9,6 @@
   <node name="floribot_wiimote" pkg="floribot_wiimote" type="floribot_wiimote_node" >
       <param name="tick_rate" value="20" type="int"/>
   </node>
-  <node name="floribot_base_owncmdvel" pkg="floribot_base" type="CmdVelController.py" respawn="true">
+  <node name="floribot_base_owncmdvel" pkg="floribot_base" type="CmdVelController.py" >
   </node>
 </launch>

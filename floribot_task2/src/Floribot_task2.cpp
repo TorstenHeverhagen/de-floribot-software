@@ -21,10 +21,10 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 
 	scan_sub = n_.subscribe("scan", 1,
 			&Floribot_task2::scan_message, this);
-	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
-	CodePattern = "";
+	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
+	CodePattern = "S-3R-2L-0-4L-2L-1R-2L-1R-F";
 	n_.getParam("/floribot_task2/CodePattern", CodePattern);
-	CodePattern = "S-3L-2R-0-2R-F";
+
 	tick_rate = 50;
 	n_.getParam("/floribot_task2/tick_rate", tick_rate);
 	// Start of user code constructor
@@ -78,8 +78,8 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	alpha_hist = new Histogramm(alpha_hist_min, alpha_hist_max, alpha_hist_width);
 
 	//Start parameters for the direction adjustment (FB)
-	linear = 0.5;
-	angular = 0.5;
+	linear = 0.0;
+	angular = 0.0;
 	turn_direction = 0;
 
 	left_row_y = 0;
@@ -127,6 +127,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	// Start of user code process message
 	sensor_msgs::LaserScan scan = *msg;
 	Codepattern code(CodePattern);
+	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
 	turn_direction = code.get_Direction(code.command[statechart.getCommandCount()]);
 	//Histogramme und Arrays nullen
 	x_hist->clear();
@@ -257,8 +258,6 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	statechart.setAlpha(alpha_main);
 
 	//Codepattern
-	statechart.setDirect(turn_direction);
-	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
 	statechart.setMaxiN(x_hist_rowcount->get_Maxi_n(0,2));
 	statechart.setStopAngle(stop_angle);
 
@@ -281,12 +280,17 @@ void Floribot_task2::tick ()
 {
 	// Start of user code call your own code
 	// fill inputs of statechart
+
+	Codepattern code(CodePattern);
+	statechart.setDirect(code.get_Direction(code.command[statechart.getCommandCount()]));
+	statechart.setRows(code.get_Rows(code.command[statechart.getCommandCount()]));
 	statechart.switch_State();
 	statechart.printState();
 	geometry_msgs::Twist msg;
 	msg.linear.x = statechart.getLinear();
 	msg.angular.z = statechart.getAngular();
 	publish_task_cmd_vel(msg);
+	print_params();
 	// End of user code don't delete this line
 }
 
@@ -311,6 +315,7 @@ int Floribot_task2::get_tick_rate ()
 void Floribot_task2::print_params() {
 	printf("left_row_prob: %f | front_row_prob: %f | right_row_prob: %f \n",left_row_prob, front_row_prob, right_row_prob);
 	printf("Command %i | Alpha: %f ", statechart.getCommandCount()+1,alpha_main);
+	printf(" linear: %f | angular: %f \n ", linear, angular);
 	statechart.printState();
 	}
 

@@ -16,6 +16,7 @@
 #include "Histogramm.h"
 #include "SectorHistogram.h"
 #include "SHMap.h"
+#include <sensor_msgs/JointState.h>
 // End of user code don't delete this line
 
 namespace floribot_task3 {
@@ -32,7 +33,7 @@ public:
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
 
 	// Start of user code additional public members
-	// TODO: declare your variables and methods
+	void publish_ptu_cmd (sensor_msgs::JointState msg);
 	// End of user code  don't delete this line
 private:
 	ros::NodeHandle n_;
@@ -60,6 +61,7 @@ private:
 	ros::Publisher task_cmd_vel_pub;
 	ros::Subscriber scan_sub;
 	// Start of user code additional members
+	ros::Publisher ptu_cmd_pub;
 	Histogramm *x_hist;
 	Histogramm *y_hist;
 	SectorHistogram::P_SectorHistogram x_SH;
