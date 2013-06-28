@@ -20,7 +20,7 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
 
     direction = 1;
     n_.getParam("/floribot_task1/direction", direction);
-    tick_rate = 100;
+    tick_rate = 20;
     n_.getParam("/floribot_task1/tick_rate", tick_rate);
 
     // Start of user code constructor
@@ -54,9 +54,9 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
     n_.getParam("/floribot_task1/y_hist_width", y_hist_width);
     alpha_hist_min = 0;
     n_.getParam("/floribot_task1/alpha_hist_min", alpha_hist_min);
-    alpha_hist_max = 3.141592653; //* 180 / 180.0;
+    alpha_hist_max = 3.141592653;
     n_.getParam("/floribot_task1/alpha_hist_max", alpha_hist_max);
-    alpha_hist_width = 3.141592653 * 5 / 180.0;
+    alpha_hist_width = 0.3141592653;
     n_.getParam("/floribot_task1/alpha_hist_width", alpha_hist_width);
 
 
@@ -72,15 +72,32 @@ Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
 	max_scanns_right_y = 0;
 	max_scanns_left_y = 0;
 
-    prob_trashhold = 0.05;
-    n_.getParam("/floribot_task1/mean_trashhold", prob_trashhold);
+	x_max_turn = 0;
+	x_max_turn_erste = 7;
+    n_.getParam("/floribot_task1/x_max_turn_erste", x_max_turn_erste);
 
+    prob_trashhold = 0.15;
+    n_.getParam("/floribot_task1/mean_trashhold", prob_trashhold);
+    row_x_min = 0.5;
+    n_.getParam("/floribot_task1/row_x_min", row_x_min);
+    leaving_time = 2.2;
+    n_.getParam("/floribot_task1/leaving_time", leaving_time);
+    alpha_trashhold = 0.3;
+    n_.getParam("/floribot_task1/alpha_trashhold", alpha_trashhold);
+    direction = 1;
+    n_.getParam("/floribot_task1/direction", direction);
+
+    statechart.setDirection(direction);
 	statechart.setTickRate(tick_rate);
+	statechart.setLeavingTime(leaving_time);
 	statechart.setProbTrashhold(prob_trashhold);
+	statechart.setRowXMin(row_x_min);
+	statechart.setAlphaTrashhold(alpha_trashhold);
 	statechart.setRobotWidth(robot_width);
 	statechart.setRowWidth(row_width);
 	statechart.setMaxSpeedLinear(max_speed_linear);
 	statechart.setMaxSpeedAngular(max_speed_angular);
+	statechart.setXMaxTurnErst(x_max_turn_erste);
 
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
@@ -144,12 +161,7 @@ void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 		}
 	}
 
-
-	int alpha_mean = -1;
-	int SIZEOFHIST = (alpha_hist->getMin() - alpha_hist->getMin()) / alpha_hist->get_width();
-	for(int i = SIZEOFHIST-1; i >= 0; i--)
-		if (alpha_mean <= alpha_hist->histogramm[i])
-			alpha_mean = alpha_hist->histogramm[i];
+	x_max_turn = x_hist->get_Maxi_n(x_hist->getMin(), x_hist->getMax());
 
 	left_row_y = y_hist->get_class_middle(y_hist->get_class_num((y_hist->get_mean(0,1))));
 	max_scanns_left_y = (((acos(left_row_y/max_scan_distance)) - (3.14159/2 - scan.angle_max)) / scan.angle_increment);
@@ -163,10 +175,16 @@ void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	max_scanns_x = (acos(row_x/max_scan_distance)/ scan.angle_increment);
 	row_x_prob = x_hist->get_n(row_x) / (max_scanns_x * 2);
 
+	alpha_mean = alpha_hist->get_mean(alpha_hist->getMin(), alpha_hist->getMax()/2);
+
 	statechart.setLeftRowY(left_row_y);
 	statechart.setLeftRowYProb(left_row_y_prob);
 	statechart.setRightRowY(right_row_y);
 	statechart.setRightRowYProb(right_row_y_prob);
+	statechart.setRowX(row_x);
+	statechart.setRowXProb(row_x_prob);
+	statechart.setAlphaMean(alpha_mean);
+	statechart.setXMaxTurn(x_max_turn);
 
 	// End of user code don't delete this line
 }
@@ -193,14 +211,15 @@ void Floribot_task1::tick ()
 	x_hist->print();
 	printf("y-Histogramm\n");
 	y_hist->print();
-	//printf("alpha-Histogramm\n");
-	//alpha_hist->print();
+	printf("alpha-Histogramm\n");
+	alpha_hist->print();
 	printf("#################################################################################################################\n");
 	//printf("row_x = %f, row_x_prob = %f, \n",row_x, row_x_prob);
 	printf("left_row_y = %f, left_row_y_prob = %f, \n", left_row_y, left_row_y_prob);
 	printf("right_row_y = %f, right_row_y_prob = %f\n", right_row_y, right_row_y_prob);
 	printf("left_row_y + right_row_y = %f\n", (left_row_y + right_row_y));
-	//printf("histMin = %f histMax = %f histWidth = %f\n", alpha_hist->getMin(), alpha_hist->getMax(), alpha_hist->get_width());
+	printf("row_x = %f , row_x_prob = %f\n", row_x, row_x_prob);
+	printf("alpha_mean = %f\n", alpha_mean);
 	statechart.printState();
 	printf("#################################################################################################################\n");
 	printf("vel_x = %f , vel_z = %f\n",vel.linear.x,vel.angular.z);

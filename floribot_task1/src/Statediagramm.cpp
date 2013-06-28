@@ -14,6 +14,8 @@ Statediagramm::Statediagramm() {
 	next_state = Init;
 	last_state = Init;
 
+	direction = 0;
+
 	row_width = 0;
 	robot_width = 0;
 
@@ -29,13 +31,20 @@ Statediagramm::Statediagramm() {
 	right_row_y_prob = 0;
 	row_x = 0;
 	row_x_prob = 0;
+	row_x_min = 0;
 	prob_trashhold = 0;
 
+	alpha_mean = 0;
+	alpha_trashhold = 0;
+
 	tick_rate = 0;
+	leaving_time = 0;
 
 	Leaving_Row_timer = 0;
-	Turn_Along_Row_timer = 0;
-	Turn_Too_Row_timer = 0;
+	Turn_To_Next_Row_timer = 0;
+	Row_Counter = 0;
+	x_max_turn = 0;
+	x_max_turn_erst = 7;
 
 }
 
@@ -51,6 +60,8 @@ void Statediagramm::switch_State() {
 					&& !(right_row_y_prob >= prob_trashhold);
 	bool isSideRowRight = !(left_row_y_prob >= prob_trashhold)
 					&& right_row_y_prob >= prob_trashhold;
+	bool isFrontRow = (row_x_prob >= prob_trashhold);
+	bool isAlpha = alpha_mean > 0 && alpha_trashhold > alpha_mean;
 
 	switch (state) {
 	case Init:
@@ -66,29 +77,50 @@ void Statediagramm::switch_State() {
 			last_state = state;
 		}
 		// during actions
-
-		// transitions
-
 		if (isSideRowBoth) {
-			linear = (1 - (fabs(left_row_y + right_row_y) / row_width))
-					* max_speed_linear;
-			angular = (left_row_y + right_row_y) / row_width
-					* max_speed_angular;
+			if (!isFrontRow) {
+				linear = (1 - (fabs(left_row_y + right_row_y) / row_width))
+						* max_speed_linear;
+				angular = (left_row_y + right_row_y) / row_width
+						* max_speed_angular;
+			}
+			else if (isFrontRow && row_x < row_x_min) {
+				linear = (1 - (fabs(left_row_y + right_row_y) / row_width))
+						* max_speed_linear * row_x;
+				angular = (left_row_y + right_row_y) / row_width
+						* max_speed_angular;
+			}
 
-		} else if (isSideRowRight) {
-			linear = (1 - (fabs((row_width + right_row_y) + right_row_y) / row_width))
-					* max_speed_linear;
-			angular = (left_row_y - (row_width + right_row_y)) / row_width
-					* max_speed_angular;
+		} else if (isSideRowRight && !isSideRowLeft) {
+			if (!isFrontRow) {
+				linear = (1 - (fabs(row_width + 2 * right_row_y) / row_width))
+						* max_speed_linear;
+				angular = (row_width + 2 * right_row_y) / row_width
+						* max_speed_angular;
+			}
+			else if (isFrontRow && row_x < row_x_min) {
+				linear = (1 - (fabs(row_width + 2 * right_row_y) / row_width))
+						* max_speed_linear * row_x;
+				angular = (row_width + 2 * right_row_y) / row_width
+						* max_speed_angular;
+			}
 
-		} else if (isSideRowLeft) {
-			linear = (1 - (fabs(left_row_y - (row_width + right_row_y)) / row_width))
-					* max_speed_linear;
-			angular = (left_row_y - (row_width + right_row_y)) / row_width
-					* max_speed_angular;
-
-		} else if (left_row_y_prob < prob_trashhold
-				&& right_row_y_prob < prob_trashhold) {
+		} else if (isSideRowLeft && !isSideRowRight) {
+			if (!isFrontRow) {
+				linear = (1 - (fabs(-row_width + 2 * left_row_y)) / row_width)
+								* max_speed_linear * row_x;
+				angular = (-row_width + 2 * left_row_y) / row_width
+						* max_speed_angular;
+			}
+			else if (isFrontRow && row_x < row_x_min) {
+				linear = (1 - (fabs(-row_width + 2 * left_row_y)) / row_width)
+										* max_speed_linear;
+				angular = (-row_width + 2 * left_row_y) / row_width
+						* max_speed_angular;
+			}
+		}
+		// transitions
+		else if (!isFrontRow && !isSideRowBoth && !isSideRowLeft && !isSideRowRight) {
 			next_state = Leaving_Row;
 		}
 
@@ -100,70 +132,83 @@ void Statediagramm::switch_State() {
 			Leaving_Row_timer = 0;
 			last_state = state;
 		}
+
 		// during actions
 		Leaving_Row_timer++;
-		// transitions
-		if (Leaving_Row_timer / (double) tick_rate < 0.5) {
-			//compute angular
-			linear = max_speed_linear;
-			angular = 0.0;
 
-		} else if (Leaving_Row_timer / (double) tick_rate < 2.5 && !isSideRowBoth) {
-			//compute angular
-			linear = 0;
-			angular = max_speed_angular;
-		} else if (isSideRowBoth) {
+		//compute angular
+		linear = max_speed_linear;
+		angular = 0.0;
+
+		// transitions
+
+
+		if (isSideRowBoth || isSideRowLeft || isSideRowRight) {
 			next_state = Inside_Row;
+
+		} else if (Leaving_Row_timer / (double) tick_rate > leaving_time) {
+			next_state = Turn_Along_Row;
 		}
+
 		break;
-/*
+
 	case Turn_Along_Row:
 		// entry action
 		if (state != last_state) {
-			Turn_Along_Row_timer = 0;
+			last_state = state;
+		}
+
+		// during actions
+		linear = 0.0;
+		angular = direction * max_speed_angular;
+
+		// transitions
+		if (isAlpha) {
+			next_state = Move_To_Next_Row;
+		}
+		break;
+
+	case Move_To_Next_Row:
+		if(state != last_state) {
+			last_state = state;
+			Turn_To_Next_Row_timer = 0;
+			Row_Counter = 0;
+		}
+		// during actions
+		angular = 0.0;
+		linear = max_speed_linear;
+
+		if ((x_max_turn == x_max_turn_erst) and (Turn_To_Next_Row_timer==0)) {
+			Row_Counter++;
+			Turn_To_Next_Row_timer++;
+		} else if (x_max_turn != x_max_turn_erst) {
+			Turn_To_Next_Row_timer = 0;
+		} else if (Row_Counter == 2) {
+			next_state = Turn_Into_Row;
+		}
+
+		break;
+
+	case Turn_Into_Row:
+		// entry action
+		if (state != last_state) {
 			last_state = state;
 		}
 		// during actions
-		Turn_Along_Row_timer++;
-		// transitions
-		if (left_row_y_prob < prob_trashhold
-						&& right_row_y_prob < prob_trashhold) {
-			//compute angular
+		if (!isSideRowBoth) {
 			linear = 0.0;
-			angular = max_speed_angular;
-		} else if (isSideRowBoth) {
-			//compute angular
+			angular = direction * max_speed_angular;
+			if (direction == 1){
+				direction = -1;
+			} else if (direction == -1) {
+				direction = 1;
+			}
+		// transitions
+		} else if (isSideRowBoth || isSideRowLeft || isSideRowRight) {
 			next_state = Inside_Row;
 		}
 		break;
 
-	case Turn_Too_Row:
-		// entry action
-		if (state != last_state) {
-			Turn_Too_Row_timer = 0;
-			last_state = state;
-		}
-		// during actions
-		Turn_Too_Row_timer++;
-		// transitions
-		if ((Turn_Too_Row_timer / (double) tick_rate < 0.5)
-				&& (left_row_y_prob < prob_trashhold
-						&& right_row_y_prob < prob_trashhold)) {
-			//compute angular
-			linear = max_speed_linear;
-			angular = 0.0;
-		} else if ((Turn_Too_Row_timer / (double) tick_rate < 1.5)
-				&& (left_row_y_prob < prob_trashhold
-						&& right_row_y_prob < prob_trashhold)) {
-			//compute angular
-			linear = 0.0;
-			angular = max_speed_angular;
-		} else if (isSideRowBoth) {
-			//compute angular
-			next_state = Inside_Row;
-		}
-		break;
-*/
 	default:
 		break;
 	}
