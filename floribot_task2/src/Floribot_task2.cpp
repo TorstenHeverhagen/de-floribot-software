@@ -47,7 +47,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	n_.getParam("/floribot_task2/robot_width", robot_width);
 	x_hist_width = 0.1;
 	n_.getParam("/floribot_task2/x_hist_width", x_hist_width);
-	x_sec = 1;
+	x_sec = 0.5;
 	n_.getParam("/floribot_task2/x_sec", x_sec);
 
 	leaving_time = 0.7;
@@ -74,7 +74,7 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 
 	x_hist = new Histogramm(x_hist_min, x_hist_max, x_hist_width);
 	y_hist = new Histogramm(y_hist_min, y_hist_max, y_hist_width);
-	x_hist_rowcount = new Histogramm(0,2,0.1);
+	x_hist_rowcount = new Histogramm(0,max_scan_distance,0.1);
 	alpha_hist = new Histogramm(alpha_hist_min, alpha_hist_max, alpha_hist_width);
 
 	//Start parameters for the direction adjustment (FB)
@@ -89,6 +89,9 @@ Floribot_task2::Floribot_task2(ros::NodeHandle n) : n_(n), statechart()
 	left_row_prob = 0;
 	front_row_prob = 0;
 	right_row_prob = 0;
+
+	prob_threshold = 0.2;
+	n_.getParam("/floribot_task2/prob_threshold", prob_threshold);
 
 	left_n_max = 0;
 	front_n_max = 0;
@@ -250,7 +253,7 @@ void Floribot_task2::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
 	statechart.setLeftRowProb(left_row_prob);
 	statechart.setFrontRowProb(front_row_prob);
 	statechart.setRightRowProb(right_row_prob);
-
+	statechart.setProbThreshold(prob_threshold);
 	statechart.setAlpha(alpha_main);
 
 	//Codepattern
@@ -302,4 +305,11 @@ int Floribot_task2::get_tick_rate ()
 /*
 
  */
+
+void Floribot_task2::print_params() {
+	printf("left_row_prob: %f | front_row_prob: %f | right_row_prob: %f \n",left_row_prob, front_row_prob, right_row_prob);
+	printf("Command %i | Alpha: %f ", statechart.getCommandCount()+1,alpha_main);
+	statechart.printState();
+	}
+
 } // end of namespace

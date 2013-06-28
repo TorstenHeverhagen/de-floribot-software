@@ -33,10 +33,7 @@ public:
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
-	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
-	void turn(int direction, int rows);
-	//float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
-	//float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+	void print_params();
 
 
 private:
@@ -69,16 +66,17 @@ private:
 	Histogramm *x_hist_rowcount;
 	Histogramm *alpha_hist;
 	//Codepattern *code;
-	float left_row_y, left_row_prob, right_row_prob, right_row_y,front_row_y, front_row_x, front_row_prob;
+	float left_row_y, left_row_prob, right_row_prob,
+			 right_row_y,front_row_y, front_row_x, front_row_prob;
 
 	int left_n_max , right_n_max,front_n_max;
 
 	// B. Bauer
-	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width, plant_width, plant_distance;
+	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width;
 	int line_extraction_k ;
 	double alpha_main;
 
-	double leaving_time,stop_angle;
+	double leaving_time,stop_angle, prob_threshold,plant_distance ,plant_width;
 
 	// End of user code  don't delete this line
 };

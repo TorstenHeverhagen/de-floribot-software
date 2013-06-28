@@ -40,7 +40,7 @@ Statediagramm::Statediagramm() {
 	// benes_adds
 	row_x = 0;
 	row_x_prob = 0;
-	prob_trashhold = 0.2;
+	prob_threshold = 0.2;
 	leave_time = 0.7;
 	alpha = 0;
 	stop_angle = 3.0;
@@ -216,9 +216,9 @@ void Statediagramm::switch_State() {
 		linear = 0;
 		angular = 0.3;
 		//transitions
-		if(left_row_prob >= prob_trashhold &&
-				right_row_prob >= prob_trashhold &&
-				front_row_prob <= prob_trashhold)
+		if(left_row_prob >= prob_threshold &&
+				right_row_prob >= prob_threshold &&
+				front_row_prob <= prob_threshold/5)
 		{
 			next_state = Inside_Row;
 			command_count++;
@@ -229,9 +229,9 @@ void Statediagramm::switch_State() {
 		linear = 0;
 		angular = -0.3;
 		//transitions
-		if(left_row_prob > prob_trashhold &&
-				right_row_prob > prob_trashhold &&
-				front_row_prob < prob_trashhold)
+		if(left_row_prob > prob_threshold &&
+				right_row_prob > prob_threshold &&
+				front_row_prob < prob_threshold/5)
 		{
 			next_state = Inside_Row;
 			command_count++;
@@ -247,9 +247,9 @@ void Statediagramm::switch_State() {
 		linear = 0.0;
 		angular = 0.4;
 		// transitions
-		if(left_row_prob > prob_trashhold &&
-				right_row_prob > prob_trashhold &&
-				front_row_prob < prob_trashhold)
+		if(left_row_prob > prob_threshold &&
+				right_row_prob > prob_threshold &&
+				front_row_prob < prob_threshold/5)
 		{
 			next_state = Inside_Row;
 			command_count++;

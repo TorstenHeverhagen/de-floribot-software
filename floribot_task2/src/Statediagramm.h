@@ -106,6 +106,10 @@ public:
 		stop_angle = stopAngle;
 	}
 
+	void setProbThreshold(double probThreshold) {
+		prob_threshold = probThreshold;
+	}
+
 private:
 	double left_row_y, right_row_y, front_row_x, row_width, midd_row_x,
 			left_row_prob, right_row_prob, front_row_prob;
@@ -116,7 +120,7 @@ private:
 	int Row_Counter, Maxi_n, Maxi_n_erst;
 	int tick_rate;
 
-	double row_x, row_x_prob, prob_trashhold,stop_angle;
+	double row_x, row_x_prob, prob_threshold,stop_angle;
 	float leave_time;
 	double alpha;
 };
