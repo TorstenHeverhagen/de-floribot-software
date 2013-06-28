@@ -16,6 +16,7 @@ namespace floribot_wiimote {
 
 Floribot_wiimote::Floribot_wiimote(ros::NodeHandle n) : n_(n)
 {
+	cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
 	joy_sub = n_.subscribe("joy", 1,
 			&Floribot_wiimote::joy_message, this);
 	joy_set_feedback_pub = n_.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback",1);
@@ -23,7 +24,6 @@ Floribot_wiimote::Floribot_wiimote(ros::NodeHandle n) : n_(n)
 			&Floribot_wiimote::accu_low_message, this);
 	task_cmd_vel_sub = n_.subscribe("task_cmd_vel", 1,
 			&Floribot_wiimote::task_cmd_vel_message, this);
-	cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
     tick_rate = 100;
     n_.getParam("/floribot_wiimote/tick_rate", tick_rate);
     /* Initialize simulink model */
@@ -45,6 +45,16 @@ Floribot_wiimote::~Floribot_wiimote()
     // TODO: fill with your code
     // End of user code don't delete this line
 } // end of destructor
+
+/**
+ * publish messages to topic cmd_vel
+ *
+ * @generated
+ */
+void Floribot_wiimote::publish_cmd_vel (geometry_msgs::Twist msg)
+{
+	cmd_vel_pub.publish(msg);
+}
 
 /**
  * process messages from topic joy
@@ -103,16 +113,6 @@ void Floribot_wiimote::task_cmd_vel_message (const geometry_msgs::Twist::ConstPt
 	floribot_wiimote_U.task_x = msg->linear.x;
 	floribot_wiimote_U.task_yaw = msg->angular.z;
 	// End of user code don't delete this line
-}
-
-/**
- * publish messages to topic cmd_vel
- *
- * @generated
- */
-void Floribot_wiimote::publish_cmd_vel (geometry_msgs::Twist msg)
-{
-	cmd_vel_pub.publish(msg);
 }
 
 /**

@@ -36,8 +36,8 @@ public:
 private:
 	ros::NodeHandle n_;
 	ros::Timer timer;
-	int tick_rate;
 	std::string tty_ssc_32;
+	int tick_rate;
 	ros::Subscriber cmd_vel_sub;
 	// Start of user code additional members
 

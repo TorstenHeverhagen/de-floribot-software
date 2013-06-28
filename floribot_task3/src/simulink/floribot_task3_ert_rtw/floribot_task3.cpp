@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'floribot_task3'.
  *
- * Model version                  : 1.106
+ * Model version                  : 1.111
  * Simulink Coder version         : 8.4 (R2013a) 13-Feb-2013
  * TLC version                    : 8.4 (Jan 19 2013)
- * C/C++ source code generated on : Sun Jun 23 23:04:36 2013
+ * C/C++ source code generated on : Fri Jun 28 14:07:49 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -79,7 +79,7 @@ void floribot_task3_step(void)
   } else if (floribot_task3_DW.is_c1_floribot_task3 == floribot_task3_IN_danger)
   {
     /* During 'danger': '<S1>:86' */
-    if (floribot_task3_U.front_row_x > 0.2) {
+    if (floribot_task3_U.front_row_prob < floribot_task3_U.prob_threshold) {
       /* Transition: '<S1>:88' */
       floribot_task3_DW.is_c1_floribot_task3 = floribot_task3_IN_no_danger;
 
@@ -99,7 +99,7 @@ void floribot_task3_step(void)
 
       /* Outport: '<Root>/cmd_vel_x' */
       /* Entry 'danger': '<S1>:86' */
-      floribot_task3_Y.cmd_vel_x = 0.0;
+      floribot_task3_Y.cmd_vel_x = 0.2;
 
       /* Outport: '<Root>/cmd_vel_yaw' */
       floribot_task3_Y.cmd_vel_yaw = 0.0;
@@ -112,7 +112,7 @@ void floribot_task3_step(void)
             (floribot_task3_U.front_row_x == 0.0)) {
           /* Outport: '<Root>/cmd_vel_x' */
           /* Transition: '<S1>:81' */
-          floribot_task3_Y.cmd_vel_x = 0.2;
+          floribot_task3_Y.cmd_vel_x = 0.3;
 
           /* Outport: '<Root>/cmd_vel_yaw' incorporates:
            *  Inport: '<Root>/left_row_y'
@@ -171,7 +171,7 @@ void floribot_task3_step(void)
                    (floribot_task3_U.front_row_x == 0.0)) {
           /* Outport: '<Root>/cmd_vel_x' */
           /* Transition: '<S1>:79' */
-          floribot_task3_Y.cmd_vel_x = 0.2;
+          floribot_task3_Y.cmd_vel_x = 0.3;
 
           /* Outport: '<Root>/cmd_vel_yaw' incorporates:
            *  Inport: '<Root>/right_row_y'
@@ -231,13 +231,13 @@ void floribot_task3_step(void)
        case floribot_task3_IN_leaving_row:
         /* During 'leaving_row': '<S1>:80' */
         if ((floribot_task3_DW.temporalCounter_i1 >= (uint32_T)ceil
-             (floribot_task3_U.leav_time / 0.01 - 1.0E-10)) &&
+             (floribot_task3_U.leav_time / 0.02 - 2.0E-10)) &&
             (floribot_task3_DW.dir < 0.0)) {
           /* Transition: '<S1>:82' */
           floribot_task3_DW.is_no_danger = floribot_task3_IN_turn_right;
           floribot_task3_DW.temporalCounter_i1 = 0U;
         } else if ((floribot_task3_DW.temporalCounter_i1 >= (uint32_T)ceil
-                    (floribot_task3_U.leav_time / 0.01 - 1.0E-10)) &&
+                    (floribot_task3_U.leav_time / 0.02 - 2.0E-10)) &&
                    (floribot_task3_DW.dir > 0.0)) {
           /* Transition: '<S1>:74' */
           floribot_task3_DW.is_no_danger = floribot_task3_IN_turn_left;
@@ -256,7 +256,7 @@ void floribot_task3_step(void)
        case floribot_task3_IN_turn_left:
         /* During 'turn_left': '<S1>:72' */
         if ((floribot_task3_DW.temporalCounter_i1 >= (uint32_T)ceil
-             (floribot_task3_U.turn_time / 0.01 - 1.0E-10)) &&
+             (floribot_task3_U.turn_time / 0.02 - 2.0E-10)) &&
             (floribot_task3_U.left_row_y > 0.0) && (floribot_task3_U.left_row_y <
              floribot_task3_U.row_width / 2.0)) {
           /* Transition: '<S1>:77' */
@@ -278,7 +278,7 @@ void floribot_task3_step(void)
        default:
         /* During 'turn_right': '<S1>:75' */
         if ((floribot_task3_DW.temporalCounter_i1 >= (uint32_T)ceil
-             (floribot_task3_U.turn_time / 0.01 - 1.0E-10)) &&
+             (floribot_task3_U.turn_time / 0.02 - 2.0E-10)) &&
             (floribot_task3_U.right_row_y < 0.0) &&
             (floribot_task3_U.right_row_y > -floribot_task3_U.row_width / 2.0))
         {
@@ -305,7 +305,7 @@ void floribot_task3_step(void)
 
   /* Update absolute time for base rate */
   /* The "clockTick0" counts the number of times the code of this task has
-   * been executed. The resolution of this integer timer is 0.01, which is the step size
+   * been executed. The resolution of this integer timer is 0.02, which is the step size
    * of the task. Size of "clockTick0" ensures timer will not overflow during the
    * application lifespan selected.
    * Timer of this task consists of two 32 bit unsigned integers.

@@ -20,19 +20,24 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-rosbuild_add_library(Floribot_accu_watchdog src/Floribot_accu_watchdog.cpp)
-rosbuild_add_executable(floribot_accu_watchdog_node src/floribot_accu_watchdog_node.cpp)
-target_link_libraries(floribot_accu_watchdog_node Floribot_accu_watchdog)
-rosbuild_add_library(simulink_floribot_accu_watchdog src/simulink/floribot_accu_watchdog_ert_rtw/floribot_accu_watchdog.cpp)
-target_link_libraries(floribot_accu_watchdog_node simulink_floribot_accu_watchdog)
-rosbuild_add_library(Floribot_base src/Floribot_base.cpp)
-rosbuild_add_executable(floribot_base_node src/floribot_base_node.cpp)
-target_link_libraries(floribot_base_node Floribot_base)
+rosbuild_add_library(Floribot_task5_nav src/Floribot_task5_nav.cpp)
+rosbuild_add_executable(floribot_task5_nav_node src/floribot_task5_nav_node.cpp)
+target_link_libraries(floribot_task5_nav_node Floribot_task5_nav)
+rosbuild_add_library(Florbot_task5_ptu src/Florbot_task5_ptu.cpp)
+rosbuild_add_executable(florbot_task5_ptu_node src/florbot_task5_ptu_node.cpp)
+target_link_libraries(florbot_task5_ptu_node Florbot_task5_ptu)
 
 #Start of user code user defined libraries
-	include_directories("/home/floribot/ros_workspace/phidgets/msg_gen/cpp/include")
 
-	rosbuild_add_library(explorer_comms src/explorer_comms.cc)
-	target_link_libraries(floribot_base_node explorer_comms)
+	#uncomment if you have defined messages
+	#rosbuild_genmsg()
+	#uncomment if you have defined services
+	#rosbuild_gensrv()
+	
+	#common commands for building c++ executables and libraries
+	#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
+	#target_link_libraries(${PROJECT_NAME} another_library)
+	#rosbuild_add_boost_directories()
+	#rosbuild_link_boost(${PROJECT_NAME} thread)
 
 #End of user code

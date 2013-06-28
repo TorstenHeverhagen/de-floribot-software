@@ -17,10 +17,10 @@ Floribot_base::Floribot_base(ros::NodeHandle n) : n_(n)
 {
 	cmd_vel_sub = n_.subscribe("cmd_vel", 1,
 			&Floribot_base::cmd_vel_message, this);
-    tick_rate = 100;
-    n_.getParam("/floribot_base/tick_rate", tick_rate);
     tty_ssc_32 = "/dev/ttyS1";
     n_.getParam("/floribot_base/tty_ssc_32", tty_ssc_32);
+    tick_rate = 100;
+    n_.getParam("/floribot_base/tick_rate", tick_rate);
 	
 	timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_base::tick, this);
 

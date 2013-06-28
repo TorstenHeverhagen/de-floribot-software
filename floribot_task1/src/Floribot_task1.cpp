@@ -13,15 +13,17 @@
 
 namespace floribot_task1 {
 
-Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n), statechart()
+Floribot_task1::Floribot_task1(ros::NodeHandle n) : n_(n)
 {
+	scan_sub = n_.subscribe("scan", 1,
+			&Floribot_task1::scan_message, this);
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("task_cmd_vel",1);
-	scan_sub = n_.subscribe("scan", 1, &Floribot_task1::scan_message, this);
-
-    direction = 1;
-    n_.getParam("/floribot_task1/direction", direction);
     tick_rate = 100;
     n_.getParam("/floribot_task1/tick_rate", tick_rate);
+    direction = ;
+    n_.getParam("/floribot_task1/direction", direction);
+	
+	timer = n_.createTimer(ros::Duration(1.0/tick_rate), &Floribot_task1::tick, this);
 
     // Start of user code constructor
 
@@ -101,6 +103,18 @@ Floribot_task1::~Floribot_task1()
 } // end of destructor
 
 /**
+ * process messages from topic scan
+ *
+ * @generated
+ */
+void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
+{
+	// Start of user code process message from topic scan
+	// TODO: fill scan_message with your code
+	// End of user code don't delete this line
+}
+
+/**
  * publish messages to topic task_cmd_vel
  *
  * @generated
@@ -111,72 +125,11 @@ void Floribot_task1::publish_task_cmd_vel (geometry_msgs::Twist msg)
 }
 
 /**
- * process messages from topic scan
- *
- * @generated
- */
-void Floribot_task1::scan_message (const sensor_msgs::LaserScan::ConstPtr& msg)
-{
-	// Start of user code process message
-
-	x_hist->clear();
-	y_hist->clear();
-	alpha_hist->clear();
-
-	sensor_msgs::LaserScan scan = *msg;
-
-	for (uint i = 0; i < scan.ranges.size(); i++) {
-		if(scan.ranges[i] < max_scan_distance) {
-			float x = scan.ranges[i] * cos(scan.angle_min+i*scan.angle_increment);
-			float y = scan.ranges[i] * sin(scan.angle_min+i*scan.angle_increment);
-			x_hist->put(x);
-			y_hist->put(y);
-		}
-	}
-
-	for (uint i = 0; i < scan.ranges.size() - line_extraction_k; i++) {
-		if(scan.ranges[i] < max_scan_distance) {
-			float alpha = atan(((scan.ranges[i] * sin(scan.angle_min + i * scan.angle_increment))
-					- (scan.ranges[i + line_extraction_k] * sin(scan.angle_min + (i + line_extraction_k) * scan.angle_increment)))
-							/ ((scan.ranges[i] * cos(scan.angle_min + i * scan.angle_increment))
-									- (scan.ranges[i + line_extraction_k] * cos(scan.angle_min + (i + line_extraction_k) * scan.angle_increment))));
-			alpha_hist->put(alpha);
-		}
-	}
-
-
-	int alpha_mean = -1;
-	int SIZEOFHIST = (alpha_hist->getMin() - alpha_hist->getMin()) / alpha_hist->get_width();
-	for(int i = SIZEOFHIST-1; i >= 0; i--)
-		if (alpha_mean <= alpha_hist->histogramm[i])
-			alpha_mean = alpha_hist->histogramm[i];
-
-	left_row_y = y_hist->get_class_middle(y_hist->get_class_num((y_hist->get_mean(0,1))));
-	max_scanns_left_y = (((acos(left_row_y/max_scan_distance)) - (3.14159/2 - scan.angle_max)) / scan.angle_increment);
-	left_row_y_prob = y_hist->get_n(left_row_y) / max_scanns_left_y;
-
-	right_row_y = y_hist->get_class_middle(y_hist->get_class_num(y_hist->get_mean(-1,0)));
-	max_scanns_right_y = (((acos(-right_row_y/max_scan_distance)) - (3.14159/2 - scan.angle_max)) / scan.angle_increment);
-	right_row_y_prob = y_hist->get_n(right_row_y) / max_scanns_right_y;
-
-	row_x = x_hist->get_class_middle(x_hist->get_class_num(x_hist->get_mean(0,1)));
-	max_scanns_x = (acos(row_x/max_scan_distance)/ scan.angle_increment);
-	row_x_prob = x_hist->get_n(row_x) / (max_scanns_x * 2);
-
-	statechart.setLeftRowY(left_row_y);
-	statechart.setLeftRowYProb(left_row_y_prob);
-	statechart.setRightRowY(right_row_y);
-	statechart.setRightRowYProb(right_row_y_prob);
-
-	// End of user code don't delete this line
-}
-
-/**
  * tick is triggered 
  *
  * @generated
  */
-void Floribot_task1::tick ()
+void Floribot_task1::tick (const ros::TimerEvent& event)
 {
 	// Start of user code call your own code
 
