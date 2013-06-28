@@ -104,9 +104,9 @@ int Codepattern::get_Direction(int n) {
 	//| 70 -> "F" | 76 = "L" | 82 = "R" | 83 = "S" | 45 = "-" |
 	// Directions: true = left , false = right
 	int x = 2;
-	if (int(code[n]) == 82) x = -1;
-	if (int(code[n]) == 70 or int(code [n]) == 83) x = 0;
-	if (int(code[n]) == 76) x =  1;
+	if (int(code[n+1]) == 82) x = -1;
+	if (int(code[n+1]) == 70 or int(code [n+1]) == 83 or int(code[n+1])== 48) x = 0;
+	if (int(code[n+1]) == 76) x =  1;
 	return x;
 }
 

@@ -22,24 +22,20 @@ namespace floribot_task2 {
 
 class Floribot_task2 
 {
+
 public:
 	Floribot_task2(ros::NodeHandle n);
 	virtual ~Floribot_task2();
-	void tick(const ros::TimerEvent& event);
+	void tick();
 	int get_tick_rate();
 
-	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
+	void scan_message (const sensor_msgs::LaserScan::ConstPtr& scan);
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
-
 	// Start of user code additional public members
 	// TODO: declare your variables and methods
-	void throughRow(const sensor_msgs::LaserScan::ConstPtr &scan);
-	void turn(int direction, int rows);
-	//float calcFieldOfAttentionX(scan, angleIncrement, numRanges, x);
-	//float calcFieldOfAttentionY(scan, angleIncrement, numRanges, y, yr, yl);
+	void print_params();
 
-	//Histogramm x_hist;
-	//Histogramm y_hist;
+
 private:
 	ros::NodeHandle n_;
 	std::string CodePattern;
@@ -62,23 +58,26 @@ private:
 	double x_hist_width;
 	double x_sec;
 	//Box parameters for direction adjustment at turning left or right (FB)
-	bool turn_direction;	//true = left, false = right
-	double x_box;
-	double y_box;
-	bool stop_turn;
+	int turn_direction;	//true = left, false = right
+
 	Statediagramm statechart;
+	Histogramm *x_hist;
+	Histogramm *y_hist;
+	Histogramm *x_hist_rowcount;
+	Histogramm *alpha_hist;
+	//Codepattern *code;
+	float left_row_y, left_row_prob, right_row_prob,
+			 right_row_y,front_row_y, front_row_x, front_row_prob;
 
+	int left_n_max , right_n_max,front_n_max;
 
-	// End of user code  don't delete this line
-private:
-	ros::NodeHandle n_;
-	ros::Timer timer;
-	int tick_rate;
-	std::string CodePattern;
-	ros::Subscriber scan_sub;
-	ros::Publisher task_cmd_vel_pub;
-	// Start of user code additional members
-	// TODO: declare your private variables and methods
+	// B. Bauer
+	double alpha_hist_min, 	alpha_hist_max, alpha_hist_width;
+	int line_extraction_k, maxi_n_erst ;
+	double alpha_main;
+
+	double leaving_time,stop_angle, prob_threshold,plant_distance ,plant_width;
+
 	// End of user code  don't delete this line
 };
 
