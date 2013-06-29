@@ -20,6 +20,14 @@ namespace floribot_task5 {
 
 class Florbot_task5_ptu 
 {
+	typedef enum {
+		Init = 0,
+		Wait_For_Start = 10,
+		Go_to_Dropposition = 20,
+		Release_Ball = 30,
+		Go_to_Driveposition = 40
+	} Task5_PTU_States;
+
 public:
 	Florbot_task5_ptu(ros::NodeHandle n);
 	virtual ~Florbot_task5_ptu();
@@ -46,6 +54,11 @@ private:
 	ros::Subscriber ptu_action_sub;
 	// Start of user code additional members
 	ros::ServiceClient client_interface_kit;
+	Task5_PTU_States state, next_state, last_state;
+	int Drop_timer, Release_timer, Drive_timer;
+	double drop_time, release_time, drive_time;
+	int trigger;
+
 	// End of user code  don't delete this line
 };
 

@@ -14,6 +14,7 @@
 #include <sensor_msgs/LaserScan.h>
 #include <std_msgs/Int8.h>
 #include "Histogramm.h"
+#include "Statediagramm.h"
 // Start of user code specific includes
 // TODO: include your own headers
 // End of user code don't delete this line
@@ -50,6 +51,7 @@ private:
 	// Start of user code additional members
 	double x_min;
 	Histogramm *hist;
+	Statediagramm statechart;
 	// End of user code  don't delete this line
 };
 

@@ -16,7 +16,7 @@ namespace floribot_task5 {
 
 Florbot_task5_ptu::Florbot_task5_ptu(ros::NodeHandle n) : n_(n)
 {
-	ptu46_cmd_pub = n_.advertise<sensor_msgs::JointState>("ptu46/cmd",1);
+	ptu46_cmd_pub = n_.advertise<sensor_msgs::JointState>("ptu/cmd",1);
 	ptu_action_sub = n_.subscribe("ptu_action", 1,
 			&Florbot_task5_ptu::ptu_action_message, this);
     tick_rate = 10;
@@ -38,7 +38,29 @@ Florbot_task5_ptu::Florbot_task5_ptu(ros::NodeHandle n) : n_(n)
 
     // Start of user code constructor
 
+	Drop_timer = 0;
+    n_.getParam("/florbot_task5_ptu/Drop_timer", Drop_timer);
+
+	Release_timer = 0;
+    n_.getParam("/florbot_task5_ptu/Release_timer", Release_timer);
+
+	Drive_timer = 0;
+    n_.getParam("/florbot_task5_ptu/Drive_timer", Drive_timer);
+
+	drop_time = 2.0;
+    n_.getParam("/florbot_task5_ptu/drop_time", drop_time);
+
+	release_time = 2.0;
+    n_.getParam("/florbot_task5_ptu/release_time", release_time);
+
+	drive_time = 2.0;
+    n_.getParam("/florbot_task5_ptu/drive_time", drive_time);
+
 	client_interface_kit = n.serviceClient<phidgets::interface_kit>("interface_kit");
+	state = Init;
+	next_state = Init;
+	last_state = Init;
+	trigger = 0;
 
     // End of user code don't delete this line
 
@@ -70,37 +92,7 @@ void Florbot_task5_ptu::ptu_action_message (const std_msgs::Int8::ConstPtr& msg)
 {
 	// Start of user code process message from topic ptu_action
 
-	sensor_msgs::JointState ptu_cmd;
-
-	// set values in PTU command state
-	ptu_cmd.name.push_back("pan");
-	ptu_cmd.name.push_back("tilt");
-	ptu_cmd.position.push_back(pan2);
-	ptu_cmd.position.push_back(tilt2);
-	ptu_cmd.velocity.push_back(pan_vel);
-	ptu_cmd.velocity.push_back(tilt_vel);
-	// publish PTU command state
-	publish_ptu46_cmd(ptu_cmd);
-	// log
-	ROS_INFO(
-			"pan = %f , tilt = %f", ptu_cmd.position[0], ptu_cmd.position[1]);
-
-	phidgets::interface_kit srv;
-	srv.request.index = 0;
-	srv.request.value_type = 1;
-	srv.request.value = 1;
-	srv.response.ack = 0;
-	if (client_interface_kit.call(srv)) {
-		if ((int)srv.response.ack == 1) {
-			ROS_INFO("Changed digital output %d to state %d", 0, 1);
-		}
-		else {
-			ROS_INFO("Returned %d", (int)srv.response.ack);
-		}
-	}
-	else {
-		ROS_ERROR("Failed to call service interface_kit");
-	}
+	trigger = 1;
 
 	// End of user code don't delete this line
 }
@@ -113,6 +105,124 @@ void Florbot_task5_ptu::ptu_action_message (const std_msgs::Int8::ConstPtr& msg)
 void Florbot_task5_ptu::tick (const ros::TimerEvent& event)
 {
 	// Start of user code call your own code
+
+	switch (state) {
+	case Init:
+		// during actions
+
+		//transition
+
+		next_state = Wait_For_Start;
+		break;
+
+	case Wait_For_Start:
+		// during actions
+
+		//TODO Transitions endlich mal machen!!! Eingangsvariablen berechnen
+		// transitions
+		if (trigger > 0) {
+			next_state = Go_to_Dropposition;
+		}
+
+		//printState();
+		break;
+
+	case Go_to_Dropposition:
+		// entry action
+		if(state != last_state) {
+			Drop_timer = 0;
+			sensor_msgs::JointState ptu_cmd;
+
+			// set values in PTU command state
+			ptu_cmd.name.push_back("pan");
+			ptu_cmd.name.push_back("tilt");
+			ptu_cmd.position.push_back(pan2);
+			ptu_cmd.position.push_back(tilt2);
+			ptu_cmd.velocity.push_back(pan_vel);
+			ptu_cmd.velocity.push_back(tilt_vel);
+			// publish PTU command state
+			publish_ptu46_cmd(ptu_cmd);
+			// log
+			ROS_INFO(
+					"pan = %f , tilt = %f", ptu_cmd.position[0], ptu_cmd.position[1]);
+
+			last_state = state;
+		}
+		// during actions
+		Drop_timer++;
+
+		// transitions
+		if (Drop_timer/(double)tick_rate > drop_time) {
+			next_state = Release_Ball;
+		}
+		break;
+
+	case Release_Ball:
+		// entry action
+		if(state != last_state) {
+			Release_timer = 0;	phidgets::interface_kit srv;
+			srv.request.index = 0;
+			srv.request.value_type = 1;
+			srv.request.value = 1;
+			srv.response.ack = 0;
+			if (client_interface_kit.call(srv)) {
+				if ((int)srv.response.ack == 1) {
+					ROS_INFO("Changed digital output %d to state %d", 0, 1);
+				}
+				else {
+					ROS_INFO("Returned %d", (int)srv.response.ack);
+				}
+			}
+			else {
+				ROS_ERROR("Failed to call service interface_kit");
+			}
+
+			last_state = state;
+		}
+		// during actions
+		Release_timer++;
+
+		// transitions
+		if (Release_timer/(double)tick_rate > release_time) {
+			next_state = Go_to_Driveposition;
+		}
+		break;
+
+	case Go_to_Driveposition:
+
+		// entry action
+		if(state != last_state) {
+			Drive_timer = 0;
+			sensor_msgs::JointState ptu_cmd;
+
+			// set values in PTU command state
+			ptu_cmd.name.push_back("pan");
+			ptu_cmd.name.push_back("tilt");
+			ptu_cmd.position.push_back(pan1);
+			ptu_cmd.position.push_back(tilt1);
+			ptu_cmd.velocity.push_back(pan_vel);
+			ptu_cmd.velocity.push_back(tilt_vel);
+			// publish PTU command state
+			publish_ptu46_cmd(ptu_cmd);
+			// log
+			ROS_INFO(
+					"pan = %f , tilt = %f", ptu_cmd.position[0], ptu_cmd.position[1]);
+
+			last_state = state;
+		}
+		// during actions
+		Drive_timer++;
+
+		// transitions
+
+
+		break;
+
+	default:
+		// fehlermeldung
+		break;
+	}
+	state = next_state;
 	// End of user code don't delete this line
 }
 

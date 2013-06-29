@@ -29,7 +29,7 @@ target_link_libraries(florbot_task5_ptu_node Florbot_task5_ptu)
 
 #Start of user code user defined libraries
 
-rosbuild_add_library(task5_histogramm src/Histogramm.cpp)
+rosbuild_add_library(task5_histogramm src/Histogramm.cpp src/Statediagramm.cpp)
 target_link_libraries(floribot_task5_nav_node task5_histogramm)
 
 #End of user code

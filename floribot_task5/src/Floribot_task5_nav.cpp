@@ -7,13 +7,14 @@
  */
 
 #include "Floribot_task5_nav.h"
+#include <std_msgs/Int8.h>
 // Start of user code specific includes
 // TODO: include your own headers
 // End of user code don't delete this line
 
 namespace floribot_task5 {
 
-Floribot_task5_nav::Floribot_task5_nav(ros::NodeHandle n) : n_(n)
+Floribot_task5_nav::Floribot_task5_nav(ros::NodeHandle n) : n_(n), statechart()
 {
 	task_cmd_vel_pub = n_.advertise<geometry_msgs::Twist>("cmd_vel",1);
 	scan_sub = n_.subscribe("scan", 1,
@@ -81,6 +82,7 @@ void Floribot_task5_nav::scan_message (const sensor_msgs::LaserScan::ConstPtr& m
 	}
 
 	x_min = hist->get_mean(hist->getMin(), hist->getMax());
+	statechart.setX(x_min);
 	// End of user code don't delete this line
 }
 
@@ -102,9 +104,21 @@ void Floribot_task5_nav::publish_ptu_action (std_msgs::Int8 msg)
 void Floribot_task5_nav::tick (const ros::TimerEvent& event)
 {
 	// Start of user code call your own code
+
+	statechart.switch_State();
 	geometry_msgs::Twist msg;
-	msg.linear.x = K_P*(distance_to_helios - x_min);
+	msg.linear.x = statechart.getLinear();
+	msg.linear.y = 0;
+	msg.linear.z = 0;
+	msg.angular.x = 0;
+	msg.angular.y = 0;
+	msg.angular.z = statechart.getAngular();
+
 	publish_task_cmd_vel(msg);
+
+	std_msgs::Int8 ptu_msg;
+	if (statechart.getState() == 40) ptu_msg.data = 1;
+	publish_ptu_action(ptu_msg);
 	ROS_DEBUG("x_min: %f", x_min);
 	// End of user code don't delete this line
 }
