@@ -10,8 +10,8 @@
       <param name="tilt_vel" value="0.1" type="double"/>
   </node>
   <include file="$(find floribot_robot)/launch/hokuyo.launch" />
-  <include file="$(find floribot_robot)/launch/ptu46.launch" />
-  <node name="interface_kit" pkg="phidgets" type="interface_kit_node" >
+  <include file="$(find floribot_robot)/launch/ptu46_actions.launch" />
+  <node name="interface_kit" pkg="phidgets" type="interface_kit" >
   </node>
   <node name="floribot_task5_nav" pkg="floribot_task5" type="floribot_task5_nav_node" >
       <param name="distance_to_helios" value="2" type="double"/>
