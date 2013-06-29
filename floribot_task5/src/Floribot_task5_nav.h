@@ -11,8 +11,9 @@
 #include <ros/ros.h>
 #include <string>
 #include <geometry_msgs/Twist.h>
-#include <std_msgs/Int8.h>
 #include <sensor_msgs/LaserScan.h>
+#include <std_msgs/Int8.h>
+#include "Histogramm.h"
 // Start of user code specific includes
 // TODO: include your own headers
 // End of user code don't delete this line
@@ -28,8 +29,8 @@ public:
 	int get_tick_rate();
 
 	void publish_task_cmd_vel (geometry_msgs::Twist msg);
-	void publish_ptu_action (std_msgs::Int8 msg);
 	void scan_message (const sensor_msgs::LaserScan::ConstPtr& msg);
+	void publish_ptu_action (std_msgs::Int8 msg);
 
 	// Start of user code additional public members
 	// TODO: declare your additional public members
@@ -37,16 +38,18 @@ public:
 private:
 	ros::NodeHandle n_;
 	ros::Timer timer;
-	double helios_max_vel;
 	double helios_width;
-	double distance_to_helios;
 	int tick_rate;
+	double distance_to_helios;
+	double helios_max_vel;
 	double helios_digger_depth;
+	double K_P;
 	ros::Publisher task_cmd_vel_pub;
-	ros::Publisher ptu_action_pub;
 	ros::Subscriber scan_sub;
+	ros::Publisher ptu_action_pub;
 	// Start of user code additional members
-	// TODO: declare your private variables and methods
+	double x_min;
+	Histogramm *hist;
 	// End of user code  don't delete this line
 };
 

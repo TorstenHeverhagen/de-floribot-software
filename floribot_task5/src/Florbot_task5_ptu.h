@@ -10,9 +10,8 @@
 
 #include <ros/ros.h>
 #include <string>
-#include <std_msgs/Int8.h>
-#include <phidgets/interface_kit_params.h>
 #include <sensor_msgs/JointState.h>
+#include <std_msgs/Int8.h>
 // Start of user code specific includes
 // TODO: include your own headers
 // End of user code don't delete this line
@@ -27,9 +26,8 @@ public:
 	void tick(const ros::TimerEvent& event);
 	int get_tick_rate();
 
-	void ptu_action_message (const std_msgs::Int8::ConstPtr& msg);
-	void publish_phidgets_interface_kit (phidgets::interface_kit_params msg);
 	void publish_ptu46_cmd (sensor_msgs::JointState msg);
+	void ptu_action_message (const std_msgs::Int8::ConstPtr& msg);
 
 	// Start of user code additional public members
 	// TODO: declare your additional public members
@@ -37,18 +35,17 @@ public:
 private:
 	ros::NodeHandle n_;
 	ros::Timer timer;
-	double tilt_vel;
-	double tilt1;
-	double pan2;
-	double pan1;
 	int tick_rate;
-	double pan_vel;
+	double pan2;
 	double tilt2;
-	ros::Subscriber ptu_action_sub;
-	ros::Publisher phidgets_interface_kit_pub;
+	double pan1;
+	double tilt1;
+	double tilt_vel;
+	double pan_vel;
 	ros::Publisher ptu46_cmd_pub;
+	ros::Subscriber ptu_action_sub;
 	// Start of user code additional members
-	// TODO: declare your private variables and methods
+	ros::ServiceClient client_interface_kit;
 	// End of user code  don't delete this line
 };
 
